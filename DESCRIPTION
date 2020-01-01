@@ -1,0 +1,42 @@
+Package: kerastuneR
+Type: Package
+Title: Interface to 'Keras Tuner' 
+Version: 0.1.0
+Authors@R: c(
+  person("Turgut", "Abdullayev", role = c("aut", "cre"),
+         email = "turqut.a.314@gmail.com"),  
+  person(family = "Google Inc.", role = c("cph"))
+  )
+Maintainer: Turgut Abdullayev <turqut.a.314@gmail.com>
+Description: Keras Tuner is a hypertuning framework made for humans. 
+             It aims at making the life of AI practitioners, hypertuner 
+             algorithm creators and model designers as simple as possible by 
+             providing them with a clean and easy to use API for hypertuning. 
+             Keras Tuner makes moving from a base model to a hypertuned one quick and 
+             easy by only requiring you to change a few lines of code.
+License: Apache License 2.0
+URL: https://github.com/henry090/kerastuneR
+BugReports: https://github.com/henry090/kerastuneR/issues
+SystemRequirements: TensorFlow >= 2.0 (https://www.tensorflow.org/)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2
+Imports:
+    reticulate, 
+    tensorflow,
+    rstudioapi,
+    keras,
+    stats,
+    testthat,
+    tfdatasets,
+    dplyr
+Suggests:
+    knitr,
+    rmarkdown,
+    callr,
+    covr
+Remotes:
+    rstudio/reticulate,
+    rstudio/tensorflow,
+    rstudio/keras
+VignetteBuilder: knitr

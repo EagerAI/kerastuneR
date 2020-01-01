@@ -1,14 +1,21 @@
+---
+title: "Introduction to kerastuneR"
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{R interface to Keras Tuner}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
 ## R interface to Keras Tuner
 
 Keras Tuner is a hypertuning framework made for humans. 
 It aims at making the life of AI practitioners, hypertuner algorithm creators and model designers as simple as possible by providing them with a clean and easy to use API for hypertuning. Keras Tuner makes moving from a base model to a hypertuned one quick and easy by only requiring you to change a few lines of code.
-
-<img src="images/kerastuneR.png" width=200 align=right style="margin-left: 15px;" alt="Keras Tuner"/>
-
-
-[![Travis-CI Build Status](https://travis-ci.com/henry090/kerastuneR.svg?branch=master)](https://travis-ci.com/henry090/kerastuneR) 
-[![Build status](https://ci.appveyor.com/api/projects/status/u24fa1vvuyms3xpk/branch/master?svg=true)](https://ci.appveyor.com/project/henry090/kerastuner-trmkf/branch/master)
-[![Codecov test coverage](https://codecov.io/gh/henry090/kerastuneR/branch/master/graph/badge.svg)](https://codecov.io/gh/henry090/kerastuneR?branch=master)
 
 A hyperparameter tuner for [Keras](https://keras.io/), specifically for ```tf$keras``` with *TensorFlow 2.0*.
 
@@ -71,7 +78,6 @@ build_model = function(hp) {
 }
 ```
 
-
 Next, instantiate a tuner. You should specify the model-building function, the name of the objective to optimize (whether to minimize or maximize is automatically inferred for built-in metrics), the total number of trials ```(max_trials)``` to test, and the number of models that should be built and fit for each trial ```(executions_per_trial)```.
 
 Available tuners are ```RandomSearch``` and ```Hyperband```.
@@ -101,6 +107,6 @@ tuner %>% fit_tuner(x_data,y_data,
                     epochs=5, 
                     validation_data = list(x_data2,y_data2))
 ```
-Full documentation, advanced model building, tutorials and etc. can be found on https://henry090.github.io/kerastuneR/
+
 
 

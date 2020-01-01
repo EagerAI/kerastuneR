@@ -1,0 +1,11 @@
+
+Name: Insert HyperModel class
+Description: Inserts HyperModel class at the cursor position.
+Binding: HyperModel
+Interactive: false
+
+Name: Insert Convolutional Model building
+Description: Inserts Convolutional Model building at the cursor position.
+Binding: conv_build_model
+Interactive: false
+
