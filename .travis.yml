@@ -1,0 +1,29 @@
+language: r
+
+warnings_are_errors: false
+cache:
+  packages: true
+  directories:
+    - $HOME/.kerastuneR
+    - $HOME/.cache/pip
+
+before_script:
+  - sudo apt-get update
+  - sudo apt-get install python3 python3-pip
+  - pip3 install --upgrade --ignore-installed --user travis virtualenv
+  - python3 -m pip install setuptools 
+  - python3 -m pip install wheel
+  - python3 -m pip install keras-tuner==1.0.0
+  - R CMD INSTALL .
+  - R -e "install.packages(c('reticulate','rstudioapi','glue','keras','tensorflow','testthat','dplyr'))"
+  - R -e 'Sys.setenv(PIP_QUIET=1); keras::install_keras(tensorflow = "2.0")'
+
+after_failure:
+  - Rscript -e 'library(keras); testthat::test_dir("tests/")'
+
+after_success:
+    - Rscript -e 'covr::codecov()'
+
+
+
+
