@@ -4,7 +4,7 @@ HyperModel <- function() {
   rstudioapi::insertText("HyperModel <- reticulate::PyClass(
   'HyperModel',
   
-  inherit = kerastuner$HyperModel,
+  inherit = kerastuneR::HyperModel,
   
   list(
     
@@ -17,9 +17,9 @@ HyperModel <- function() {
     build = function(self,hp) {
       model = keras_model_sequential() 
       model %>% layer_dense(units = hp$Int('units',
-                                           min_value=32L,
-                                           max_value=512L,
-                                           step=32L),
+                                           min_value=32,
+                                           max_value=512,
+                                           step=32),
                             activation='relu') %>% 
         layer_dense(as.integer(self$num_classes), activation='softmax') %>% 
         compile(

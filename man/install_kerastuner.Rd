@@ -2,7 +2,8 @@
 % Please edit documentation in R/install.R
 \name{install_kerastuner}
 \alias{install_kerastuner}
-\title{Install Keras Tuner}
+\title{Install Keras Tuner
+This function is used to install the Keras Tuner python module on Mac OS and Linux (Windows will be added later)}
 \usage{
 install_kerastuner(python_path = NULL, upgrade = FALSE, version = NULL)
 }
@@ -14,5 +15,6 @@ install_kerastuner(python_path = NULL, upgrade = FALSE, version = NULL)
 \item{version}{for specific version of Keras tuneR, e.g. "0.9.1"}
 }
 \description{
+Install Keras Tuner
 This function is used to install the Keras Tuner python module on Mac OS and Linux (Windows will be added later)
 }

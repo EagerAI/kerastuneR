@@ -16,17 +16,18 @@ build_model = function(hp) {
   
   model = keras_model_sequential()
   model %>% layer_dense(units=hp$Int('units',
-                                     min_value=32L,
-                                     max_value=512L,
-                                     step=32L),input_shape = ncol(x_data),
-                        activation='relu') %>% 
-    layer_dense(units=1L, activation='softmax') %>% 
+                                     min_value = 32,
+                                     max_value = 512,
+                                     step = 32),
+                        input_shape = ncol(x_data),
+                        activation = 'relu') %>% 
+    layer_dense(units = 1, activation ='softmax') %>% 
     compile(
-      optimizer= tf$keras$optimizers$Adam(
+      optimizer = tf$keras$optimizers$Adam(
         hp$Choice('learning_rate',
                   values=c(1e-2, 1e-3, 1e-4))),
-      loss='binary_crossentropy',
-      metrics='accuracy') 
+      loss = 'binary_crossentropy',
+      metrics = 'accuracy') 
   return(model)
 }
 
@@ -35,18 +36,18 @@ build_model2 = function(hp) {
   model = keras_model_sequential()
   for (i in (hp$Int('num_layers', 2, 20)) ) {
     model %>% layer_dense(units=hp$Int(paste('units_',i,sep = ''),
-                                       min_value=32L,
-                                       max_value=512L,
-                                       step=32L),input_shape = ncol(x_data),
-                          activation='relu') %>% 
-      layer_dense(units=1L, activation='softmax')
+                                       min_value = 32,
+                                       max_value = 512,
+                                       step = 32),input_shape = ncol(x_data),
+                          activation = 'relu') %>% 
+      layer_dense(units = 1L, activation='softmax')
   } %>% 
     compile(
-      optimizer= tf$keras$optimizers$Adam(
+      optimizer = tf$keras$optimizers$Adam(
         hp$Choice('learning_rate',
                   values=c(1e-2, 1e-3, 1e-4))),
-      loss='binary_crossentropy',
-      metrics='accuracy') 
+      loss = 'binary_crossentropy',
+      metrics = 'accuracy') 
   return(model)
   
 }
@@ -62,8 +63,7 @@ tuner2 = RandomSearch(hypermodel = build_model2,
 search_summary(tuner2)
 
 
-tuner2 %>% fit_tuner(x_data,y_data,
-                                    epochs=5, validation_data = list(x_data2,y_data2))
+tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2))
 
 res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
 
