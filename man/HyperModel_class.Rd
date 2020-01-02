@@ -6,7 +6,7 @@
 This makes it easy to share and reuse hypermodels.
 A HyperModel subclass only needs to implement a build(self, hp) method.}
 \usage{
-HyperModel_class(object)
+HyperModel_class()
 }
 \description{
 You can use a HyperModel subclass instead of a model-building function

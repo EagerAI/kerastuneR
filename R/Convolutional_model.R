@@ -58,7 +58,7 @@ main = function() {
     dataset_batch(1e2)
   
   
-  tuner %>% search_tuner(x = mnist_train,
+  tuner %>% fit_tuner(x = mnist_train,
                steps_per_epoch=600,
                validation_data=mnist_test,
                validation_steps=100,

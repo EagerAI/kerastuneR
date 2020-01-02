@@ -36,7 +36,8 @@
 
 
 <meta property="og:title" content="Print a summary of the results — results_summary" />
-<meta property="og:description" content="Print a summary of the results" />
+<meta property="og:description" content="Print a summary of the results
+Print a summary of the search results/best models" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -94,6 +95,9 @@
     <li>
       <a href="../articles/Introduction.html">Introduction to kerastuneR</a>
     </li>
+    <li>
+      <a href="../articles/MNIST.html">MNIST hypertuning</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -118,22 +122,29 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Print a summary of the results</h1>
-    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/search.R'><code>R/search.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/search.R'><code>R/search.R</code></a>, <a href='https://github.com/henry090/kerastuneR/blob/master/R/search_summary.R'><code>R/search_summary.R</code></a></small>
     <div class="hidden name"><code>results_summary.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Print a summary of the results</p>
+<p>Print a summary of the search results/best models</p>
     </div>
 
-    <pre class="usage"><span class='fu'>results_summary</span>(<span class='kw'>tuner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>results_summary</span>(<span class='kw'>tuner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>num_trials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>results_summary</span>(<span class='kw'>tuner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>num_trials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>tuner</th>
-      <td><p>A tuner object</p></td>
+      <td><p>Requires a tuner object</p></td>
+    </tr>
+    <tr>
+      <th>num_trials</th>
+      <td><p>Shows the top best models</p></td>
     </tr>
     </table>
 

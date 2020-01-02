@@ -94,6 +94,9 @@
     <li>
       <a href="../articles/Introduction.html">Introduction to kerastuneR</a>
     </li>
+    <li>
+      <a href="../articles/MNIST.html">MNIST hypertuning</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -128,8 +131,17 @@
 
     <pre class="usage"><span class='fu'>Hyperband</span>(
   <span class='kw'>hypermodel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>optimizer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>loss</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hyperparameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>objective</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>max_epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>factor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hyperband_iterations</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tune_new_entries</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>distribution_strategy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>directory</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>project_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
@@ -144,6 +156,24 @@
 you can sample hyperparameters.</p></td>
     </tr>
     <tr>
+      <th>optimizer</th>
+      <td><p>An optimizer is one of the arguments required for compiling a Keras model</p></td>
+    </tr>
+    <tr>
+      <th>loss</th>
+      <td><p>A loss function (or objective function, or optimization score function) is one of
+the parameters required to compile a model</p></td>
+    </tr>
+    <tr>
+      <th>metrics</th>
+      <td><p>A metric is a function that is used to judge the performance of your model</p></td>
+    </tr>
+    <tr>
+      <th>hyperparameters</th>
+      <td><p>HyperParameters class instance. Can be used to override (or register in advance) 
+hyperparamters in the search space.</p></td>
+    </tr>
+    <tr>
       <th>objective</th>
       <td><p>A loss metrics function for tracking the model performance e.g. "val_precision". The name of 
 the objective to optimize (whether to minimize or maximize is automatically inferred for built-in metrics)</p></td>
@@ -152,7 +182,40 @@ the objective to optimize (whether to minimize or maximize is automatically infe
       <th>max_epochs</th>
       <td><p>to train the model. Note that in conjunction with initial_epoch, 
 epochs is to be understood as "final epoch". The model is not trained for a number of iterations
- given by epochs, but merely until the epoch of index epochs is reached.</p></td>
+given by epochs, but merely until the epoch of index epochs is reached.</p></td>
+    </tr>
+    <tr>
+      <th>factor</th>
+      <td><p>Int. Reduction factor for the number of epochs and number of models for each bracket.</p></td>
+    </tr>
+    <tr>
+      <th>hyperband_iterations</th>
+      <td><p>Int &gt;= 1. The number of times to iterate over the full Hyperband algorithm.
+One iteration will run approximately ```max_epochs * (math.log(max_epochs, factor) ** 2)``` cumulative epochs
+across all trials. It is recommended to set this to as high a value as is within your resource budget.</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>Int. Random seed.</p></td>
+    </tr>
+    <tr>
+      <th>tune_new_entries</th>
+      <td><p>Whether hyperparameter entries that are requested by the hypermodel 
+but that were not specified in hyperparameters should be added to the search space, or not. If not, 
+then the default value for these parameters will be used.</p></td>
+    </tr>
+    <tr>
+      <th>distribution_strategy</th>
+      <td><p>Scale up from running single-threaded locally to running on dozens or 
+hundreds of workers in parallel. Distributed Keras Tuner uses a chief-worker model. The chief runs a 
+service to which the workers report results and query for the hyperparameters to try next. The chief 
+should be run on a single-threaded CPU instance (or alternatively as a separate process on 
+one of the workers). Keras Tuner also supports data parallelism via tf.distribute. 
+Data parallelism and distributed tuning can be combined. For example, if you have 10 workers 
+with 4 GPUs on each worker, you can run 10 parallel trials with each trial training on 4 GPUs 
+by using tf.distribute.MirroredStrategy. You can also run each trial on TPUs 
+via tf.distribute.experimental.TPUStrategy. Currently tf.distribute.MultiWorkerMirroredStrategy 
+is not supported, but support for this is on the roadmap.</p></td>
     </tr>
     <tr>
       <th>directory</th>
