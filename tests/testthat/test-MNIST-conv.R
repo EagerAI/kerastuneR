@@ -1,5 +1,4 @@
 context("build(hp) - MNIST")
-
 library(keras)
 library(dplyr)
 library(tfdatasets)
@@ -42,7 +41,7 @@ main = function() {
   tuner = Hyperband(
     hypermodel=conv_build_model,
     objective='val_accuracy',
-    max_epochs=8,
+    max_epochs=1,
     factor=2,
     hyperband_iterations=3,
     directory='results_dir',
@@ -63,15 +62,13 @@ main = function() {
   
   
   tuner %>% fit_tuner(x = mnist_train,
-               steps_per_epoch=600,
-               validation_data=mnist_test,
-               validation_steps=100,
-               epochs=2,
-               callbacks=c(tf$keras$callbacks$EarlyStopping('val_accuracy')) 
+                      steps_per_epoch=600,
+                      validation_data=mnist_test,
+                      validation_steps=100,
+                      epochs=1,
+                      callbacks=c(tf$keras$callbacks$EarlyStopping('val_accuracy')) 
   )
 }
-
-main()
 
 testthat::expect_error(main())
 
