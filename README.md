@@ -25,7 +25,7 @@ devtools::install_github('henry090/kerastuneR')
 Later, you need to install the python module kerastuner:
 
 ```
-kerastuneR::install_kerastuner(python_path = 'paste python path')
+kerastuneR::install_kerastuner(python_path = 'paste_python_path')
 ```
 
 ## Usage: the basics
