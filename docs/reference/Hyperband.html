@@ -140,7 +140,6 @@
   <span class='kw'>factor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>hyperband_iterations</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tune_new_entries</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>distribution_strategy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>directory</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>project_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -197,12 +196,6 @@ across all trials. It is recommended to set this to as high a value as is within
     <tr>
       <th>seed</th>
       <td><p>Int. Random seed.</p></td>
-    </tr>
-    <tr>
-      <th>tune_new_entries</th>
-      <td><p>Whether hyperparameter entries that are requested by the hypermodel 
-but that were not specified in hyperparameters should be added to the search space, or not. If not, 
-then the default value for these parameters will be used.</p></td>
     </tr>
     <tr>
       <th>distribution_strategy</th>

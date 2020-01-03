@@ -15,7 +15,6 @@ Hyperband(
   factor = NULL,
   hyperband_iterations = NULL,
   seed = NULL,
-  tune_new_entries = NULL,
   distribution_strategy = NULL,
   directory = NULL,
   project_name = NULL,
@@ -50,10 +49,6 @@ One iteration will run approximately ```max_epochs * (math.log(max_epochs, facto
 across all trials. It is recommended to set this to as high a value as is within your resource budget.}
 
 \item{seed}{Int. Random seed.}
-
-\item{tune_new_entries}{Whether hyperparameter entries that are requested by the hypermodel 
-but that were not specified in hyperparameters should be added to the search space, or not. If not, 
-then the default value for these parameters will be used.}
 
 \item{distribution_strategy}{Scale up from running single-threaded locally to running on dozens or 
 hundreds of workers in parallel. Distributed Keras Tuner uses a chief-worker model. The chief runs a 
