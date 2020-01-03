@@ -32,7 +32,7 @@ kerastuneR::install_kerastuner(python_path = 'paste python path')
 
 Here's how to perform hyperparameter tuning for a single-layer dense neural network using random search.
 
-First, we define a model-building function. It takes an argument ```hp``` from which you can sample hyperparameters, such as ```hp$Int('units', min_value=32L, max_value=512L, step=32L)``` (an integer from a certain range).
+First, we define a model-building function. It takes an argument ```hp``` from which you can sample hyperparameters, such as ```hp$Int('units', min_value = 32, max_value = 512, step = 32)``` (an integer from a certain range).
 
 Sample data:
 
@@ -54,19 +54,19 @@ library(dplyr)
 build_model = function(hp) {
   
   model = keras_model_sequential()
-  model %>% layer_dense(units=hp$Int('units',
-                                      min_value=32,
-                                      max_value=512,
-                                      step=32),
+  model %>% layer_dense(units = hp$Int('units',
+                                      min_value = 32,
+                                      max_value = 512,
+                                      step = 32),
                                       input_shape = ncol(x_data)
-                                      activation='relu') %>% 
-  layer_dense(units=1, activation='sigmoid') %>% 
+                                      activation = 'relu') %>% 
+  layer_dense(units = 1, activation = 'sigmoid') %>% 
   compile(
-    optimizer= tf$keras$optimizers$Adam(
+    optimizer = tf$keras$optimizers$Adam(
       hp$Choice('learning_rate',
-                values=c(1e-2, 1e-3, 1e-4))),
-    loss='binary_crossentropy',
-    metrics='accuracy') 
+                values = c(1e-2, 1e-3, 1e-4))),
+    loss = 'binary_crossentropy',
+    metrics = 'accuracy') 
   return(model)
 }
 ```
@@ -98,9 +98,9 @@ Then, start the search for the best hyperparameter configuration. The call to se
 
 ```
 tuner %>% fit_tuner(x_data,y_data,
-                    epochs=5, 
+                    epochs = 5, 
                     validation_data = list(x_data2,y_data2))
 ```
-Full documentation, advanced model building, tutorials and etc. can be found on https://henry090.github.io/kerastuneR/
+Documentation, advanced model building, and tutorials can be found on https://henry090.github.io/kerastuneR/
 
 

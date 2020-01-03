@@ -37,15 +37,27 @@ conv_build_model = function(hp) {
   return(model)
 }
 
+testthat::expect_length(class(Hyperband(
+  hypermodel = conv_build_model,
+  objective='val_accuracy',
+  max_epochs = 1,
+  factor = 2,
+  hyperband_iterations = 3,
+  directory = 'results_dir',
+  project_name = 'mnist')),6)
+
+
+testthat::expect_match(tuner %>% capture.output(), 'kerastuner.tuners.hyperband.Hyperband')
+
 main = function() {
-  tuner = Hyperband(
-    hypermodel=conv_build_model,
-    objective='val_accuracy',
-    max_epochs=1,
-    factor=2,
-    hyperband_iterations=3,
-    directory='results_dir',
-    project_name='mnist')
+    tuner = Hyperband(
+    hypermodel = conv_build_model,
+    objective = 'val_accuracy',
+    max_epochs = 1,
+    factor = 2,
+    hyperband_iterations = 3,
+    directory = 'results_dir',
+    project_name = 'mnist')
   
   mnist_data = dataset_fashion_mnist()
   c(mnist_train, mnist_test) %<-%  mnist_data
@@ -70,5 +82,7 @@ main = function() {
   )
 }
 
-testthat::expect_error(main())
+res = main() %>% capture.output()
+
+testthat::expect_match(res, 'NULL')
 

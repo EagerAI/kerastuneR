@@ -53,19 +53,18 @@ build_model2 = function(hp) {
 }
 
 tuner2 = RandomSearch(hypermodel = build_model2,
-                                  objective='val_accuracy',
-                                  max_trials=2,
-                                  executions_per_trial=1L,
-                                  directory='my_dir3',
-                                  project_name='helloworld')
+                                  objective = 'val_accuracy',
+                                  max_trials = 2,
+                                  executions_per_trial = 1,
+                                  directory = 'my_dir3',
+                                  project_name = 'helloworld')
 
+testthat::expect_match(tuner2 %>% capture.output(), 'kerastuner.tuners.randomsearch.RandomSearch')
 
 search_summary(tuner2)
-
 
 tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2))
 
 res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
 
 testthat::expect_output(print(res),regexp ='Model')
-

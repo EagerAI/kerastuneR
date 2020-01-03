@@ -43,11 +43,13 @@ HyperModel <- reticulate::PyClass(
 hypermodel = HyperModel(num_classes=1)
 
 tuner = RandomSearch(hypermodel = hypermodel,
-                      objective='val_accuracy',
-                      max_trials=2,
-                      executions_per_trial=1,
-                      directory='my_di',
-                      project_name='helloworld')
+                      objective = 'val_accuracy',
+                      max_trials = 2,
+                      executions_per_trial = 1,
+                      directory = 'my_di',
+                      project_name = 'helloworld')
+
+testthat::expect_match(tuner %>% capture.output(), 'kerastuner.tuners.randomsearch.RandomSearch')
 
 search_summary(tuner)
 
