@@ -199,6 +199,12 @@ across all trials. It is recommended to set this to as high a value as is within
       <td><p>Int. Random seed.</p></td>
     </tr>
     <tr>
+      <th>tune_new_entries</th>
+      <td><p>Whether hyperparameter entries that are requested by the hypermodel 
+but that were not specified in hyperparameters should be added to the search space, or not. 
+If not, then the default value for these parameters will be used.</p></td>
+    </tr>
+    <tr>
       <th>distribution_strategy</th>
       <td><p>Scale up from running single-threaded locally to running on dozens or 
 hundreds of workers in parallel. Distributed Keras Tuner uses a chief-worker model. The chief runs a 
