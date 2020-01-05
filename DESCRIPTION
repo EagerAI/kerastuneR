@@ -29,11 +29,11 @@ Imports:
     stats,
     testthat,
     tfdatasets,
-    dplyr
+    dplyr,
+    rstudioapi
 Suggests:
     knitr,
     rmarkdown,
-    callr,
     covr
 Remotes:
     rstudio/reticulate,

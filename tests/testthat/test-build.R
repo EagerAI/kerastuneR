@@ -68,3 +68,6 @@ tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,
 res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
 
 testthat::expect_output(print(res),regexp ='Model')
+
+expect_warning(kerastuneR::results_summary())
+
