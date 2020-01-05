@@ -54,6 +54,9 @@ HyperXception <- function(input_shape = NULL, classes = NULL, ...) {
 #' One iteration will run approximately ```max_epochs * (math.log(max_epochs, factor) ** 2)``` cumulative epochs
 #' across all trials. It is recommended to set this to as high a value as is within your resource budget.
 #' @param seed Int. Random seed.
+#' @param tune_new_entries Whether hyperparameter entries that are requested by the hypermodel 
+#' but that were not specified in hyperparameters should be added to the search space, or not. 
+#' If not, then the default value for these parameters will be used.
 #' @param distribution_strategy Scale up from running single-threaded locally to running on dozens or 
 #' hundreds of workers in parallel. Distributed Keras Tuner uses a chief-worker model. The chief runs a 
 #' service to which the workers report results and query for the hyperparameters to try next. The chief 

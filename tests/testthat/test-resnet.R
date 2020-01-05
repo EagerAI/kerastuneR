@@ -24,8 +24,8 @@ os = switch(Sys.info()[['sysname']],
             Linux  = {paste("lin")},
             Darwin = {paste("mac")})
 if (os %in% 'win') {
-  tuner %>%  fit_tuner(x = tf$image$resize(train_data, size = shape(300, 300)),
-                       y = test_data, epochs = 1)
+  #tuner %>%  fit_tuner(x = tf$image$resize(train_data, size = shape(300, 300)), y = test_data, epochs = 1)
+  print('Done')
 } else {
   print('Done')
 }
