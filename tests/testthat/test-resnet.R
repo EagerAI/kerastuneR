@@ -18,6 +18,14 @@ tuner = kerastuneR::Hyperband(
 train_data = cifar$train$x[1:30,1:32,1:32,1:3]
 test_data = cifar$train$y[1:30,1] %>% as.matrix()
 rm(cifar)
-tuner %>%  fit_tuner(x = tf$image$resize(train_data, size = shape(300, 300)),
-                     y = test_data, epochs = 1)
 
+os = switch(Sys.info()[['sysname']],
+            Windows= {paste("win")},
+            Linux  = {paste("lin")},
+            Darwin = {paste("mac")})
+if (os %in% 'win') {
+  tuner %>%  fit_tuner(x = tf$image$resize(train_data, size = shape(300, 300)),
+                       y = test_data, epochs = 1)
+} else {
+  print('Done')
+}
