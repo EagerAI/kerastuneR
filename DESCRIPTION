@@ -29,8 +29,7 @@ Imports:
     stats,
     testthat,
     tfdatasets,
-    dplyr,
-    rstudioapi
+    dplyr
 Suggests:
     knitr,
     rmarkdown,
