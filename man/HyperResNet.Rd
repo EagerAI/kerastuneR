@@ -12,10 +12,10 @@ HyperResNet(input_shape = NULL, classes = NULL, ...)
 (otherwise the input shape has to be (224, 224, 3). It should have exactly 3 inputs channels, 
 and width and height should be no smaller than 32. E.g. (200, 200, 3) would be one valid value.}
 
-\item{...}{Some additional arguments}
-
-\item{num_classes}{optional number of classes to classify images into, only to be specified if include_top is True, 
+\item{classes}{optional number of classes to classify images into, only to be specified if include_top is True, 
 and if no weights argument is specified.}
+
+\item{...}{Some additional arguments}
 }
 \description{
 These are ready-to-use hypermodels for computer vision.

@@ -7,7 +7,7 @@
 #' @param input_shape optional shape list, only to be specified if include_top is FALSE 
 #' (otherwise the input shape has to be (224, 224, 3). It should have exactly 3 inputs channels, 
 #' and width and height should be no smaller than 32. E.g. (200, 200, 3) would be one valid value.
-#' @param num_classes optional number of classes to classify images into, only to be specified if include_top is True, 
+#' @param classes optional number of classes to classify images into, only to be specified if include_top is True, 
 #' and if no weights argument is specified.
 #' @param ... Some additional arguments
 #' @export
@@ -25,7 +25,7 @@ HyperResNet <- function(input_shape = NULL, classes = NULL, ...) {
 #' @param input_shape optional shape list, only to be specified if include_top is FALSE 
 #' (otherwise the input shape has to be (224, 224, 3). It should have exactly 3 inputs channels, 
 #' and width and height should be no smaller than 32. E.g. (200, 200, 3) would be one valid value.
-#' @param num_classes optional number of classes to classify images into, only to be specified if include_top is True, 
+#' @param classes optional number of classes to classify images into, only to be specified if include_top is True, 
 #' and if no weights argument is specified.
 #' @param ... Some additional arguments
 #' @export
