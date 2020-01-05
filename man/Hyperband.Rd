@@ -15,6 +15,7 @@ Hyperband(
   factor = NULL,
   hyperband_iterations = NULL,
   seed = NULL,
+  tune_new_entries = TRUE,
   distribution_strategy = NULL,
   directory = NULL,
   project_name = NULL,

@@ -11,8 +11,8 @@
 #' and if no weights argument is specified.
 #' @param ... Some additional arguments
 #' @export
-HyperResNet <- function(input_shape = NULL, num_classes = NULL, ...) {
-  kerastuner$applications$HyperResNet(input_shape = input_shape, num_classes = num_classes, ...)
+HyperResNet <- function(input_shape = NULL, classes = NULL, ...) {
+  kerastuner$applications$HyperResNet(input_shape = input_shape, classes = classes, ...)
 }
 
 #' Xception is a convolutional neural network that is trained on more than a million images from the ImageNet 
@@ -29,8 +29,8 @@ HyperResNet <- function(input_shape = NULL, num_classes = NULL, ...) {
 #' and if no weights argument is specified.
 #' @param ... Some additional arguments
 #' @export
-HyperXception <- function(input_shape = NULL, num_classes = NULL, ...) {
-  kerastuner$applications$HyperXception(input_shape = input_shape, num_classes = num_classes, ...)
+HyperXception <- function(input_shape = NULL, classes = NULL, ...) {
+  kerastuner$applications$HyperXception(input_shape = input_shape, classes = classes, ...)
 }
 
 #' Tool for searching the best hyperparameters for computer vision.
@@ -75,24 +75,26 @@ Hyperband <- function(hypermodel = NULL, optimizer = NULL, loss = NULL,
                       objective = NULL, max_epochs = NULL, factor = NULL,
                       hyperband_iterations = NULL,
                       seed = NULL,
-                      #tune_new_entries = NULL,
+                      tune_new_entries = TRUE,
                       distribution_strategy = NULL,
                       directory = NULL, project_name = NULL,
                       ...) {
-  kerastuner$tuners$Hyperband(hypermodel = hypermodel, 
-                              optimizer = optimizer,
-                              loss = loss,
-                              metrics = metrics,
-                              hyperparameters = hyperparameters,
-                              objective = objective, 
-                              max_epochs = max_epochs, 
-                              factor = as.integer(factor),
-                              hyperband_iterations = as.integer(hyperband_iterations),
-                              seed = as.integer(seed),
-                              #tune_new_entries = tune_new_entries,
-                              distribution_strategy = distribution_strategy,
-                              directory = directory, 
-                              project_name = project_name,
-                              ...)
+  
+  args = c(hypermodel = hypermodel, 
+              objective = objective, 
+              loss = loss,
+              optimizer = optimizer,
+              metrics = metrics,
+              hyperparameters = hyperparameters,
+              max_epochs = as.integer(max_epochs), 
+              factor = as.integer(factor),
+              hyperband_iterations = as.integer(hyperband_iterations),
+              seed = as.integer(seed),
+              tune_new_entries = tune_new_entries,
+              distribution_strategy = distribution_strategy,
+              directory = directory, 
+              project_name = project_name,
+              ...)
+  do.call(kerastuner$tuners$Hyperband, args)
 }
 
