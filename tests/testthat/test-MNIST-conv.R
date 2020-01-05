@@ -3,7 +3,7 @@ library(keras)
 library(dplyr)
 library(tfdatasets)
 library(kerastuneR)
-
+reticulate::py_config()
 conv_build_model = function(hp) {
   'Builds a convolutional model.'
   inputs = tf$keras$Input(shape=list(28L, 28L, 1L))
