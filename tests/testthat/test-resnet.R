@@ -6,6 +6,7 @@ library(kerastuneR)
 cifar <- dataset_cifar10()
 
 hypermodel = kerastuneR::HyperResNet(input_shape = list(300L, 300L, 3L), classes = 10L)
+hypermodel2 = kerastuneR::HyperXception(input_shape = list(300L, 300L, 3L), classes = 10L)
 
 testthat::expect_match(hypermodel %>% capture.output(),'kerastuner.applications.resnet.HyperResNet')
 
@@ -33,3 +34,9 @@ if (os %in% 'win') {
 } else {
   print('Done')
 }
+
+print(kerastuneR::conv_build_model())
+
+print(kerastuneR::HyperModel())
+
+
