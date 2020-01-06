@@ -35,8 +35,5 @@ if (os %in% 'win') {
   print('Done')
 }
 
-print(kerastuneR::conv_build_model())
-
-print(kerastuneR::HyperModel())
 
 

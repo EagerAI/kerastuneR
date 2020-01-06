@@ -10,11 +10,11 @@ install_kerastuner <- function(python_path = NULL, upgrade = FALSE, version = NU
          Linux  = {paste("lin")},
          Darwin = {paste("mac")})
   if (!is.null(python_path) && is.null(version) && isFALSE(upgrade) && !os == 'win') {
-    rstudioapi::terminalExecute(command = paste(python_path, ' -m pip install keras-tuner'))
+    system(command = paste(python_path, ' -m pip install keras-tuner'))
   } else if (!is.null(python_path) && upgrade && !os == 'win') {
-    rstudioapi::terminalExecute(command = paste(python_path, '-m pip install keras-tuner --upgrade'))
+    system(command = paste(python_path, '-m pip install keras-tuner --upgrade'))
   } else if (!is.null(version) && !is.null(python_path) && !os == 'win') {
-    rstudioapi::terminalExecute(command = paste(python_path, ' -m pip install keras-tuner==',version,sep = ''))
+    system(command = paste(python_path, ' -m pip install keras-tuner==',version,sep = ''))
   } else if (!is.null(python_path) && os == 'win') {
     warning('Please install "pip install keras-tuner==1.0.0" from python')
   }
