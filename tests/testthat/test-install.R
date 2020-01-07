@@ -8,4 +8,6 @@ os = switch(Sys.info()[['sysname']],
 
 testthat::expect_warning(kerastuneR::install_kerastuner())
 
+reticulate::py_config()
+
 kerastuneR::install_kerastuner(python_path = Sys.which('python'))
