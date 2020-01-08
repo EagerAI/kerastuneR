@@ -15,7 +15,8 @@ install_kerastuner <- function(python_path = NULL, upgrade = FALSE, version = NU
     system(command = paste(python_path, '-m pip install keras-tuner --upgrade'))
   } else if (!is.null(version) && !is.null(python_path) && !os == 'win') {
     system(command = paste(python_path, ' -m pip install keras-tuner==',version,sep = ''))
-  } else if (!is.null(python_path) && is.null(version) && isFALSE(upgrade) && os == 'win') {   
+  }  else if (!is.null(python_path) && is.null(version) && isFALSE(upgrade) && os == 'win') {
+    warning('Python location is not provided')	    
     reticulate::py_config()
     shell("pip install keras-tuner==1.0.0")
   } else if (!is.null(python_path) && upgrade && os == 'win') {
@@ -24,10 +25,14 @@ install_kerastuner <- function(python_path = NULL, upgrade = FALSE, version = NU
   } else if (!is.null(version) && !is.null(python_path) && os == 'win') {
     reticulate::py_config()
     shell(paste("pip install keras-tuner==",version,sep = ''))
-  } else if (is.null(python_path)) {
+  } else if (is.null(python_path) && os %in% 'win') {
+    reticulate::py_config()
+    shell("pip install keras-tuner==1.0.0")
+  }	else {
     warning('Please provide python path')
-  }	  
+  }
 }
+
 
 
 
