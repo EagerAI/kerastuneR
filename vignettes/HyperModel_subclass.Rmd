@@ -19,10 +19,10 @@ This makes it easy to share and reuse hypermodels.
 A HyperModel subclass only needs to implement a ```build(self, hp)``` method.
 
 ```{r }
-HyperModel <- reticulate::PyClass(
-  'HyperModel',
+MyHyperModel <- reticulate::PyClass(
+  "HyperModel",
   
-  inherit = kerastuneR::HyperModel,
+  inherit = kerastuneR::HyperModel_class(),
   
   list(
     
@@ -35,9 +35,9 @@ HyperModel <- reticulate::PyClass(
     build = function(self,hp) {
       model = keras_model_sequential() 
       model %>% layer_dense(units = hp$Int('units',
-                                           min_value=32,
-                                           max_value=512,
-                                           step=32),
+                                           min_value=32L,
+                                           max_value=512L,
+                                           step=32L),
                             activation='relu') %>% 
         layer_dense(as.integer(self$num_classes), activation='softmax') %>% 
         compile(
@@ -65,8 +65,8 @@ y_data2 <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
 
 # subclass
 
-HyperModel <- reticulate::PyClass(
-  'HyperModel',
+MyHyperModel <- reticulate::PyClass(
+  "HyperModel",
   
   inherit = kerastuneR::HyperModel_class(),
   
@@ -81,12 +81,11 @@ HyperModel <- reticulate::PyClass(
     build = function(self,hp) {
       model = keras_model_sequential() 
       model %>% layer_dense(units = hp$Int('units',
-                                           min_value = 32,
-                                           max_value = 512,
-                                           step=32),
-                            input_shape = ncol(x_data),
-                            activation = 'relu') %>% 
-        layer_dense(as.integer(self$num_classes), activation = 'softmax') %>% 
+                                           min_value=32L,
+                                           max_value=512L,
+                                           step=32L),
+                            activation='relu') %>% 
+        layer_dense(as.integer(self$num_classes), activation='softmax') %>% 
         compile(
           optimizer= tf$keras$optimizers$Adam(
             hp$Choice('learning_rate',
@@ -96,7 +95,6 @@ HyperModel <- reticulate::PyClass(
     }
   )
 )
-
 # Random Search
 
 hypermodel = MyHyperModel(num_classes = 10)

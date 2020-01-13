@@ -2,10 +2,10 @@
 knitr::opts_chunk$set(echo = TRUE, eval = F)
 
 ## -----------------------------------------------------------------------------
-#  HyperModel <- reticulate::PyClass(
-#    'HyperModel',
+#  MyHyperModel <- reticulate::PyClass(
+#    "HyperModel",
 #  
-#    inherit = kerastuneR::HyperModel,
+#    inherit = kerastuneR::HyperModel_class(),
 #  
 #    list(
 #  
@@ -18,9 +18,9 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 #      build = function(self,hp) {
 #        model = keras_model_sequential()
 #        model %>% layer_dense(units = hp$Int('units',
-#                                             min_value=32,
-#                                             max_value=512,
-#                                             step=32),
+#                                             min_value=32L,
+#                                             max_value=512L,
+#                                             step=32L),
 #                              activation='relu') %>%
 #          layer_dense(as.integer(self$num_classes), activation='softmax') %>%
 #          compile(
@@ -45,8 +45,8 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 #  
 #  # subclass
 #  
-#  HyperModel <- reticulate::PyClass(
-#    'HyperModel',
+#  MyHyperModel <- reticulate::PyClass(
+#    "HyperModel",
 #  
 #    inherit = kerastuneR::HyperModel_class(),
 #  
@@ -61,12 +61,11 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 #      build = function(self,hp) {
 #        model = keras_model_sequential()
 #        model %>% layer_dense(units = hp$Int('units',
-#                                             min_value = 32,
-#                                             max_value = 512,
-#                                             step=32),
-#                              input_shape = ncol(x_data),
-#                              activation = 'relu') %>%
-#          layer_dense(as.integer(self$num_classes), activation = 'softmax') %>%
+#                                             min_value=32L,
+#                                             max_value=512L,
+#                                             step=32L),
+#                              activation='relu') %>%
+#          layer_dense(as.integer(self$num_classes), activation='softmax') %>%
 #          compile(
 #            optimizer= tf$keras$optimizers$Adam(
 #              hp$Choice('learning_rate',
@@ -76,7 +75,6 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 #      }
 #    )
 #  )
-#  
 #  # Random Search
 #  
 #  hypermodel = MyHyperModel(num_classes = 10)

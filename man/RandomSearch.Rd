@@ -8,6 +8,10 @@ RandomSearch(
   hypermodel = NULL,
   objective = NULL,
   max_trials = NULL,
+  seed = NULL,
+  hyperparameters = NULL,
+  tune_new_entries = TRUE,
+  allow_new_entries = TRUE,
   executions_per_trial = NULL,
   directory = NULL,
   project_name = NULL,
@@ -22,6 +26,17 @@ you can sample hyperparameters.}
 the objective to optimize (whether to minimize or maximize is automatically inferred for built-in metrics)}
 
 \item{max_trials}{the total number of trials (max_trials) to test}
+
+\item{seed}{Int. Random seed}
+
+\item{hyperparameters}{HyperParameters class instance. Can be used to override (or register in advance) hyperparamters 
+in the search space}
+
+\item{tune_new_entries}{Whether hyperparameter entries that are requested by the hypermodel 
+but that were not specified in hyperparameters should be added to the search space, or not. 
+If not, then the default value for these parameters will be used.}
+
+\item{allow_new_entries}{Whether the hypermodel is allowed to request hyperparameter entries not listed in hyperparameters}
 
 \item{executions_per_trial}{the number of models that should be built and fit for each trial 
 (executions_per_trial). Note: the purpose of having multiple executions per trial is to reduce results 

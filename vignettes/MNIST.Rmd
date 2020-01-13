@@ -120,7 +120,7 @@ main = function() {
     mnist_test$x, 'float32') / 255., mnist_test$y)) %>%
     dataset_batch(1e2)
   
-  # finally, begin training a bunch of parameters
+  # finally, begin a training with a bunch of parameters
   tuner %>% fit_tuner(x = mnist_train,
                steps_per_epoch=600,
                validation_data=mnist_test,

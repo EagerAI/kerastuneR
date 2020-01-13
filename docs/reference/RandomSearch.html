@@ -136,6 +136,10 @@
   <span class='kw'>hypermodel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>objective</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>max_trials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hyperparameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tune_new_entries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>allow_new_entries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>executions_per_trial</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>directory</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>project_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -158,6 +162,25 @@ the objective to optimize (whether to minimize or maximize is automatically infe
     <tr>
       <th>max_trials</th>
       <td><p>the total number of trials (max_trials) to test</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>Int. Random seed</p></td>
+    </tr>
+    <tr>
+      <th>hyperparameters</th>
+      <td><p>HyperParameters class instance. Can be used to override (or register in advance) hyperparamters 
+in the search space</p></td>
+    </tr>
+    <tr>
+      <th>tune_new_entries</th>
+      <td><p>Whether hyperparameter entries that are requested by the hypermodel 
+but that were not specified in hyperparameters should be added to the search space, or not. 
+If not, then the default value for these parameters will be used.</p></td>
+    </tr>
+    <tr>
+      <th>allow_new_entries</th>
+      <td><p>Whether the hypermodel is allowed to request hyperparameter entries not listed in hyperparameters</p></td>
     </tr>
     <tr>
       <th>executions_per_trial</th>

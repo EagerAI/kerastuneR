@@ -196,7 +196,7 @@ padding='same')
 <a class="sourceLine" id="cb5-64" title="64">    mnist_test<span class="op">$</span>x, <span class="st">'float32'</span>) <span class="op">/</span><span class="st"> </span><span class="fl">255.</span>, mnist_test<span class="op">$</span>y)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-65" title="65"><span class="st">    </span><span class="kw">dataset_batch</span>(<span class="fl">1e2</span>)</a>
 <a class="sourceLine" id="cb5-66" title="66">  </a>
-<a class="sourceLine" id="cb5-67" title="67">  <span class="co"># finally, begin training a bunch of parameters</span></a>
+<a class="sourceLine" id="cb5-67" title="67">  <span class="co"># finally, begin a training with a bunch of parameters</span></a>
 <a class="sourceLine" id="cb5-68" title="68">  tuner <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/fit_tuner.html">fit_tuner</a></span>(<span class="dt">x =</span> mnist_train,</a>
 <a class="sourceLine" id="cb5-69" title="69">               <span class="dt">steps_per_epoch=</span><span class="dv">600</span>,</a>
 <a class="sourceLine" id="cb5-70" title="70">               <span class="dt">validation_data=</span>mnist_test,</a>
