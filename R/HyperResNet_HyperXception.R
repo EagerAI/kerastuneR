@@ -101,3 +101,13 @@ Hyperband <- function(hypermodel = NULL, optimizer = NULL, loss = NULL,
   do.call(kerastuner$tuners$Hyperband, args)
 }
 
+
+#'
+#' The search space may contain conditional hyperparameters
+#' Pass hyperparameter arguments to the tuner constructor
+#'
+#' @export
+HyperParameters = function(...){
+  args = list(...)
+  do.call(kerastuner$HyperParameters,args = args)
+}
