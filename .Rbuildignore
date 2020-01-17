@@ -3,3 +3,6 @@
 ^codecov\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^docs$
+^images$
+^pkgdown$
