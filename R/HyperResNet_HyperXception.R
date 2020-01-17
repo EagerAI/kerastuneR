@@ -104,8 +104,8 @@ Hyperband <- function(hypermodel = NULL, optimizer = NULL, loss = NULL,
 
 #'
 #' The search space may contain conditional hyperparameters
-#' Pass hyperparameter arguments to the tuner constructor
-#'
+#' 
+#' @param ... Pass hyperparameter arguments to the tuner constructor
 #' @export
 HyperParameters = function(...){
   args = list(...)

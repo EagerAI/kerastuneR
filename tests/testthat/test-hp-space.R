@@ -1,4 +1,7 @@
 context('hp space')
+library(keras)
+library(dplyr)
+library(kerastuneR)
 
 mnist_data = dataset_fashion_mnist()
 c(mnist_train, mnist_test) %<-%  mnist_data
