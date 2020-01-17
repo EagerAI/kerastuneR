@@ -2,12 +2,13 @@
 % Please edit documentation in R/HyperResNet_HyperXception.R
 \name{HyperParameters}
 \alias{HyperParameters}
-\title{The search space may contain conditional hyperparameters
-Pass hyperparameter arguments to the tuner constructor}
+\title{The search space may contain conditional hyperparameters}
 \usage{
 HyperParameters(...)
 }
+\arguments{
+\item{...}{Pass hyperparameter arguments to the tuner constructor}
+}
 \description{
 The search space may contain conditional hyperparameters
-Pass hyperparameter arguments to the tuner constructor
 }
