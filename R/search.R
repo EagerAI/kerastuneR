@@ -26,6 +26,7 @@
 #' @param validation_steps Only relevant if steps_per_epoch is specified. Total number of steps (batches of samples)
 #'  to validate before stopping.
 #' @param ... Some additional arguments
+#' @importFrom stats setNames
 #' @export
 fit_tuner = function(tuner = NULL, x = NULL, y = NULL, steps_per_epoch = NULL, epochs = NULL, 
                         validation_data = NULL, validation_steps = NULL, ...) {

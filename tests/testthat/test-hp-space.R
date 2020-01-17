@@ -18,6 +18,7 @@ hp = HyperParameters()
 hp$Choice('learning_rate',values =c(1e-1, 1e-3))
 hp$Int('num_layers', 2L, 20L)
 
+testthat::expect_match(capture.output(hp),'kerastuner.engine.hyperparameters.HyperParameters')
 
 
 mnist_model = function(hp) {
@@ -46,4 +47,5 @@ tuner = RandomSearch(
   directory='my_dir4',
   project_name = 'mnist_')
 
+testthat::expect_match(capture.output(tuner),'kerastuner.tuners.randomsearch.RandomSearch')
 

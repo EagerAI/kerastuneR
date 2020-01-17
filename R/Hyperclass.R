@@ -4,5 +4,5 @@
 #' @export 
 HyperModel_class <- function(){
   object = kerastuner$engine$hypermodel$HyperModel
-  return(object)
+  return(invisible(object))
 }

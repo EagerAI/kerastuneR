@@ -2,7 +2,7 @@ language: r
 
 warnings_are_errors: false
 cache:
-  packages: true
+  packages: false
   directories:
     - $HOME/.kerastuneR
     - $HOME/.cache/pip

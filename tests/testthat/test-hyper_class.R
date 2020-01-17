@@ -42,6 +42,8 @@ HyperModel <- reticulate::PyClass(
 
 hypermodel = HyperModel(num_classes=1)
 
+testthat::expect_match(capture.output(hypermodel),'HyperModel')
+
 tuner = RandomSearch(hypermodel = hypermodel,
                       objective = 'val_accuracy',
                       max_trials = 2,
