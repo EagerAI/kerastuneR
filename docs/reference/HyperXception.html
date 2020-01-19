@@ -6,9 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Xception is a convolutional neural network that is trained on more than a million images from the ImageNet 
-database. The network is 71 layers deep and can classify images into 1000 object categories, such as keyboard,
-mouse, pencil, and many animals. — HyperXception • kerastuneR</title>
+<title>HyperXception — HyperXception • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -37,10 +35,8 @@ mouse, pencil, and many animals. — HyperXception • kerastuneR</title>
 
 
 
-<meta property="og:title" content="Xception is a convolutional neural network that is trained on more than a million images from the ImageNet 
-database. The network is 71 layers deep and can classify images into 1000 object categories, such as keyboard,
-mouse, pencil, and many animals. — HyperXception" />
-<meta property="og:description" content="These are ready-to-use hypermodels for computer vision." />
+<meta property="og:title" content="HyperXception — HyperXception" />
+<meta property="og:description" content="An Xception HyperModel." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -127,42 +123,46 @@ mouse, pencil, and many animals. — HyperXception" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Xception is a convolutional neural network that is trained on more than a million images from the ImageNet 
-database. The network is 71 layers deep and can classify images into 1000 object categories, such as keyboard,
-mouse, pencil, and many animals.</h1>
+    <h1>HyperXception</h1>
     <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/HyperResNet_HyperXception.R'><code>R/HyperResNet_HyperXception.R</code></a></small>
     <div class="hidden name"><code>HyperXception.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These are ready-to-use hypermodels for computer vision.</p>
+    <p>An Xception HyperModel.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>HyperXception</span>(<span class='kw'>input_shape</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>classes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>HyperXception</span>(
+  <span class='kw'>include_top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>input_shape</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>input_tensor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>classes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>include_top</th>
+      <td><p>whether to include the fully-connected layer at the top of the network.</p></td>
+    </tr>
+    <tr>
       <th>input_shape</th>
-      <td><p>optional shape list, only to be specified if include_top is FALSE 
-(otherwise the input shape has to be (224, 224, 3). It should have exactly 3 inputs channels, 
-and width and height should be no smaller than 32. E.g. (200, 200, 3) would be one valid value.</p></td>
+      <td><p>Optional shape list, e.g. `(256, 256, 3)`. One of `input_shape` or `input_tensor` must be specified.</p></td>
+    </tr>
+    <tr>
+      <th>input_tensor</th>
+      <td><p>Optional Keras tensor (i.e. output of `layers.Input()`) to use as image input for the model. One of `input_shape` or `input_tensor` must be specified.</p></td>
     </tr>
     <tr>
       <th>classes</th>
-      <td><p>optional number of classes to classify images into, only to be specified if include_top is True, 
-and if no weights argument is specified.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Some additional arguments</p></td>
+      <td><p>optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note: They come pre-compiled with loss="categorical_crossentropy" and metrics=["accuracy"].</p>
+    <p># Arguments: include_top: whether to include the fully-connected layer at the top of the network. input_shape: Optional shape list, e.g. `(256, 256, 3)`. One of `input_shape` or `input_tensor` must be specified. input_tensor: Optional Keras tensor (i.e. output of `layers.Input()`) to use as image input for the model. One of `input_shape` or `input_tensor` must be specified. classes: optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -2,25 +2,27 @@
 % Please edit documentation in R/HyperResNet_HyperXception.R
 \name{HyperXception}
 \alias{HyperXception}
-\title{Xception is a convolutional neural network that is trained on more than a million images from the ImageNet 
-database. The network is 71 layers deep and can classify images into 1000 object categories, such as keyboard,
-mouse, pencil, and many animals.}
+\title{HyperXception}
 \usage{
-HyperXception(input_shape = NULL, classes = NULL, ...)
+HyperXception(
+  include_top = TRUE,
+  input_shape = NULL,
+  input_tensor = NULL,
+  classes = NULL
+)
 }
 \arguments{
-\item{input_shape}{optional shape list, only to be specified if include_top is FALSE 
-(otherwise the input shape has to be (224, 224, 3). It should have exactly 3 inputs channels, 
-and width and height should be no smaller than 32. E.g. (200, 200, 3) would be one valid value.}
+\item{include_top}{whether to include the fully-connected layer at the top of the network.}
 
-\item{classes}{optional number of classes to classify images into, only to be specified if include_top is True, 
-and if no weights argument is specified.}
+\item{input_shape}{Optional shape list, e.g. `(256, 256, 3)`. One of `input_shape` or `input_tensor` must be specified.}
 
-\item{...}{Some additional arguments}
+\item{input_tensor}{Optional Keras tensor (i.e. output of `layers.Input()`) to use as image input for the model. One of `input_shape` or `input_tensor` must be specified.}
+
+\item{classes}{optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.}
 }
 \description{
-These are ready-to-use hypermodels for computer vision.
+An Xception HyperModel.
 }
 \details{
-Note: They come pre-compiled with loss="categorical_crossentropy" and metrics=["accuracy"].
+# Arguments: include_top: whether to include the fully-connected layer at the top of the network. input_shape: Optional shape list, e.g. `(256, 256, 3)`. One of `input_shape` or `input_tensor` must be specified. input_tensor: Optional Keras tensor (i.e. output of `layers.Input()`) to use as image input for the model. One of `input_shape` or `input_tensor` must be specified. classes: optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.
 }
