@@ -1,8 +1,9 @@
-#' Install Keras Tuner
-#' This function is used to install the Keras Tuner python module on Mac OS and Linux (Windows will be added later)
-#' @param python_path python_path specifies the python path for installation via terminal
+#' @title Install Keras Tuner
+#' 
+#' @description This function is used to install the Keras Tuner python module
+
 #' @param version for specific version of Keras tuneR, e.g. "0.9.1"
-#' @param upgrade is helpful if one wants to upgrade a version of Keras TuneR
+#' @param restart_session Restart R session after installing (note this will only occur within RStudio).
 #' @export
 install_kerastuner <- function(version = NULL, ..., restart_session = TRUE) {
   
