@@ -4,23 +4,16 @@
 #' @param version for specific version of Keras tuneR, e.g. "0.9.1"
 #' @param upgrade is helpful if one wants to upgrade a version of Keras TuneR
 #' @export
-install_kerastuner <- function(python_path = NULL, upgrade = FALSE, version = NULL) {
-  os = switch(Sys.info()[['sysname']],
-         Windows= {paste("win")},
-         Linux  = {paste("lin")},
-         Darwin = {paste("mac")})
-  if (!is.null(python_path) && is.null(version) && isFALSE(upgrade) && !os == 'win') {
-    system(command = paste(python_path, ' -m pip install keras-tuner'))
-  } else if (!is.null(python_path) && upgrade && !os == 'win') {
-    system(command = paste(python_path, '-m pip install keras-tuner --upgrade'))
-  } else if (!is.null(version) && !is.null(python_path) && !os == 'win') {
-    system(command = paste(python_path, ' -m pip install keras-tuner==',version,sep = ''))
-  } else if (!is.null(python_path) && os == 'win') {
-    warning('Please install "pip install keras-tuner==1.0.0" from python')
-  }
-  else {
-    warning('Python location is not provided')
-  }
+install_kerastuner <- function(version = NULL, ..., restart_session = TRUE) {
+  
+  if (is.null(version))
+    module_string <- paste0("keras-tuner==", '1.0.0')
+  else
+    module_string <- paste0("keras-tuner==", version)
+  
+  reticulate::py_install(packages = module_string, pip = TRUE, ...)
+  
+  if (restart_session && rstudioapi::hasFun("restartSession"))
+    rstudioapi::restartSession()
 }
-
 
