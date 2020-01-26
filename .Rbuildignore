@@ -6,3 +6,4 @@
 ^docs$
 ^images$
 ^pkgdown$
+^\.github/workflows$

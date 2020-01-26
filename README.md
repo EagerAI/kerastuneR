@@ -5,6 +5,7 @@ It aims at making the life of AI practitioners, hypertuner algorithm creators an
 
 <img src="images/kerastuneR.png" width=200 align=right style="margin-left: 15px;" alt="Keras Tuner"/>
 
+[![Actions Status](https://github.com/henry090/kerastuneR/workflows/R-CMD/badge.svg)](https://github.com/henry090/kerastuneR)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis-CI Build Status](https://travis-ci.com/henry090/kerastuneR.svg?branch=master)](https://travis-ci.com/henry090/kerastuneR) 
 [![Build status](https://ci.appveyor.com/api/projects/status/u24fa1vvuyms3xpk/branch/master?svg=true)](https://ci.appveyor.com/project/henry090/kerastuner-trmkf/branch/master)
@@ -16,6 +17,11 @@ Full documentation and tutorials available on the [Keras Tuner website](https://
 
 ## Installation
 
+Requirements:
+
+- Python 3.6
+- TensorFlow 2.0
+
 Currently, the package is available on github:
 
 ```
@@ -25,7 +31,7 @@ devtools::install_github('henry090/kerastuneR')
 Later, you need to install the python module kerastuner:
 
 ```
-kerastuneR::install_kerastuner(python_path = 'paste_python_path')
+kerastuneR::install_kerastuner()
 ```
 
 ## Usage: the basics
@@ -161,6 +167,6 @@ tuner %>% fit_tuner(x = mnist_train$x,
 
 ```
 
-Documentation, advanced model building, and tutorials can be found on https://henry090.github.io/kerastuneR/
+Documentation, advanced model tuning, and tutorials can be found on https://henry090.github.io/kerastuneR/
 
 

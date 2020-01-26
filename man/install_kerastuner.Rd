@@ -2,19 +2,17 @@
 % Please edit documentation in R/install.R
 \name{install_kerastuner}
 \alias{install_kerastuner}
-\title{Install Keras Tuner
-This function is used to install the Keras Tuner python module on Mac OS and Linux (Windows will be added later)}
+\title{Install Keras Tuner}
 \usage{
-install_kerastuner(python_path = NULL, upgrade = FALSE, version = NULL)
+install_kerastuner(version = NULL, ..., restart_session = TRUE)
 }
 \arguments{
-\item{python_path}{python_path specifies the python path for installation via terminal}
-
-\item{upgrade}{is helpful if one wants to upgrade a version of Keras TuneR}
-
 \item{version}{for specific version of Keras tuneR, e.g. "0.9.1"}
+
+\item{...}{other arguments passed to [reticulate::py_install()].}
+
+\item{restart_session}{Restart R session after installing (note this will only occur within RStudio).}
 }
 \description{
-Install Keras Tuner
-This function is used to install the Keras Tuner python module on Mac OS and Linux (Windows will be added later)
+This function is used to install the Keras Tuner python module
 }
