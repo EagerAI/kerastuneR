@@ -47,11 +47,3 @@ get_best_models = function(tuner = NULL,num_models = NULL) {
   tuner$get_best_models(num_models = as.integer(num_models))
 }
 
-#' Print a summary of the results
-#' @param tuner A tuner object
-#' @export
-results_summary = function(tuner = NULL) {
-  tuner = tuner
-  tuner$results_summary()
-}
-
