@@ -26,16 +26,12 @@ Imports:
     tensorflow,
     rstudioapi,
     keras,
-    stats,
-    testthat,
-    tfdatasets,
-    dplyr
+    dplyr,
+    tfdatasets
 Suggests:
     knitr,
     rmarkdown,
-    covr
-Remotes:
-    rstudio/reticulate,
-    rstudio/tensorflow,
-    rstudio/keras
+    covr,
+    stats,
+    testthat
 VignetteBuilder: knitr
