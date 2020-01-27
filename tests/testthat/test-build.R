@@ -63,11 +63,23 @@ testthat::expect_match(tuner2 %>% capture.output(), 'kerastuner.tuners.randomsea
 
 search_summary(tuner2)
 
-#tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2))
+os = switch(Sys.info()[['sysname']],
+            Windows= {paste("win")},
+            Linux  = {paste("lin")},
+            Darwin = {paste("mac")})
+if (!os %in% 'win') {
+  tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2))
+  
+  res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
+  
+  testthat::expect_output(print(res),regexp ='Model')
+  
+  expect_warning(kerastuneR::results_summary())
+  
+  print('Done')
+} else {
+  print('Done')
+}
 
-#res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
 
-#testthat::expect_output(print(res),regexp ='Model')
-
-#expect_warning(kerastuneR::results_summary())
 
