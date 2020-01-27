@@ -15,6 +15,7 @@ search_summary = function(tuner = NULL) {
 #' 
 #' @param tuner Requires a tuner object
 #' @param num_trials Shows the top best models
+#' @export
 results_summary = function(tuner = NULL, num_trials = NULL){
   if (is.null(tuner)) {
     warning('Tuner object does not exist')
