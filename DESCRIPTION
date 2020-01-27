@@ -24,14 +24,14 @@ RoxygenNote: 7.0.2
 Imports:
     reticulate, 
     tensorflow,
-    rstudioapi,
-    keras,
-    dplyr,
-    tfdatasets
+    rstudioapi
 Suggests:
     knitr,
     rmarkdown,
     covr,
     stats,
-    testthat
+    testthat,
+    keras,
+    dplyr,
+    tfdatasets
 VignetteBuilder: knitr
