@@ -81,5 +81,6 @@ if (!os %in% 'win') {
   print('Done')
 }
 
+tuner2 %>% results_summary(12)
 
 
