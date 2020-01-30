@@ -23,8 +23,7 @@
 #' @export
 BayesianOptimization <- function(objective, max_trials, num_initial_points = NULL, alpha = 0.0001, beta = 2.6, 
                                  seed = NULL, hyperparameters = NULL, allow_new_entries = TRUE, tune_new_entries = TRUE) {
-  
-  python_function_result <- kerastuner$oracles$BayesianOptimization(
+  args = c(
     objective = objective,
     max_trials = as.integer(max_trials),
     num_initial_points = as.integer(num_initial_points),
@@ -35,5 +34,5 @@ BayesianOptimization <- function(objective, max_trials, num_initial_points = NUL
     allow_new_entries = allow_new_entries,
     tune_new_entries = tune_new_entries
   )
-  
+  do.call(kerastuner$oracles$BayesianOptimization,args)
 }
