@@ -169,7 +169,7 @@ build_model = function(hp) {
 <h2 class="hasAnchor">
 <a href="#you-can-easily-restrict-the-search-space-to-just-a-few-parameters" class="anchor"></a>You can easily restrict the search space to just a few parameters</h2>
 <p>If you have an existing hypermodel, and you want to search over only a few parameters (such as the learning rate), you can do so by passing a <code>hyperparameters</code> argument to the tuner constructor, as well as <code>tune_new_entries=FALSE</code> to specify that parameters that you didn’t list in <code>hyperparameters</code> should not be tuned. For these parameters, the default value gets used.</p>
-<pre><code>library(keras)
+<pre><code><a href="https://rdrr.io/r/base/library.html">library(keras)
 library(kerastuneR)
 library(dplyr)
 
@@ -220,7 +220,7 @@ tuner %&gt;% fit_tuner(x = mnist_train$x,
                     epochs = 5,
                     validation_data = list(mnist_test$x, mnist_test$y))
 
-</code></pre>
+</a></code></pre>
 <p>Documentation, advanced model tuning, and tutorials can be found on <a href="https://henry090.github.io/kerastuneR/" class="uri">https://henry090.github.io/kerastuneR/</a></p>
 </div>
 
