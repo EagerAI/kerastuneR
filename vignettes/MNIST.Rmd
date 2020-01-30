@@ -14,16 +14,18 @@ knitr::opts_chunk$set(echo = TRUE,eval = F)
 
 This tutorial shows the hyperparameter tuning for [MNIST dataset](http://yann.lecun.com/exdb/mnist/).
 
-If you have difficulty, [Keras tutorials](https://keras.rstudio.com/articles/tutorial_basic_classification.html) are very helpful for understanding a concept of model building. 
+If you have difficulty with the following topic, [Keras tutorials](https://keras.rstudio.com/articles/tutorial_basic_classification.html) would be very helpful.
 
 ## Input shape
-As provided in [Introduction example](https://henry090.github.io/kerastuneR/articles/Introduction.html), ```build(hp)``` has to be determined for building at first a tuner object, and then to start iterate via this function through random parameters for finding the most accurate keras models.
+
+At first, we should determine the input shape of our model.
 
 ```
 inputs = tf$keras$Input(shape=list(28L, 28L, 1L))
 ```
 
 ## Layers
+
 The next step is to put iterable parameters into the loop function ```for (i in 1:n) {}``` and define layers.
 
 ```
@@ -36,21 +38,25 @@ padding='same')
 ```
 
 # Functional API
-Later, we should concatenate all the layers and create a model via [Functional API](https://keras.rstudio.com/articles/about_keras_models.html).
+
+Later, we should concatenate all the layers and create a model via [Functional API](https://keras.rstudio.com/articles/about_keras_models.html). Please, refer to the Functional API, if you want to get more details about it.
 
 ```
 model = tf$keras$Model(inputs, outputs)
 ```
 
 ## Optimizers
-Keras Tuner allows us to tune even optimizers
+
+Finally, we should determine our optimizer. Keras Tuner allows us to tune even optimizers.
 
 ```
 optimizer = hp$Choice('optimizer', c('adam', 'sgd'))
 ```
-As the ```build(hp)``` function is ready, we should build a Hyperband object and fit our tuner object for hyperparameter searching.
+
+As the ```build(hp)``` function is ready, we should build a Hyperband object, and start searching the best hyperparameters.
 
 ## Full code
+
 Below is the full version of a tuning process for MNIST dataset.
 
 ```{r}
