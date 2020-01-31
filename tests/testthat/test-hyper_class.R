@@ -45,7 +45,7 @@ hypermodel = HyperModel(num_classes=10L)
 testthat::expect_match(capture.output(hypermodel),'HyperModel')
 
 tuner = RandomSearch(hypermodel = hypermodel,
-                      objective = 'val_accuracy',
+                      objective = 'val_acc',
                       max_trials = 2,
                       executions_per_trial = 1,
                       directory = 'my_dir5',
