@@ -63,18 +63,21 @@ testthat::expect_match(tuner2 %>% capture.output(), 'kerastuner.tuners.randomsea
 
 search_summary(tuner2)
 
+if (!Sys.info()[1] %in% 'Windows') {
+  tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2))
+  
+  res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
+  
+  testthat::expect_output(print(res),regexp ='Model')
+  
+  tuner2 %>% results_summary(12)
+  
+  testthat::expect_warning(RandomSearch(hypermodel = build_model2,
+                                        objective = 'val_accuracy',
+                                        max_trials = 2,
+                                        executions_per_trial = 1,
+                                        directory = 'model_dir',
+                                        project_name = 'helloworld_'))
+}
 
-tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2))
-  
-res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
-  
-testthat::expect_output(print(res),regexp ='Model')
-  
-tuner2 %>% results_summary(12)
 
-testthat::expect_warning(RandomSearch(hypermodel = build_model2,
-                                               objective = 'val_accuracy',
-                                               max_trials = 2,
-                                               executions_per_trial = 1,
-                                               directory = 'model_dir',
-                                               project_name = 'helloworld_'))
