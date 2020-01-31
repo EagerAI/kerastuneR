@@ -13,7 +13,7 @@ before_script:
   - pip3 install --upgrade --ignore-installed --user travis virtualenv
   - python3 -m pip install setuptools 
   - python3 -m pip install wheel
-  - python3 -m pip install keras-tuner==1.0.0
+  - python3 -m pip install keras-tuner==1.0.1
   - R CMD INSTALL .
   - R -e "install.packages(c('reticulate','rstudioapi','glue','keras','tensorflow','testthat','dplyr'))"
   - R -e 'Sys.setenv(PIP_QUIET=1); keras::install_keras(tensorflow = "2.0")'
