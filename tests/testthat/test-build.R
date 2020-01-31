@@ -53,7 +53,7 @@ build_model2 = function(hp) {
 }
 
 tuner2 = RandomSearch(hypermodel = build_model2,
-                                  objective = 'val_accuracy',
+                                  objective = 'val_acc',
                                   max_trials = 2,
                                   executions_per_trial = 1,
                                   directory = 'model_dir',
@@ -74,7 +74,7 @@ if (!os %in% 'win') {
   
   testthat::expect_output(print(res),regexp ='Model')
   
-  expect_warning(kerastuneR::results_summary())
+  testthat::expect_warning(kerastuneR::results_summary())
   
   print('Done')
 } else {
