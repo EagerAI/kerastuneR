@@ -12,11 +12,11 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE, eval = F)
 ```
 
-## Use a HyperModel subclass instead of a model-building function
+Recently, the [reticulate library](https://rstudio.github.io/reticulate/) provided with one of the most anticipating functionality --- ability to write a python class in R.
 
-This makes it easy to share and reuse hypermodels.
+We could use __a HyperModel subclass__ instead of a model-building function. So, this makes it easy to share and reuse hypermodels.
 
-A HyperModel subclass only needs to implement a ```build(self, hp)``` method.
+A HyperModel subclass only needs to implement a ```build(self, hp)``` method. And, again one should return a compiled model inside a ```build``` function.
 
 ```{r }
 MyHyperModel <- reticulate::PyClass(
@@ -95,16 +95,17 @@ MyHyperModel <- reticulate::PyClass(
     }
   )
 )
+
 # Random Search
 
 hypermodel = MyHyperModel(num_classes = 10)
 
 tuner = RandomSearch(
     hypermodel,
-    objective='val_accuracy',
-    max_trials=10,
-    directory='my_dir',
-    project_name='helloworld')
+    objective = 'val_accuracy',
+    max_trials = 10,
+    directory = 'my_dir',
+    project_name = 'helloworld')
 
 # Run
 
