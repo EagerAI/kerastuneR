@@ -5,6 +5,8 @@ library(tensorflow)
 library(dplyr)
 library(kerastuneR)
 
+install_kerastuner()
+
 x_data <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
 y_data <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
 
