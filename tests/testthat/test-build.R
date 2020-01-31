@@ -53,7 +53,7 @@ build_model2 = function(hp) {
 }
 
 tuner2 = RandomSearch(hypermodel = build_model2,
-                                  objective = 'val_acc',
+                                  objective = 'val_accuracy',
                                   max_trials = 2,
                                   executions_per_trial = 1,
                                   directory = 'model_dir',
@@ -73,7 +73,7 @@ if (!Sys.info()[1] %in% 'Windows') {
   tuner2 %>% results_summary(12)
   
   testthat::expect_warning(RandomSearch(hypermodel = build_model2,
-                                        objective = 'val_acc',
+                                        objective = 'val_accuracy',
                                         max_trials = 2,
                                         executions_per_trial = 1,
                                         directory = 'model_dir',

@@ -39,7 +39,7 @@ conv_build_model = function(hp) {
 
 testthat::expect_length(class(Hyperband(
   hypermodel = conv_build_model,
-  objective='val_acc',
+  objective='val_accuracy',
   max_epochs = 1,
   factor = 2,
   hyperband_iterations = 1,
@@ -49,7 +49,7 @@ testthat::expect_length(class(Hyperband(
 
 testthat::expect_match(Hyperband(
   hypermodel = conv_build_model,
-  objective = 'val_acc',
+  objective = 'val_accuracy',
   max_epochs = 1,
   factor = 2,
   hyperband_iterations = 1,
@@ -59,7 +59,7 @@ testthat::expect_match(Hyperband(
 main = function() {
     tuner = Hyperband(
     hypermodel = conv_build_model,
-    objective = 'val_acc',
+    objective = 'val_accuracy',
     max_epochs = 1,
     factor = 2,
     hyperband_iterations = 1,

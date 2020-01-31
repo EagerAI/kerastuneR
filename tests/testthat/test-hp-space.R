@@ -43,7 +43,7 @@ tuner = RandomSearch(
   max_trials=5,
   hyperparameters=hp,
   tune_new_entries=T,
-  objective='val_acc',
+  objective='val_accuracy',
   directory='my_dir4',
   project_name = 'mnist_')
 
