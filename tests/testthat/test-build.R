@@ -70,8 +70,6 @@ res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
   
 testthat::expect_output(print(res),regexp ='Model')
   
-testthat::expect_warning(kerastuneR::results_summary())
-  
 tuner2 %>% results_summary(12)
 
 testthat::expect_warning(RandomSearch(hypermodel = build_model2,
