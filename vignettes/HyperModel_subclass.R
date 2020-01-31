@@ -75,16 +75,17 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 #      }
 #    )
 #  )
+#  
 #  # Random Search
 #  
 #  hypermodel = MyHyperModel(num_classes = 10)
 #  
 #  tuner = RandomSearch(
 #      hypermodel,
-#      objective='val_accuracy',
-#      max_trials=10,
-#      directory='my_dir',
-#      project_name='helloworld')
+#      objective = 'val_accuracy',
+#      max_trials = 10,
+#      directory = 'my_dir',
+#      project_name = 'helloworld')
 #  
 #  # Run
 #  
