@@ -83,4 +83,9 @@ if (!os %in% 'win') {
 
 tuner2 %>% results_summary(12)
 
-
+testthat::expect_warning(RandomSearch(hypermodel = build_model2,
+                                               objective = 'val_accuracy',
+                                               max_trials = 2,
+                                               executions_per_trial = 1,
+                                               directory = 'model_dir',
+                                               project_name = 'helloworld_'))
