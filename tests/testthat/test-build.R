@@ -53,7 +53,7 @@ build_model2 = function(hp) {
 }
 
 tuner2 = RandomSearch(hypermodel = build_model2,
-                                  objective = 'val_acc',
+                                  objective = 'val_accuracy',
                                   max_trials = 2,
                                   executions_per_trial = 1,
                                   directory = 'model_dir',
