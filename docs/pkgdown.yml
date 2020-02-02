@@ -1,7 +1,8 @@
-pandoc: 2.7.2
+pandoc: 2.3.1
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
+  BayesianOptimisation: BayesianOptimisation.html
   HyperModel_subclass: HyperModel_subclass.html
   Introduction: Introduction.html
   MNIST: MNIST.html
