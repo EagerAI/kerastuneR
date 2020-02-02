@@ -16,11 +16,7 @@ Tuner_class <- function(){
 }
 
 #' @title Objective
-#'
 #' @description Objective(name, direction)
-#'
-#' @details 
-#'
 #' @param name name
 #' @param direction direction
 #' @param ... Some additional arguments
