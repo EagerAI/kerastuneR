@@ -107,7 +107,7 @@ main = function () {
   tuner = MyTuner(
     oracle=BayesianOptimization(
       objective=Objective(name='loss', direction = list('min')),
-      max_trials=1L),
+      max_trials=1),
     hypermodel=conv_build_model,
     directory='results2',
     project_name='mnist_custom_training2')
@@ -119,13 +119,14 @@ main = function () {
   mnist_train$x = tf$dtypes$cast(mnist_train$x, 'float32') / 255.
   
   mnist_train$x = keras::k_reshape(mnist_train$x,shape = c(6e4,28,28,1))
+  mnist_train$y = tf$dtypes$cast(mnist_train$y, 'int32') 
   
   if (!Sys.info()[1] %in% 'Windows') {
-    mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
+    #mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
     
-    tuner %>% fit_tuner(train_ds = mnist_train)
+    #tuner %>% fit_tuner(train_ds = mnist_train)
     
-    best_model = tuner %>% get_best_models(1L)
+    #best_model = tuner %>% get_best_models(1L)
   }
   
 }
