@@ -16,6 +16,3 @@ Objective(name = NULL, direction = NULL, ...)
 \description{
 Objective(name, direction)
 }
-\details{
-
-}

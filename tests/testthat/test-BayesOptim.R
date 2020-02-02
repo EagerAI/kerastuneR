@@ -7,7 +7,7 @@ library(dplyr)
 library(tfdatasets)
 library(kerastuneR)
 library(reticulate)
-
+library(purrr)
 
 conv_build_model = function(hp) {
   'Builds a convolutional model.'
@@ -68,7 +68,7 @@ MyTuner = reticulate::PyClass(
           }
           gradients = tape$gradient(loss, model$trainable_variables)
         })
-        optimizer$apply_gradients(purrr::transpose(list(gradients, model$trainable_variables)))
+        optimizer$apply_gradients(transpose(list(gradients, model$trainable_variables)))
         epoch_loss_metric$update_state(loss)
         loss
       }
