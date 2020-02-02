@@ -4,6 +4,7 @@ library(keras)
 library(tensorflow)
 library(dplyr)
 library(kerastuneR)
+library(testthat)
 
 x_data <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
 y_data <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
@@ -59,7 +60,7 @@ tuner2 = RandomSearch(hypermodel = build_model2,
                                   directory = 'model_dir',
                                   project_name = 'helloworld_')
 
-testthat::expect_match(tuner2 %>% capture.output(), 'kerastuner.tuners.randomsearch.RandomSearch')
+expect_match(tuner2 %>% capture.output(), 'kerastuner.tuners.randomsearch.RandomSearch')
 
 search_summary(tuner2)
 
@@ -72,6 +73,13 @@ if (!Sys.info()[1] %in% 'Windows') {
   testthat::expect_output(print(res),regexp ='Model')
   
   tuner2 %>% results_summary(12)
+  
+  expect_warning(RandomSearch(hypermodel = build_model2,
+                                       objective = 'val_accuracy',
+                                       max_trials = 2,
+                                       executions_per_trial = 1,
+                                       directory = 'model_dir',
+                                       project_name = 'helloworld_'))
   
 }
 
