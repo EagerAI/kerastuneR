@@ -31,11 +31,21 @@
 fit_tuner = function(tuner = NULL, x = NULL, y = NULL, steps_per_epoch = NULL, epochs = NULL, 
                         validation_data = NULL, validation_steps = NULL, ...) {
   tuner = tuner
-  args = c(x = x, y = y, steps_per_epoch = steps_per_epoch,
-               epochs = as.integer(epochs),
-               validation_data = setNames(validation_data, NULL),
-               validation_steps = validation_steps, ...)
-  do.call(tuner$search, args)
+  
+  if(class(tuner)[1]=='kerastuner.tuners.randomsearch.RandomSearch') {
+    tuner$search(x = x, y = y, steps_per_epoch = steps_per_epoch,
+                 epochs = as.integer(epochs),
+                 validation_data = setNames(validation_data, NULL),
+                 validation_steps = validation_steps, ...)
+  } else {
+    args = c(x = x, y = y, steps_per_epoch = steps_per_epoch,
+             epochs = as.integer(epochs),
+             validation_data = setNames(validation_data, NULL),
+             validation_steps = validation_steps, ...)
+    do.call(tuner$search, args)
+  }
+  
+  
 }
 
 #' The function for retrieving the top best models with hyperparameters
