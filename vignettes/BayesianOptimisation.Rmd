@@ -23,6 +23,7 @@ The Tuner class at ```Tuner_class()``` can be subclassed to support advanced use
 
 ```tuner %>% fit_tuner()``` can be passed any arguments. These arguments will be passed directly to ```Tuner$run_trial```, along with a Trial object that contains information about the current trial, including hyperparameters and the status of the trial. Typically, ```Tuner$run_trial``` is the only method that users need to override when subclassing Tuner.
 
+Thanks to [Daniel Falbel from RStudio](https://github.com/dfalbel), the ```Bayesian Optimization``` example was successfully adapted.
 
 ```{r }
 
