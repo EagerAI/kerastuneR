@@ -103,8 +103,7 @@ MyTuner = reticulate::PyClass(
 )
 
 
-main = function () {
-  tuner = MyTuner(
+tuner = MyTuner(
     oracle=BayesianOptimization(
       objective=Objective(name='loss', direction = list('min')),
       max_trials=1),
@@ -112,25 +111,19 @@ main = function () {
     directory='results2',
     project_name='mnist_custom_training2')
   
-  mnist_data = dataset_fashion_mnist()
-  c(mnist_train, mnist_test) %<-%  mnist_data
-  rm(mnist_data)
+mnist_data = dataset_fashion_mnist()
+c(mnist_train, mnist_test) %<-%  mnist_data
+rm(mnist_data)
   
-  mnist_train$x = tf$dtypes$cast(mnist_train$x, 'float32') / 255.
+mnist_train$x = tf$dtypes$cast(mnist_train$x, 'float32') / 255.
   
-  mnist_train$x = keras::k_reshape(mnist_train$x,shape = c(6e4,28,28,1))
-  mnist_train$y = tf$dtypes$cast(mnist_train$y, 'int32') 
+mnist_train$x = keras::k_reshape(mnist_train$x,shape = c(6e4,28,28,1))
+mnist_train$y = tf$dtypes$cast(mnist_train$y, 'int32') 
   
-  if (!Sys.info()[1] %in% 'Windows') {
-    #mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
+if (!Sys.info()[1] %in% 'Windows') {
+    mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
     
-    #tuner %>% fit_tuner(train_ds = mnist_train)
+    tuner %>% fit_tuner(train_ds = mnist_train)
     
-    #best_model = tuner %>% get_best_models(1L)
-  }
-  
 }
-
-main()
-
 
