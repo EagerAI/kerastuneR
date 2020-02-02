@@ -1,1 +1,13 @@
-cat codecov.yml | curl --data-binary @- https://codecov.io/validate
+comment: false
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+    patch:
+      default:
+        target: auto
+        threshold: 1%
+
