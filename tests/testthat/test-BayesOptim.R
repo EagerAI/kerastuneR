@@ -122,11 +122,11 @@ main = function () {
   mnist_train$y = tf$dtypes$cast(mnist_train$y, 'int32') 
   
   if (!Sys.info()[1] %in% 'Windows') {
-    #mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
+    mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
     
-    #tuner %>% fit_tuner(train_ds = mnist_train)
+    tuner %>% fit_tuner(train_ds = mnist_train)
     
-    #best_model = tuner %>% get_best_models(1L)
+    best_model = tuner %>% get_best_models(1L)
   }
   
 }
