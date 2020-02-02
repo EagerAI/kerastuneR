@@ -7,7 +7,7 @@ It aims at making the life of AI practitioners, hypertuner algorithm creators an
 
 [![Actions Status](https://github.com/henry090/kerastuneR/workflows/R-CMD/badge.svg)](https://github.com/henry090/kerastuneR)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![codecov](https://codecov.io/gh/henry090/kerastuneR/branch/master/graph/badge.svg)](https://codecov.io/gh/henry090/kerastuneR)
+[![Codecov test coverage](https://codecov.io/gh/henry090/kerastuneR/branch/master/graph/badge.svg)](https://codecov.io/gh/henry090/kerastuneR?branch=master)
 
 A hyperparameter tuner for [Keras](https://keras.io/), specifically for ```tf$keras``` with *TensorFlow 2.0*.
 
