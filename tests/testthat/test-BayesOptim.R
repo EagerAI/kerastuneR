@@ -120,11 +120,13 @@ main = function () {
   
   mnist_train$x = keras::k_reshape(mnist_train$x,shape = c(6e4,28,28,1))
   
-  mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
-  
-  tuner %>% fit_tuner(train_ds = mnist_train)
-  
-  best_model = tuner %>% get_best_models(1L)
+  if (!Sys.info()[1] %in% 'Windows') {
+    mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
+    
+    tuner %>% fit_tuner(train_ds = mnist_train)
+    
+    best_model = tuner %>% get_best_models(1L)
+  }
   
 }
 
