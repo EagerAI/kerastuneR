@@ -21,7 +21,7 @@ build_model = function(hp) {
                                      max_value = 512,
                                      step = 32),
                         input_shape = ncol(x_data),
-                        activation = 'relu') %>% 
+                        activation = hp$Choice('act', c('relu', 'tanh'))) %>% 
     layer_dense(units = 1, activation ='softmax') %>% 
     compile(
       optimizer = tf$keras$optimizers$Adam(
@@ -40,8 +40,8 @@ build_model2 = function(hp) {
                                        min_value = 32,
                                        max_value = 512,
                                        step = 32),input_shape = ncol(x_data),
-                          activation = 'relu') %>% 
-      layer_dense(units = 1L, activation='softmax')
+                          activation = hp$Choice(paste('act_',i, sep = ''), c('relu', 'tanh'))) %>% 
+      layer_dense(units = 1, activation='softmax')
   } %>% 
     compile(
       optimizer = tf$keras$optimizers$Adam(
