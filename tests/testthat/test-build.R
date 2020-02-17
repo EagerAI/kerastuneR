@@ -80,9 +80,10 @@ if (!Sys.info()[1] %in% 'Windows') {
                                        executions_per_trial = 1,
                                        directory = 'model_dir',
                                        project_name = 'helloworld_'))
+  p1=kerastuneR::plot_tuner(tuner2)
+  p2=kerastuneR::plot_tuner(tuner2,height = 500, width = 500)
+
   
 }
 
-p1=kerastuneR::plot_tuner(tuner2)
-p2=kerastuneR::plot_tuner(tuner2,height = 500, width = 500)
 
