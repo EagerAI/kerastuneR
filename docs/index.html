@@ -166,6 +166,15 @@ build_model = function(hp) {
 <pre><code>tuner %&gt;% fit_tuner(x_data,y_data,
                     epochs = 5, 
                     validation_data = list(x_data2,y_data2))</code></pre>
+<div id="plot-results" class="section level3">
+<h3 class="hasAnchor">
+<a href="#plot-results" class="anchor"></a>Plot results</h3>
+<p>There is a function <code>plot_tuner</code> which allows user to plot the search results. For this purpose, we used the parallel coordinates plot from <code>plotly</code>. This function allows to get a data.frame of the results, as well.</p>
+<pre><code>result = kerastuneR::plot_tuner(tuner)
+# the list will show the plot and the data.frame
+result </code></pre>
+<p><img src="images/tuner.gif" width="900" align="center" style="margin-left: 15px;" alt="Keras Tuner plot"></p>
+</div>
 </div>
 <div id="you-can-easily-restrict-the-search-space-to-just-a-few-parameters" class="section level2">
 <h2 class="hasAnchor">
