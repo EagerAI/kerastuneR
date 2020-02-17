@@ -83,6 +83,6 @@ if (!Sys.info()[1] %in% 'Windows') {
   
 }
 
-kerastuneR::plot_tuner(tuner2)
-kerastuneR::plot_tuner(tuner2,height = 500, width = 500)
+p=kerastuneR::plot_tuner(tuner2)
+p=kerastuneR::plot_tuner(tuner2,height = 500, width = 500)
 
