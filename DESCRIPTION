@@ -24,7 +24,13 @@ RoxygenNote: 7.0.2
 Imports:
     reticulate, 
     tensorflow,
-    rstudioapi
+    rstudioapi,
+    plotly,
+    data.table,
+    RJSONIO,
+    rjson,
+    tidyjson,
+    dplyr
 Suggests:
     knitr,
     rmarkdown,
@@ -32,7 +38,6 @@ Suggests:
     stats,
     testthat,
     keras,
-    dplyr,
     tfdatasets,
     purrr
 VignetteBuilder: knitr
