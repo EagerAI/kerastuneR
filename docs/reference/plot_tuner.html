@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • kerastuneR</title>
+<title>Plot the tuner results with plotly — plot_tuner • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Plot the tuner results with plotly — plot_tuner" />
+<meta property="og:description" content="Plot the search space results" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +56,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -122,130 +124,44 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Plot the tuner results with plotly</h1>
+    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/plot_tuner.R'><code>R/plot_tuner.R</code></a></small>
+    <div class="hidden name"><code>plot_tuner.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Plot the search space results</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>plot_tuner</span>(<span class='no'>tuner</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="BayesianOptimization.html">BayesianOptimization()</a></code> </p>
-        </td>
-        <td><p>BayesianOptimization</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="HyperModel_class.html">HyperModel_class()</a></code> </p>
-        </td>
-        <td><p>You can use a HyperModel subclass instead of a model-building function
-This makes it easy to share and reuse hypermodels.
-A HyperModel subclass only needs to implement a build(self, hp) method.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="HyperParameters.html">HyperParameters()</a></code> </p>
-        </td>
-        <td><p>The search space may contain conditional hyperparameters</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="HyperResNet.html">HyperResNet()</a></code> </p>
-        </td>
-        <td><p>HyperResNet</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="HyperXception.html">HyperXception()</a></code> </p>
-        </td>
-        <td><p>HyperXception</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="Hyperband.html">Hyperband()</a></code> </p>
-        </td>
-        <td><p>Tool for searching the best hyperparameters for computer vision.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="Objective.html">Objective()</a></code> </p>
-        </td>
-        <td><p>Objective</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="RandomSearch.html">RandomSearch()</a></code> </p>
-        </td>
-        <td><p>Build model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="Tuner_class.html">Tuner_class()</a></code> </p>
-        </td>
-        <td><p>Tuner class for Keras models.
-May be subclassed to create new tuners.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fit_tuner.html">fit_tuner()</a></code> </p>
-        </td>
-        <td><p>Start the search for the best hyperparameter configuration. 
-The call to search has the same signature as ```model.fit()```.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_best_models.html">get_best_models()</a></code> </p>
-        </td>
-        <td><p>The function for retrieving the top best models with hyperparameters</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="install_kerastuner.html">install_kerastuner()</a></code> </p>
-        </td>
-        <td><p>Install Keras Tuner</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_tuner.html">plot_tuner()</a></code> </p>
-        </td>
-        <td><p>Plot the tuner results with plotly</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="results_summary.html">results_summary()</a></code> </p>
-        </td>
-        <td><p>Print a summary of the search results/best models</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_summary.html">search_summary()</a></code> </p>
-        </td>
-        <td><p>To see the summary of search criteria</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>tuner</th>
+      <td><p>A tuner object</p></td>
+    </tr>
+    <tr>
+      <th>height</th>
+      <td><p>height of the plot</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>width of the plot</p></td>
+    </tr>
     </table>
-  </div>
 
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
     </ul>
+
   </div>
 </div>
 

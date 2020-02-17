@@ -127,7 +127,7 @@ y_data &lt;-  ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()
 x_data2 &lt;- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
 y_data2 &lt;-  ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()</code></pre>
 <p>This function returns a compiled model.</p>
-<pre><code>library(keras)
+<pre><code><a href="https://rdrr.io/r/base/library.html">library(keras)
 library(kerastuneR)
 library(dplyr)
 
@@ -135,20 +135,19 @@ build_model = function(hp) {
   
   model = keras_model_sequential()
   model %&gt;% layer_dense(units = hp$Int('units',
-                                      min_value = 32,
-                                      max_value = 512,
-                                      step = 32),
-                                      input_shape = ncol(x_data)
-                                      activation = 'relu') %&gt;% 
-  layer_dense(units = 1, activation = 'sigmoid') %&gt;% 
-  compile(
-    optimizer = tf$keras$optimizers$Adam(
-      hp$Choice('learning_rate',
-                values = c(1e-2, 1e-3, 1e-4))),
-    loss = 'binary_crossentropy',
-    metrics = 'accuracy') 
+                                     min_value = 32,
+                                     max_value = 512,
+                                     step=  32),input_shape = ncol(x_data),
+                        activation =  'relu') %&gt;%
+    layer_dense(units = 1, activation = 'softmax') %&gt;%
+    compile(
+      optimizer = tf$keras$optimizers$Adam(
+        hp$Choice('learning_rate',
+                  values=c(1e-2, 1e-3, 1e-4))),
+      loss = 'binary_crossentropy',
+      metrics = 'accuracy')
   return(model)
-}</code></pre>
+}</a></code></pre>
 <p>Next, instantiate a tuner. You should specify the model-building function, the name of the objective to optimize (whether to minimize or maximize is automatically inferred for built-in metrics), the total number of trials <code>(max_trials)</code> to test, and the number of models that should be built and fit for each trial <code>(executions_per_trial)</code>.</p>
 <p>Available tuners are <code>RandomSearch</code> and <code>Hyperband</code>.</p>
 <blockquote>
@@ -223,6 +222,63 @@ tuner %&gt;% fit_tuner(x = mnist_train$x,
                     epochs = 5,
                     validation_data = list(mnist_test$x, mnist_test$y))
 
+</a></code></pre>
+</div>
+<div id="you-can-use-a-hypermodel-subclass-instead-of-a-model-building-function" class="section level2">
+<h2 class="hasAnchor">
+<a href="#you-can-use-a-hypermodel-subclass-instead-of-a-model-building-function" class="anchor"></a>You can use a HyperModel subclass instead of a model-building function</h2>
+<p>This makes it easy to share and reuse hypermodels.</p>
+<p>A <code>HyperModel</code> subclass only needs to implement a <code><a href="https://rdrr.io/r/utils/PkgUtils.html">build(self, hp)</a></code> method.</p>
+<pre><code><a href="https://rdrr.io/r/base/library.html">library(keras)
+library(tensorflow)
+library(dplyr)
+library(kerastuneR)
+
+x_data &lt;- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
+y_data &lt;- ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()
+
+x_data2 &lt;- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
+y_data2 &lt;- ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()
+
+
+HyperModel &lt;- reticulate::PyClass(
+  'HyperModel',
+  inherit = kerastuneR::HyperModel_class(),
+  list(
+    
+    `__init__` = function(self, num_classes) {
+      
+      self$num_classes = num_classes
+      NULL
+    },
+    build = function(self,hp) {
+      model = keras_model_sequential() 
+      model %&gt;% layer_dense(units = hp$Int('units',
+                                           min_value = 32,
+                                           max_value = 512,
+                                           step = 32),
+                            input_shape = ncol(x_data),
+                            activation = 'relu') %&gt;% 
+        layer_dense(as.integer(self$num_classes), activation = 'softmax') %&gt;% 
+        compile(
+          optimizer = tf$keras$optimizers$Adam(
+            hp$Choice('learning_rate',
+                      values = c(1e-2, 1e-3, 1e-4))),
+          loss = 'sparse_categorical_crossentropy',
+          metrics = 'accuracy')
+    }
+  )
+)
+
+hypermodel = HyperModel(num_classes = 10)
+
+
+tuner = RandomSearch(hypermodel = hypermodel,
+                      objective = 'val_accuracy',
+                      max_trials = 2,
+                      executions_per_trial = 1,
+                      directory = 'my_dir5',
+                      project_name = 'helloworld')
 </a></code></pre>
 <p>Documentation, advanced model tuning, and tutorials can be found on <a href="https://henry090.github.io/kerastuneR/" class="uri">https://henry090.github.io/kerastuneR/</a></p>
 </div>
