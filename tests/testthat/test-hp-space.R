@@ -49,3 +49,6 @@ tuner = RandomSearch(
 
 testthat::expect_match(capture.output(tuner),'kerastuner.tuners.randomsearch.RandomSearch')
 
+
+
+
