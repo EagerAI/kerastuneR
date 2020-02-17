@@ -106,6 +106,19 @@ tuner %>% fit_tuner(x_data,y_data,
                     validation_data = list(x_data2,y_data2))
 ```
 
+### Plot results
+
+There is a function ```plot_tuner``` which allows user to plot the search results. For this purpose, we used the parallel coordinates plot from ```plotly```. This function allows to get a data.frame of the results, as well.
+
+```
+result = kerastuneR::plot_tuner(tuner)
+# the list will show the plot and the data.frame
+result 
+```
+
+<img src="images/tuner.gif" width=900 align=center style="margin-left: 15px;" alt="Keras Tuner plot"/>
+
+
 ## You can easily restrict the search space to just a few parameters
 
 If you have an existing hypermodel, and you want to search over only a few parameters (such as the learning rate), you can do so by passing a ```hyperparameters``` argument to the tuner constructor, as well as ```tune_new_entries=FALSE``` to specify that parameters that you didn't list in ```hyperparameters``` should not be tuned. For these parameters, the default value gets used.
