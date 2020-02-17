@@ -1,5 +1,5 @@
 #' Start the search for the best hyperparameter configuration. 
-#' The call to search has the same signature as model.fit().
+#' The call to search has the same signature as ```model.fit()```.
 #'
 #' Models are built iteratively by calling the model-building function, which populates the hyperparameter space 
 #' (search space) tracked by the hp object. The tuner progressively explores the space, recording metrics for 

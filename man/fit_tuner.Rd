@@ -3,7 +3,7 @@
 \name{fit_tuner}
 \alias{fit_tuner}
 \title{Start the search for the best hyperparameter configuration. 
-The call to search has the same signature as model.fit().}
+The call to search has the same signature as ```model.fit()```.}
 \usage{
 fit_tuner(
   tuner = NULL,
