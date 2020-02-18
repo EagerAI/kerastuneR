@@ -9,3 +9,4 @@
 ^\.github/workflows$
 ^cran_comments\.md$
 ^NEWS\.md$
+^CRAN-RELEASE$
