@@ -1,6 +1,6 @@
 context("build(hp) - ResNet")
 
-if (reticulate::py_module_available('tensorflow') & reticulate::py_module_available('kerastuner')) {
+if (reticulate::py_module_available('tensorflow') & reticulate::py_module_available('kerastuner') & tensorflow::tf_version() >= '2') {
   library(keras)
   library(dplyr)
   library(kerastuneR)
