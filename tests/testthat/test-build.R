@@ -1,6 +1,8 @@
 context("build(hp)")
 
-if (reticulate::py_module_available('tensorflow') & reticulate::py_module_available('kerastuner') & tensorflow::tf_version() >= '2') {
+source("utils.R")
+
+test_succeeds("Can run build(hp) and plot_tuner()", {
   library(keras)
   library(tensorflow)
   library(dplyr)
@@ -86,4 +88,5 @@ if (reticulate::py_module_available('tensorflow') & reticulate::py_module_availa
     
     
   }
-}
+})
+

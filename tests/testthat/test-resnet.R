@@ -1,6 +1,8 @@
 context("build(hp) - ResNet")
 
-if (reticulate::py_module_available('tensorflow') & reticulate::py_module_available('kerastuner') & tensorflow::tf_version() >= '2') {
+source("utils.R")
+
+test_succeeds("Can run hyper_class", {
   library(keras)
   library(dplyr)
   library(kerastuneR)
@@ -36,5 +38,4 @@ if (reticulate::py_module_available('tensorflow') & reticulate::py_module_availa
   } else {
     print('Done')
   }
-  
-}
+})

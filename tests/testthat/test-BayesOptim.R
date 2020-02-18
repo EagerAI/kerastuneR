@@ -1,7 +1,9 @@
 context("build(hp) - Bayesian Optimization")
 
+source("utils.R")
 
-if (reticulate::py_module_available('tensorflow') & reticulate::py_module_available('kerastuner') & tensorflow::tf_version() >= '2') {
+test_succeeds("Can run Bayesian Optimization", {
+  
   library(keras)
   library(tensorflow)
   library(dplyr)
@@ -127,6 +129,4 @@ if (reticulate::py_module_available('tensorflow') & reticulate::py_module_availa
     tuner %>% fit_tuner(train_ds = mnist_train)
     
   }
-  
-}
-
+})

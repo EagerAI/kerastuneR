@@ -1,6 +1,8 @@
 context("build(hp) - Hyperclass")
 
-if (reticulate::py_module_available('tensorflow') & reticulate::py_module_available('kerastuner') & tensorflow::tf_version() >= '2') {
+source("utils.R")
+
+test_succeeds("Can run hyper_class", {
   library(keras)
   library(tensorflow)
   library(dplyr)
@@ -56,6 +58,6 @@ if (reticulate::py_module_available('tensorflow') & reticulate::py_module_availa
   testthat::expect_match(tuner %>% capture.output(), 'kerastuner.tuners.randomsearch.RandomSearch')
   
   search_summary(tuner)
-}
+})
 
 

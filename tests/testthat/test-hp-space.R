@@ -1,7 +1,8 @@
 context('hp space')
 
+source("utils.R")
 
-if (reticulate::py_module_available('tensorflow') & reticulate::py_module_available('kerastuner') & tensorflow::tf_version() >= '2') {
+test_succeeds("Can run hp-space", {
   library(keras)
   library(dplyr)
   library(kerastuneR)
@@ -51,8 +52,8 @@ if (reticulate::py_module_available('tensorflow') & reticulate::py_module_availa
     project_name = 'mnist_')
   
   testthat::expect_match(capture.output(tuner),'kerastuner.tuners.randomsearch.RandomSearch')
-  
-}
+})
+
 
 
 
