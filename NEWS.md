@@ -1,5 +1,7 @@
 
-## 0.1.0.1
+## kerastuneR 0.1.0.1
 
-* Hyperparameter visualization
+Initial release
+
+
 
