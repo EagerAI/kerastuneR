@@ -7,3 +7,5 @@
 ^images$
 ^pkgdown$
 ^\.github/workflows$
+^cran_comments\.md$
+^NEWS\.md$
