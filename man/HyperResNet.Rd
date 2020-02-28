@@ -34,7 +34,7 @@ library(keras)
 library(dplyr)
 library(kerastuneR)
 
-use_python('C:/Users/turgut.abdullayev/AppData/Local/Continuum/anaconda3/python.exe',required = TRUE)
+use_python('C:/Users/turgut.abdullayev/anaconda3/python.exe',required = TRUE)
 
 cifar <- dataset_cifar10()
 
