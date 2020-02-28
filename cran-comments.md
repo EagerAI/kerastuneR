@@ -1,4 +1,4 @@
-This is a first submission of 0.1.0.1 version of kerastuneR.
+This is a first submission of 'kerastuneR' 0.1.0.1
 
 ## Test environments
 
