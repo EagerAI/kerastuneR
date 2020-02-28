@@ -19,6 +19,16 @@
 #'
 #' @section be found in the following link:
 #' https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pdf
+#' 
+#' @examples
+#'
+#' \dontrun{
+#' # The usage of 'tf$keras'
+#' library(keras)
+#' library(dplyr)
+#' library(kerastuneR)
+#' tf$keras$Input(shape=list(28L, 28L, 1L))
+#' }
 #'
 #' @export
 BayesianOptimization <- function(objective, max_trials, num_initial_points = NULL, alpha = 0.0001, beta = 2.6, 

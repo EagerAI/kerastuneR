@@ -1,6 +1,7 @@
 #' You can use a HyperModel subclass instead of a model-building function
 #' This makes it easy to share and reuse hypermodels.
 #' A HyperModel subclass only needs to implement a build(self, hp) method.
+#' @return None
 #' @export 
 HyperModel_class <- function(){
   object = kerastuner$engine$hypermodel$HyperModel
@@ -9,6 +10,7 @@ HyperModel_class <- function(){
 
 #' Tuner class for Keras models.
 #' May be subclassed to create new tuners.
+#' @return None
 #' @export
 Tuner_class <- function(){
   object = kerastuner$Tuner
