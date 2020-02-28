@@ -7,6 +7,9 @@ May be subclassed to create new tuners.}
 \usage{
 Tuner_class()
 }
+\value{
+None
+}
 \description{
 Tuner class for Keras models.
 May be subclassed to create new tuners.

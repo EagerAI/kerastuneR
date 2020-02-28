@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_tuner.R
 \name{plot_tuner}
 \alias{plot_tuner}
-\title{Plot the tuner results with plotly}
+\title{Plot the tuner results with 'plotly'}
 \usage{
 plot_tuner(tuner, height = NULL, width = NULL)
 }

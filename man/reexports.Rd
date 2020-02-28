@@ -7,6 +7,13 @@
 \alias{tf}
 \alias{PyClass}
 \title{Objects exported from other packages}
+\value{
+a alias for reticulate::use_python
+
+a alias for tensorflow::tf
+
+a alias for reticulate::PyClass
+}
 \keyword{internal}
 \description{
 These objects are imported from other packages. Follow the links

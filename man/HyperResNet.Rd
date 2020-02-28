@@ -26,3 +26,36 @@ A ResNet HyperModel.
 \details{
 # Arguments: include_top: whether to include the fully-connected layer at the top of the network. input_shape: Optional shape list, e.g. `(256, 256, 3)`. One of `input_shape` or `input_tensor` must be specified. input_tensor: Optional Keras tensor (i.e. output of `layers.Input()`) to use as image input for the model. One of `input_shape` or `input_tensor` must be specified. classes: optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.
 }
+\examples{
+
+\dontrun{
+
+library(keras)
+library(dplyr)
+library(kerastuneR)
+
+use_python('C:/Users/turgut.abdullayev/AppData/Local/Continuum/anaconda3/python.exe',required = TRUE)
+
+cifar <- dataset_cifar10()
+
+hypermodel = kerastuneR::HyperResNet(input_shape = list(32L, 32L, 3L), classes = 10L)
+hypermodel2 = kerastuneR::HyperXception(input_shape = list(32L, 32L, 3L), classes = 10L)
+
+
+tuner = kerastuneR::Hyperband(
+  hypermodel = hypermodel,
+  objective = 'accuracy',
+  loss = 'sparse_categorical_crossentropy',
+  max_epochs = 1,
+  directory = 'my_dir',
+  project_name='helloworld')
+
+
+train_data = cifar$train$x[1:30,1:32,1:32,1:3]
+test_data = cifar$train$y[1:30,1] \%>\% as.matrix()
+
+
+tuner \%>\% fit_tuner(train_data,test_data, epochs = 1)
+}
+
+}
