@@ -1,14 +1,17 @@
 #' @importFrom reticulate use_python
+#' @return a alias for reticulate::use_python
 #' @export
 reticulate::use_python
 NULL
 
 #' @importFrom tensorflow tf
+#' @return a alias for tensorflow::tf
 #' @export
 tensorflow::tf
 NULL
 
 #' @importFrom reticulate PyClass
+#' @return a alias for reticulate::PyClass
 #' @export
 reticulate::PyClass
 NULL

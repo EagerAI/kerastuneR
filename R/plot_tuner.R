@@ -1,6 +1,6 @@
 
 
-#' @title Plot the tuner results with plotly
+#' @title Plot the tuner results with 'plotly'
 #'
 #' @description Plot the search space results
 #' 
@@ -19,23 +19,23 @@
 #' @export
 plot_tuner <- function(tuner, height = NULL, width = NULL) {
   
-  proj_name = gsub(tuner$project_dir, replacement = '/',pattern = '\\',fixed=T)
+  proj_name = gsub(tuner$project_dir, replacement = '/',pattern = '\\',fixed=TRUE)
   
   proj_dirs = list.dirs(proj_name)
   
-  files = list.files(proj_dirs, 'trial.json', full.names = T)
+  files = list.files(proj_dirs, 'trial.json', full.names = TRUE)
   
   dataset = list()
   
   for (j in 1:length(files)) {
     
-    result <- rjson::fromJSON(file =files[j])
+    result <- rjson::fromJSON(file = files[j])
     data_1 <- RJSONIO::toJSON(result) %>% spread_all
     dataset[[j]] = data_1
     rm(data_1, result)
   }
   
-  dataset = rbindlist(dataset, fill = T) 
+  dataset = rbindlist(dataset, fill = TRUE) 
   
   colnames(dataset) = gsub(colnames(dataset), replacement = '_', pattern = '\\.') 
   colnames(dataset) = gsub(colnames(dataset), replacement = '', pattern = 'hyperparameters_values_') 
@@ -49,14 +49,14 @@ plot_tuner <- function(tuner, height = NULL, width = NULL) {
   for (i in 1:ncol(cols)) {
     
     if(is.numeric(cols[[i]]) | is.integer(cols[[i]])) {
-      max_value = cols[[i]] %>% max(na.rm = T)
-      list_plot[[i]] = list(range = c(min(cols[[i]],na.rm = T), max(cols[[i]],na.rm = T)),
+      max_value = cols[[i]] %>% max(na.rm = TRUE)
+      list_plot[[i]] = list(range = c(min(cols[[i]],na.rm = TRUE), max(cols[[i]],na.rm = TRUE)),
                             tickwidth=3,
                             label = paste(colnames(cols[i])), values = cols[[i]])
     }
     if(is.character(cols[[i]])) {
       
-      list_plot[[i]] = list(tickvals = 1:max(as.numeric(as.factor(cols[[i]])),na.rm = T),
+      list_plot[[i]] = list(tickvals = 1:max(as.numeric(as.factor(cols[[i]])),na.rm = TRUE),
                             ticktext = levels(as.factor(cols[[i]])),
                             tickwidth=3,
                             label = paste(colnames(cols[i])), values = as.numeric(as.factor(cols[[i]])))
@@ -64,8 +64,8 @@ plot_tuner <- function(tuner, height = NULL, width = NULL) {
   }
   
   
-  max_val = dataset %>% select(contains('unit')) %>% as.matrix() %>% max(na.rm = T)
-  min_val = dataset %>% select(contains('unit')) %>% as.matrix() %>% min(na.rm = T)
+  max_val = dataset %>% select(contains('unit')) %>% as.matrix() %>% max(na.rm = TRUE)
+  min_val = dataset %>% select(contains('unit')) %>% as.matrix() %>% min(na.rm = TRUE)
   
   if (is.null(width) | is.null(height)) {
     
@@ -75,7 +75,7 @@ plot_tuner <- function(tuner, height = NULL, width = NULL) {
                 line = list(color = cols[[2]],
                             colorscale = 'Bluered',
                             showscale = TRUE,
-                            reversescale = T,
+                            reversescale = TRUE,
                             cmin = min_val,
                             cmax = max_val),
                 dimensions = list_plot)
@@ -87,7 +87,7 @@ plot_tuner <- function(tuner, height = NULL, width = NULL) {
                 line = list(color = cols[[2]],
                             colorscale = 'Bluered',
                             showscale = TRUE,
-                            reversescale = T,
+                            reversescale = TRUE,
                             cmin = min_val,
                             cmax = max_val),
                 dimensions = list_plot)
