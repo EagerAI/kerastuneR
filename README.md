@@ -1,5 +1,7 @@
 ## R interface to Keras Tuner
 
+The kerastuneR package provides R wrappers to [Keras Tuner](https://keras-team.github.io/keras-tuner/).
+
 Keras Tuner is a hypertuning framework made for humans. 
 It aims at making the life of AI practitioners, hypertuner algorithm creators and model designers as simple as possible by providing them with a clean and easy to use API for hypertuning. Keras Tuner makes moving from a base model to a hypertuned one quick and easy by only requiring you to change a few lines of code.
 
