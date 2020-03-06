@@ -2,8 +2,7 @@
 % Please edit documentation in R/Hyperclass.R
 \name{Tuner_class}
 \alias{Tuner_class}
-\title{Tuner class for Keras models.
-May be subclassed to create new tuners.}
+\title{Tuner}
 \usage{
 Tuner_class()
 }
@@ -12,5 +11,7 @@ None
 }
 \description{
 Tuner class for Keras models.
-May be subclassed to create new tuners.
+}
+\details{
+May be subclassed to create new tuners. # Arguments: oracle: Instance of Oracle class. hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). max_model_size: Int. Maximum size of weights (in floating point coefficients) for a valid models. Models larger than this are rejected. optimizer: Optional. Optimizer instance. May be used to override the `optimizer` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. loss: Optional. May be used to override the `loss` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. metrics: Optional. May be used to override the `metrics` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. distribution_strategy: Optional. A TensorFlow `tf.distribute` DistributionStrategy instance. If specified, each trial will run under this scope. For example, `tf.distribute.MirroredStrategy(['/gpu:0, /'gpu:1])` will run each trial on two GPUs. Currently only single-worker strategies are supported. directory: String. Path to the working directory (relative). project_name: Name to use as prefix for files saved by this Tuner. logger: Optional. Instance of Logger class, used for streaming data to Cloud Service for monitoring. overwrite: Bool, default `FALSE`. If `FALSE`, reloads an existing project of the same name if one is found. Otherwise, overwrites the project.
 }

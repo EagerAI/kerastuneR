@@ -2,7 +2,7 @@
 % Please edit documentation in R/search_summary.R
 \name{search_summary}
 \alias{search_summary}
-\title{To see the summary of search criteria}
+\title{Search summary}
 \usage{
 search_summary(tuner = NULL)
 }
@@ -10,5 +10,5 @@ search_summary(tuner = NULL)
 \item{tuner}{Requires a tuner object}
 }
 \description{
-Print a summary of the search space:
+Print a summary of the search space
 }

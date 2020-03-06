@@ -4,7 +4,7 @@
 \alias{Objective}
 \title{Objective}
 \usage{
-Objective(name = NULL, direction = NULL, ...)
+Objective(name, direction, ...)
 }
 \arguments{
 \item{name}{name}
@@ -13,6 +13,9 @@ Objective(name = NULL, direction = NULL, ...)
 
 \item{...}{Some additional arguments}
 }
+\value{
+None
+}
 \description{
-Objective(name, direction)
+Objective(name, direction) includes strings, the direction of the optimization (min or max) will be inferred.
 }

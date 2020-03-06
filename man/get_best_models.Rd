@@ -2,7 +2,7 @@
 % Please edit documentation in R/search.R
 \name{get_best_models}
 \alias{get_best_models}
-\title{The function for retrieving the top best models with hyperparameters}
+\title{Get best models}
 \usage{
 get_best_models(tuner = NULL, num_models = NULL)
 }
@@ -13,4 +13,8 @@ get_best_models(tuner = NULL, num_models = NULL)
 }
 \description{
 The function for retrieving the top best models with hyperparameters
+Returns the best model(s), as determined by the tuner's objective.
+The models are loaded with the weights corresponding to their best checkpoint (at the end of the best epoch of best trial).
+This method is only a convenience shortcut. For best performance, It is recommended to retrain your Model on the full 
+dataset using the best hyperparameters found during search.
 }

@@ -2,8 +2,7 @@
 % Please edit documentation in R/search.R
 \name{fit_tuner}
 \alias{fit_tuner}
-\title{Start the search for the best hyperparameter configuration. 
-The call to search has the same signature as ```model.fit()```.}
+\title{Search}
 \usage{
 fit_tuner(
   tuner = NULL,
@@ -47,6 +46,8 @@ to validate before stopping.}
 \item{...}{Some additional arguments}
 }
 \description{
+Start the search for the best hyperparameter configuration. 
+The call to search has the same signature as ```model.fit()```.
 Models are built iteratively by calling the model-building function, which populates the hyperparameter space 
 (search space) tracked by the hp object. The tuner progressively explores the space, recording metrics for 
 each configuration.

@@ -77,12 +77,6 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
     
     tuner2 %>% results_summary(12)
     
-    expect_warning(RandomSearch(hypermodel = build_model2,
-                                objective = 'val_accuracy',
-                                max_trials = 2,
-                                executions_per_trial = 1,
-                                directory = 'model_dir',
-                                project_name = 'helloworld_'))
     p1=kerastuneR::plot_tuner(tuner2)
     p2=kerastuneR::plot_tuner(tuner2,height = 500, width = 500)
     

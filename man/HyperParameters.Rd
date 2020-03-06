@@ -2,7 +2,7 @@
 % Please edit documentation in R/HyperResNet_HyperXception.R
 \name{HyperParameters}
 \alias{HyperParameters}
-\title{The search space may contain conditional hyperparameters}
+\title{HyperParameters}
 \usage{
 HyperParameters(...)
 }
@@ -10,5 +10,6 @@ HyperParameters(...)
 \item{...}{Pass hyperparameter arguments to the tuner constructor}
 }
 \description{
-The search space may contain conditional hyperparameters
+The HyperParameters class serves as a hyerparameter container. A HyperParameters instance contains information about both the search space and the current values of each hyperparameter.
+Hyperparameters can be defined inline with the model-building code that uses them. This saves you from having to write boilerplate code and helps to make the code more maintainable.
 }

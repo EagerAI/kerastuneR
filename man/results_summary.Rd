@@ -2,7 +2,7 @@
 % Please edit documentation in R/search_summary.R
 \name{results_summary}
 \alias{results_summary}
-\title{Print a summary of the search results/best models}
+\title{Results summary}
 \usage{
 results_summary(tuner = NULL, num_trials = NULL)
 }
@@ -12,5 +12,5 @@ results_summary(tuner = NULL, num_trials = NULL)
 \item{num_trials}{Shows the top best models}
 }
 \description{
-Print a summary of the search results/best models
+Print a summary of the search results (best models)
 }

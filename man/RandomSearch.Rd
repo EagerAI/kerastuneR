@@ -2,7 +2,7 @@
 % Please edit documentation in R/random_search.R
 \name{RandomSearch}
 \alias{RandomSearch}
-\title{Build model}
+\title{RandomSearch}
 \usage{
 RandomSearch(
   hypermodel = NULL,
@@ -51,13 +51,10 @@ directory/project_name.}
 \item{...}{Some additional arguments}
 }
 \description{
-Usage: the basics
+Random search tuner.
 }
 \details{
-Here's how to perform hyperparameter tuning for a single-layer dense neural network using random search.
-First, we define a model-building function. It takes an argument hp from which you can sample hyperparameters,
-such as hp$Int('units', min_value=32L, max_value=512L, step=32L) (an integer from a certain range) and hp$Choice
-for choosing a range of values for learning rate.
+# Arguments: hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). objective: String. Name of model metric to minimize or maximize, e.g. "val_accuracy". max_trials: Int. Total number of trials (model configurations) to test at most. Note that the oracle may interrupt the search before `max_trial` models have been tested. seed: Int. Random seed. hyperparameters: HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space. tune_new_entries: Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. allow_new_entries: Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.
 }
 \examples{
 
