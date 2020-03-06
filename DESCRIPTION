@@ -12,7 +12,7 @@ Description: '[Keras Tuner](https://keras-team.github.io/keras-tuner/)' is a hyp
              It aims at making the life of AI practitioners, hypertuner 
              algorithm creators and model designers as simple as possible by 
              providing them with a clean and easy to use API for hypertuning. 
-             '[Keras Tuner](https://keras-team.github.io/keras-tuner/).' makes moving from a base model to a hypertuned one quick and 
+             '[Keras Tuner](https://keras-team.github.io/keras-tuner/)' makes moving from a base model to a hypertuned one quick and 
              easy by only requiring you to change a few lines of code.
 License: Apache License 2.0
 URL: https://github.com/henry090/kerastuneR
