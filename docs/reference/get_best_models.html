@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The function for retrieving the top best models with hyperparameters — get_best_models • kerastuneR</title>
+<title>Get best models — get_best_models • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,12 @@
 
 
 
-<meta property="og:title" content="The function for retrieving the top best models with hyperparameters — get_best_models" />
-<meta property="og:description" content="The function for retrieving the top best models with hyperparameters" />
+<meta property="og:title" content="Get best models — get_best_models" />
+<meta property="og:description" content="The function for retrieving the top best models with hyperparameters
+Returns the best model(s), as determined by the tuner's objective.
+The models are loaded with the weights corresponding to their best checkpoint (at the end of the best epoch of best trial).
+This method is only a convenience shortcut. For best performance, It is recommended to retrain your Model on the full 
+dataset using the best hyperparameters found during search." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,13 +133,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The function for retrieving the top best models with hyperparameters</h1>
+    <h1>Get best models</h1>
     <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/search.R'><code>R/search.R</code></a></small>
     <div class="hidden name"><code>get_best_models.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function for retrieving the top best models with hyperparameters</p>
+    <p>The function for retrieving the top best models with hyperparameters
+Returns the best model(s), as determined by the tuner's objective.
+The models are loaded with the weights corresponding to their best checkpoint (at the end of the best epoch of best trial).
+This method is only a convenience shortcut. For best performance, It is recommended to retrain your Model on the full 
+dataset using the best hyperparameters found during search.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_best_models</span>(<span class='kw'>tuner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>num_models</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>

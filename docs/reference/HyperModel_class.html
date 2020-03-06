@@ -6,9 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>You can use a HyperModel subclass instead of a model-building function
-This makes it easy to share and reuse hypermodels.
-A HyperModel subclass only needs to implement a build(self, hp) method. — HyperModel_class • kerastuneR</title>
+<title>HyperModel — HyperModel_class • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -37,12 +35,8 @@ A HyperModel subclass only needs to implement a build(self, hp) method. — Hype
 
 
 
-<meta property="og:title" content="You can use a HyperModel subclass instead of a model-building function
-This makes it easy to share and reuse hypermodels.
-A HyperModel subclass only needs to implement a build(self, hp) method. — HyperModel_class" />
-<meta property="og:description" content="You can use a HyperModel subclass instead of a model-building function
-This makes it easy to share and reuse hypermodels.
-A HyperModel subclass only needs to implement a build(self, hp) method." />
+<meta property="og:title" content="HyperModel — HyperModel_class" />
+<meta property="og:description" content="Defines a searchable space of Models and builds Models from this space." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,17 +129,13 @@ A HyperModel subclass only needs to implement a build(self, hp) method." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>You can use a HyperModel subclass instead of a model-building function
-This makes it easy to share and reuse hypermodels.
-A HyperModel subclass only needs to implement a build(self, hp) method.</h1>
+    <h1>HyperModel</h1>
     <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/Hyperclass.R'><code>R/Hyperclass.R</code></a></small>
     <div class="hidden name"><code>HyperModel_class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>You can use a HyperModel subclass instead of a model-building function
-This makes it easy to share and reuse hypermodels.
-A HyperModel subclass only needs to implement a build(self, hp) method.</p>
+    <p>Defines a searchable space of Models and builds Models from this space.</p>
     </div>
 
     <pre class="usage"><span class='fu'>HyperModel_class</span>()</pre>
@@ -154,12 +144,18 @@ A HyperModel subclass only needs to implement a build(self, hp) method.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>None</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p># Attributes: name: The name of this HyperModel. tunable: Whether the hyperparameters defined in this hypermodel 
+should be added to search space. If `FALSE`, either the search space for these parameters must be defined in advance, 
+or the default values will be used.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
     </ul>
 
   </div>

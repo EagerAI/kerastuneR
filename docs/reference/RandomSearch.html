@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Build model — RandomSearch • kerastuneR</title>
+<title>RandomSearch — RandomSearch • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Build model — RandomSearch" />
-<meta property="og:description" content="Usage: the basics" />
+<meta property="og:title" content="RandomSearch — RandomSearch" />
+<meta property="og:description" content="Random search tuner." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,13 +129,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Build model</h1>
+    <h1>RandomSearch</h1>
     <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/random_search.R'><code>R/random_search.R</code></a></small>
     <div class="hidden name"><code>RandomSearch.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Usage: the basics</p>
+    <p>Random search tuner.</p>
     </div>
 
     <pre class="usage"><span class='fu'>RandomSearch</span>(
@@ -212,10 +212,7 @@ directory/project_name.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Here's how to perform hyperparameter tuning for a single-layer dense neural network using random search.
-First, we define a model-building function. It takes an argument hp from which you can sample hyperparameters,
-such as hp$Int('units', min_value=32L, max_value=512L, step=32L) (an integer from a certain range) and hp$Choice
-for choosing a range of values for learning rate.</p>
+    <p># Arguments: hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). objective: String. Name of model metric to minimize or maximize, e.g. "val_accuracy". max_trials: Int. Total number of trials (model configurations) to test at most. Note that the oracle may interrupt the search before `max_trial` models have been tested. seed: Int. Random seed. hyperparameters: HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space. tune_new_entries: Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. allow_new_entries: Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

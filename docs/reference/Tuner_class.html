@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tuner class for Keras models.
-May be subclassed to create new tuners. — Tuner_class • kerastuneR</title>
+<title>Tuner — Tuner_class • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -36,10 +35,8 @@ May be subclassed to create new tuners. — Tuner_class • kerastuneR</title>
 
 
 
-<meta property="og:title" content="Tuner class for Keras models.
-May be subclassed to create new tuners. — Tuner_class" />
-<meta property="og:description" content="Tuner class for Keras models.
-May be subclassed to create new tuners." />
+<meta property="og:title" content="Tuner — Tuner_class" />
+<meta property="og:description" content="Tuner class for Keras models." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -132,15 +129,13 @@ May be subclassed to create new tuners." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tuner class for Keras models.
-May be subclassed to create new tuners.</h1>
+    <h1>Tuner</h1>
     <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/Hyperclass.R'><code>R/Hyperclass.R</code></a></small>
     <div class="hidden name"><code>Tuner_class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Tuner class for Keras models.
-May be subclassed to create new tuners.</p>
+    <p>Tuner class for Keras models.</p>
     </div>
 
     <pre class="usage"><span class='fu'>Tuner_class</span>()</pre>
@@ -149,12 +144,16 @@ May be subclassed to create new tuners.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>None</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>May be subclassed to create new tuners. # Arguments: oracle: Instance of Oracle class. hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). max_model_size: Int. Maximum size of weights (in floating point coefficients) for a valid models. Models larger than this are rejected. optimizer: Optional. Optimizer instance. May be used to override the `optimizer` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. loss: Optional. May be used to override the `loss` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. metrics: Optional. May be used to override the `metrics` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. distribution_strategy: Optional. A TensorFlow `tf.distribute` DistributionStrategy instance. If specified, each trial will run under this scope. For example, `tf.distribute.MirroredStrategy(['/gpu:0, /'gpu:1])` will run each trial on two GPUs. Currently only single-worker strategies are supported. directory: String. Path to the working directory (relative). project_name: Name to use as prefix for files saved by this Tuner. logger: Optional. Instance of Logger class, used for streaming data to Cloud Service for monitoring. overwrite: Bool, default `FALSE`. If `FALSE`, reloads an existing project of the same name if one is found. Otherwise, overwrites the project.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
     </ul>
 
   </div>

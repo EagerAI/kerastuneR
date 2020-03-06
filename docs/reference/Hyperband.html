@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tool for searching the best hyperparameters for computer vision. — Hyperband • kerastuneR</title>
+<title>Hyperband — Hyperband • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Tool for searching the best hyperparameters for computer vision. — Hyperband" />
-<meta property="og:description" content="Tool for searching the best hyperparameters for computer vision." />
+<meta property="og:title" content="Hyperband — Hyperband" />
+<meta property="og:description" content="Variation of HyperBand algorithm." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,13 +129,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tool for searching the best hyperparameters for computer vision.</h1>
+    <h1>Hyperband</h1>
     <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/HyperResNet_HyperXception.R'><code>R/HyperResNet_HyperXception.R</code></a></small>
     <div class="hidden name"><code>Hyperband.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Tool for searching the best hyperparameters for computer vision.</p>
+    <p>Variation of HyperBand algorithm.</p>
     </div>
 
     <pre class="usage"><span class='fu'>Hyperband</span>(
@@ -241,12 +241,22 @@ directory/project_name.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Reference: Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html). # Arguments hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). objective: String. Name of model metric to minimize or maximize, e.g. "val_accuracy". max_epochs: Int. The maximum number of epochs to train one model. It is recommended to set this to a value slightly higher than the expected time to convergence for your largest Model, and to use early stopping during training (for example, via `tf.keras.callbacks.EarlyStopping`). factor: Int. Reduction factor for the number of epochs and number of models for each bracket. hyperband_iterations: Int &gt;= 1. The number of times to iterate over the full Hyperband algorithm. One iteration will run approximately `max_epochs * (math.log(max_epochs, factor) ** 2)` cumulative epochs across all trials. It is recommended to set this to as high a value as is within your resource budget. seed: Int. Random seed. hyperparameters: HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space. tune_new_entries: Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. allow_new_entries: Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.</p>
+    <h2 class="hasAnchor" id="reference"><a class="anchor" href="#reference"></a>Reference</h2>
+
+    
+
+<p>Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html).</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#reference">Reference</a></li>
     </ul>
 
   </div>

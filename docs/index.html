@@ -11,11 +11,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Interface to Keras Tuner ">
-<meta property="og:description" content="Keras Tuner is a hypertuning framework made for humans. 
+<meta property="og:description" content="[Keras Tuner](https://keras-team.github.io/keras-tuner/) is a hypertuning framework made for humans. 
              It aims at making the life of AI practitioners, hypertuner 
              algorithm creators and model designers as simple as possible by 
              providing them with a clean and easy to use API for hypertuning. 
-             Keras Tuner makes moving from a base model to a hypertuned one quick and 
+             [Keras Tuner](https://keras-team.github.io/keras-tuner/). makes moving from a base model to a hypertuned one quick and 
              easy by only requiring you to change a few lines of code.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -115,7 +115,7 @@
 <li>TensorFlow 2.0</li>
 </ul>
 <p>Currently, the package is available on github:</p>
-<pre><code><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">devtools::install_github('henry090/kerastuneR')</a></code></pre>
+<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github('henry090/kerastuneR')</a></code></pre>
 <p>Later, you need to install the python module kerastuner:</p>
 <pre><code><a href="reference/install_kerastuner.html">kerastuneR::install_kerastuner()</a></code></pre>
 </div>
@@ -131,7 +131,7 @@ y_data &lt;-  ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()
 x_data2 &lt;- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
 y_data2 &lt;-  ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()</code></pre>
 <p>This function returns a compiled model.</p>
-<pre><code>library(keras)
+<pre><code><a href="https://rdrr.io/r/base/library.html">library(keras)
 library(kerastuneR)
 library(dplyr)
 
@@ -151,7 +151,7 @@ build_model = function(hp) {
       loss = 'binary_crossentropy',
       metrics = 'accuracy')
   return(model)
-}</code></pre>
+}</a></code></pre>
 <p>Next, instantiate a tuner. You should specify the model-building function, the name of the objective to optimize (whether to minimize or maximize is automatically inferred for built-in metrics), the total number of trials <code>(max_trials)</code> to test, and the number of models that should be built and fit for each trial <code>(executions_per_trial)</code>.</p>
 <p>Available tuners are <code>RandomSearch</code> and <code>Hyperband</code>.</p>
 <blockquote>
@@ -184,7 +184,7 @@ result </code></pre>
 <h2 class="hasAnchor">
 <a href="#you-can-easily-restrict-the-search-space-to-just-a-few-parameters" class="anchor"></a>You can easily restrict the search space to just a few parameters</h2>
 <p>If you have an existing hypermodel, and you want to search over only a few parameters (such as the learning rate), you can do so by passing a <code>hyperparameters</code> argument to the tuner constructor, as well as <code>tune_new_entries=FALSE</code> to specify that parameters that you didn’t list in <code>hyperparameters</code> should not be tuned. For these parameters, the default value gets used.</p>
-<pre><code>library(keras)
+<pre><code><a href="https://rdrr.io/r/base/library.html">library(keras)
 library(kerastuneR)
 library(dplyr)
 
@@ -235,14 +235,14 @@ tuner %&gt;% fit_tuner(x = mnist_train$x,
                     epochs = 5,
                     validation_data = list(mnist_test$x, mnist_test$y))
 
-</code></pre>
+</a></code></pre>
 </div>
 <div id="you-can-use-a-hypermodel-subclass-instead-of-a-model-building-function" class="section level2">
 <h2 class="hasAnchor">
 <a href="#you-can-use-a-hypermodel-subclass-instead-of-a-model-building-function" class="anchor"></a>You can use a HyperModel subclass instead of a model-building function</h2>
 <p>This makes it easy to share and reuse hypermodels.</p>
 <p>A <code>HyperModel</code> subclass only needs to implement a <code><a href="https://rdrr.io/r/utils/PkgUtils.html">build(self, hp)</a></code> method.</p>
-<pre><code>library(keras)
+<pre><code><a href="https://rdrr.io/r/base/library.html">library(keras)
 library(tensorflow)
 library(dplyr)
 library(kerastuneR)
@@ -292,7 +292,7 @@ tuner = RandomSearch(hypermodel = hypermodel,
                       executions_per_trial = 1,
                       directory = 'my_dir5',
                       project_name = 'helloworld')
-</code></pre>
+</a></code></pre>
 <p>Documentation, advanced model tuning, and tutorials can be found on <a href="https://henry090.github.io/kerastuneR/" class="uri">https://henry090.github.io/kerastuneR/</a></p>
 </div>
 
