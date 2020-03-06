@@ -1,6 +1,6 @@
-#' To see the summary of search criteria
+#' @title Search summary
+#' @description  Print a summary of the search space
 #'
-#' Print a summary of the search space:
 #' @param tuner Requires a tuner object
 #' @export
 search_summary = function(tuner = NULL) {
@@ -9,7 +9,8 @@ search_summary = function(tuner = NULL) {
 
 }
 
-#' Print a summary of the search results/best models
+#' @title Results summary
+#' @description Print a summary of the search results (best models)
 #' 
 #' @param tuner Requires a tuner object
 #' @param num_trials Shows the top best models

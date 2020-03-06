@@ -1,6 +1,6 @@
-#' Start the search for the best hyperparameter configuration. 
+#' @title Search
+#' @description  Start the search for the best hyperparameter configuration. 
 #' The call to search has the same signature as ```model.fit()```.
-#'
 #' Models are built iteratively by calling the model-building function, which populates the hyperparameter space 
 #' (search space) tracked by the hp object. The tuner progressively explores the space, recording metrics for 
 #' each configuration.
@@ -101,7 +101,12 @@ fit_tuner = function(tuner = NULL, x = NULL, y = NULL, steps_per_epoch = NULL, e
   
 }
 
-#' The function for retrieving the top best models with hyperparameters
+#' @title Get best models
+#' @description The function for retrieving the top best models with hyperparameters
+#' Returns the best model(s), as determined by the tuner's objective.
+#' The models are loaded with the weights corresponding to their best checkpoint (at the end of the best epoch of best trial).
+#' This method is only a convenience shortcut. For best performance, It is recommended to retrain your Model on the full 
+#' dataset using the best hyperparameters found during search.
 #' 
 #' @param tuner A tuner object
 #' @param num_models When search is over, one can retrieve the best model(s)

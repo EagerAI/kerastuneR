@@ -76,8 +76,12 @@ HyperXception <- function(include_top = TRUE, input_shape = NULL, input_tensor =
   
 }
 
-#' Tool for searching the best hyperparameters for computer vision.
-#' 
+#' @title Hyperband
+#'
+#' @description Variation of HyperBand algorithm.
+#'
+#' @details Reference: Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html). # Arguments hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). objective: String. Name of model metric to minimize or maximize, e.g. "val_accuracy". max_epochs: Int. The maximum number of epochs to train one model. It is recommended to set this to a value slightly higher than the expected time to convergence for your largest Model, and to use early stopping during training (for example, via `tf.keras.callbacks.EarlyStopping`). factor: Int. Reduction factor for the number of epochs and number of models for each bracket. hyperband_iterations: Int >= 1. The number of times to iterate over the full Hyperband algorithm. One iteration will run approximately `max_epochs * (math.log(max_epochs, factor) ** 2)` cumulative epochs across all trials. It is recommended to set this to as high a value as is within your resource budget. seed: Int. Random seed. hyperparameters: HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space. tune_new_entries: Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. allow_new_entries: Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.
+#'
 #' 
 #' @param hypermodel Define a model-building function. It takes an argument "hp" from which 
 #' you can sample hyperparameters.
@@ -114,6 +118,9 @@ HyperXception <- function(include_top = TRUE, input_shape = NULL, input_tensor =
 #' @param project_name Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
 #' directory/project_name.
 #' @param ... Some additional arguments
+#' @section Reference:
+#' Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html).
+#'
 #' @export
 Hyperband <- function(hypermodel = NULL, optimizer = NULL, loss = NULL,
                       metrics = NULL,
@@ -145,8 +152,10 @@ Hyperband <- function(hypermodel = NULL, optimizer = NULL, loss = NULL,
 }
 
 
-#'
-#' The search space may contain conditional hyperparameters
+#' @title HyperParameters
+#' 
+#' @description The HyperParameters class serves as a hyerparameter container. A HyperParameters instance contains information about both the search space and the current values of each hyperparameter.
+#' Hyperparameters can be defined inline with the model-building code that uses them. This saves you from having to write boilerplate code and helps to make the code more maintainable.
 #' 
 #' @param ... Pass hyperparameter arguments to the tuner constructor
 #' @export

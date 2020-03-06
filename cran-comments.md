@@ -12,3 +12,9 @@ This is a first submission of 'kerastuneR' 0.1.0.1
 ## R CMD check results
 
 There were no ERRORs, WARNINGs or NOTEs.
+
+## Changes
+
+* Titles were capitalized and added everywhere
+* "none" value was added when a function returns nothing
+* api url added to the description field
