@@ -210,13 +210,15 @@ directory/project_name.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a hyperparameter tuner object RandomSearch</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p># Arguments: hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). objective: String. Name of model metric to minimize or maximize, e.g. "val_accuracy". max_trials: Int. Total number of trials (model configurations) to test at most. Note that the oracle may interrupt the search before `max_trial` models have been tested. seed: Int. Random seed. hyperparameters: HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space. tune_new_entries: Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. allow_new_entries: Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>keras</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tensorflow</span>)
@@ -243,12 +245,18 @@ directory/project_name.</p></td>
      <span class='kw'>metrics</span><span class='kw'>=</span><span class='st'>'accuracy'</span>)
      <span class='fu'><a href='https://rdrr.io/r/base/function.html'>return</a></span>(<span class='no'>model</span>)
  }
-}</div></pre>
+ <span class='no'>tuner</span> <span class='kw'>=</span> <span class='fu'>RandomSearch</span>(<span class='kw'>hypermodel</span> <span class='kw'>=</span> <span class='no'>build_model</span>,
+                       <span class='kw'>objective</span> <span class='kw'>=</span> <span class='st'>'val_accuracy'</span>,
+                       <span class='kw'>max_trials</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+                       <span class='kw'>executions_per_trial</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                       <span class='kw'>directory</span> <span class='kw'>=</span> <span class='st'>'model_dir'</span>,
+                       <span class='kw'>project_name</span> <span class='kw'>=</span> <span class='st'>'helloworld'</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
