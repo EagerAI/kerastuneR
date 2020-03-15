@@ -13,6 +13,9 @@ install_kerastuner(version = NULL, ..., restart_session = TRUE)
 
 \item{restart_session}{Restart R session after installing (note this will only occur within RStudio).}
 }
+\value{
+a python module kerastuner
+}
 \description{
 This function is used to install the Keras Tuner python module
 }

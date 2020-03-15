@@ -25,10 +25,9 @@
 #' @param project_name Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
 #' directory/project_name.
 #' @param ... Some additional arguments
-#'
+#' @return a hyperparameter tuner object RandomSearch
 #' @examples
 #'
-#' \dontrun{
 #'
 #' library(keras) 
 #' library(tensorflow)
@@ -55,7 +54,12 @@
 #'      metrics='accuracy')
 #'      return(model)
 #'  }
-#' }
+#'  tuner = RandomSearch(hypermodel = build_model,
+#'                        objective = 'val_accuracy',
+#'                        max_trials = 2,
+#'                        executions_per_trial = 1,
+#'                        directory = 'model_dir',
+#'                        project_name = 'helloworld')
 #' 
 #' 
 #' @export

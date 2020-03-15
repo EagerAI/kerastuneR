@@ -9,7 +9,10 @@ HyperParameters(...)
 \arguments{
 \item{...}{Pass hyperparameter arguments to the tuner constructor}
 }
+\value{
+container for both a hyperparameter space, and current values
+}
 \description{
-The HyperParameters class serves as a hyerparameter container. A HyperParameters instance contains information about both the search space and the current values of each hyperparameter.
+The HyperParameters class serves as a hyperparameter container. A HyperParameters instance contains information about both the search space and the current values of each hyperparameter.
 Hyperparameters can be defined inline with the model-building code that uses them. This saves you from having to write boilerplate code and helps to make the code more maintainable.
 }

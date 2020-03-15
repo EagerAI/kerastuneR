@@ -13,6 +13,9 @@ plot_tuner(tuner, height = NULL, width = NULL)
 
 \item{width}{width of the plot}
 }
+\value{
+a list which contains a dataframe of results and a plot
+}
 \description{
 Plot the search space results
 }

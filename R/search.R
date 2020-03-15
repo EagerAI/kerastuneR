@@ -26,11 +26,11 @@
 #' @param validation_steps Only relevant if steps_per_epoch is specified. Total number of steps (batches of samples)
 #'  to validate before stopping.
 #' @param ... Some additional arguments
-#' 
+#' @return performs a search for best hyperparameter configuations
 #' @examples
-#'
-#' \dontrun{
-#'
+#' library(dplyr)
+#' library(kerastuneR)
+#' library(keras)
 #' x_data <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5) 
 #' y_data <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
 #' x_data2 <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
@@ -76,8 +76,8 @@
 #'                      directory = 'my_dir5',
 #'                      project_name = 'helloworld')
 #'                      
-#' tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2)) 
-#' }                    
+#' tuner %>% fit_tuner(x_data, y_data, epochs = 1, validation_data = list(x_data2,y_data2)) 
+#'                     
 #' @importFrom stats setNames
 #' @export
 fit_tuner = function(tuner = NULL, x = NULL, y = NULL, steps_per_epoch = NULL, epochs = NULL, 
@@ -110,6 +110,7 @@ fit_tuner = function(tuner = NULL, x = NULL, y = NULL, steps_per_epoch = NULL, e
 #' 
 #' @param tuner A tuner object
 #' @param num_models When search is over, one can retrieve the best model(s)
+#' @return the list of best model(s)
 #' @export
 get_best_models = function(tuner = NULL,num_models = NULL) {
   tuner = tuner

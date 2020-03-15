@@ -20,6 +20,9 @@ HyperXception(
 
 \item{classes}{optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.}
 }
+\value{
+a pre-trained Xception model
+}
 \description{
 An Xception HyperModel.
 }

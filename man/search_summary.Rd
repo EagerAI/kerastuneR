@@ -9,6 +9,9 @@ search_summary(tuner = NULL)
 \arguments{
 \item{tuner}{Requires a tuner object}
 }
+\value{
+the summary of search space of the tuner object
+}
 \description{
 Print a summary of the search space
 }

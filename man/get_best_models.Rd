@@ -11,6 +11,9 @@ get_best_models(tuner = NULL, num_models = NULL)
 
 \item{num_models}{When search is over, one can retrieve the best model(s)}
 }
+\value{
+the list of best model(s)
+}
 \description{
 The function for retrieving the top best models with hyperparameters
 Returns the best model(s), as determined by the tuner's objective.

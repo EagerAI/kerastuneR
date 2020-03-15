@@ -8,16 +8,14 @@
 #' @param input_shape Optional shape list, e.g. `(256, 256, 3)`. One of `input_shape` or `input_tensor` must be specified.
 #' @param input_tensor Optional Keras tensor (i.e. output of `layers.Input()`) to use as image input for the model. One of `input_shape` or `input_tensor` must be specified.
 #' @param classes optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.
-#'
+#' @return a pre-trained ResNet model
 #' @examples
-#'
-#' \dontrun{
 #'
 #' library(keras)
 #' library(dplyr)
 #' library(kerastuneR)
 #' 
-#' use_python('C:/Users/turgut.abdullayev/anaconda3/python.exe',required = TRUE)
+#' kerastuneR::install_kerastuner()
 #' 
 #' cifar <- dataset_cifar10()
 #' 
@@ -39,7 +37,6 @@
 #' 
 #' 
 #' tuner %>% fit_tuner(train_data,test_data, epochs = 1)
-#' }
 #'
 #' @export
 HyperResNet <- function(include_top = TRUE, input_shape = NULL, input_tensor = NULL, classes = NULL) {
@@ -63,7 +60,7 @@ HyperResNet <- function(include_top = TRUE, input_shape = NULL, input_tensor = N
 #' @param input_shape Optional shape list, e.g. `(256, 256, 3)`. One of `input_shape` or `input_tensor` must be specified.
 #' @param input_tensor Optional Keras tensor (i.e. output of `layers.Input()`) to use as image input for the model. One of `input_shape` or `input_tensor` must be specified.
 #' @param classes optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.
-#'
+#' @return a pre-trained Xception model
 #' @export
 HyperXception <- function(include_top = TRUE, input_shape = NULL, input_tensor = NULL, classes = NULL) {
   
@@ -118,6 +115,7 @@ HyperXception <- function(include_top = TRUE, input_shape = NULL, input_tensor =
 #' @param project_name Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
 #' directory/project_name.
 #' @param ... Some additional arguments
+#' @return a hyperparameter tuner object Hyperband
 #' @section Reference:
 #' Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html).
 #'
@@ -154,9 +152,9 @@ Hyperband <- function(hypermodel = NULL, optimizer = NULL, loss = NULL,
 
 #' @title HyperParameters
 #' 
-#' @description The HyperParameters class serves as a hyerparameter container. A HyperParameters instance contains information about both the search space and the current values of each hyperparameter.
+#' @description The HyperParameters class serves as a hyperparameter container. A HyperParameters instance contains information about both the search space and the current values of each hyperparameter.
 #' Hyperparameters can be defined inline with the model-building code that uses them. This saves you from having to write boilerplate code and helps to make the code more maintainable.
-#' 
+#' @return container for both a hyperparameter space, and current values
 #' @param ... Pass hyperparameter arguments to the tuner constructor
 #' @export
 HyperParameters = function(...){

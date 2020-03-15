@@ -73,6 +73,9 @@ directory/project_name.}
 
 \item{...}{Some additional arguments}
 }
+\value{
+a hyperparameter tuner object Hyperband
+}
 \description{
 Variation of HyperBand algorithm.
 }

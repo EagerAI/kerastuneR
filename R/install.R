@@ -5,6 +5,7 @@
 #' @param version for specific version of Keras tuneR, e.g. "0.9.1"
 #' @param ... other arguments passed to [reticulate::py_install()].
 #' @param restart_session Restart R session after installing (note this will only occur within RStudio).
+#' @return a python module kerastuner
 #' @export
 install_kerastuner <- function(version = NULL, ..., restart_session = TRUE) {
   

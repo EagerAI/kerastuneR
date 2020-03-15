@@ -20,6 +20,9 @@ HyperResNet(
 
 \item{classes}{optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.}
 }
+\value{
+a pre-trained ResNet model
+}
 \description{
 A ResNet HyperModel.
 }
@@ -28,13 +31,11 @@ A ResNet HyperModel.
 }
 \examples{
 
-\dontrun{
-
 library(keras)
 library(dplyr)
 library(kerastuneR)
 
-use_python('C:/Users/turgut.abdullayev/anaconda3/python.exe',required = TRUE)
+kerastuneR::install_kerastuner()
 
 cifar <- dataset_cifar10()
 
@@ -56,6 +57,5 @@ test_data = cifar$train$y[1:30,1] \%>\% as.matrix()
 
 
 tuner \%>\% fit_tuner(train_data,test_data, epochs = 1)
-}
 
 }

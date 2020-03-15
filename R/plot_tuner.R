@@ -16,6 +16,7 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr contains
 #' @importFrom dplyr %>%
+#' @return a list which contains a dataframe of results and a plot
 #' @export
 plot_tuner <- function(tuner, height = NULL, width = NULL) {
   

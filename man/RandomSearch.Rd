@@ -50,6 +50,9 @@ directory/project_name.}
 
 \item{...}{Some additional arguments}
 }
+\value{
+a hyperparameter tuner object RandomSearch
+}
 \description{
 Random search tuner.
 }
@@ -58,7 +61,6 @@ Random search tuner.
 }
 \examples{
 
-\dontrun{
 
 library(keras) 
 library(tensorflow)
@@ -85,7 +87,12 @@ build_model = function(hp) {
      metrics='accuracy')
      return(model)
  }
-}
+ tuner = RandomSearch(hypermodel = build_model,
+                       objective = 'val_accuracy',
+                       max_trials = 2,
+                       executions_per_trial = 1,
+                       directory = 'model_dir',
+                       project_name = 'helloworld')
 
 
 }

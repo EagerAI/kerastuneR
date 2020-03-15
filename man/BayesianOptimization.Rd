@@ -35,6 +35,9 @@ BayesianOptimization(
 
 \item{tune_new_entries}{Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used.}
 }
+\value{
+BayesianOptimization tuning with Gaussian process
+}
 \description{
 Bayesian optimization oracle.
 }
@@ -51,12 +54,10 @@ https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pd
 
 \examples{
 
-\dontrun{
 # The usage of 'tf$keras'
 library(keras)
 library(dplyr)
 library(kerastuneR)
 tf$keras$Input(shape=list(28L, 28L, 1L))
-}
 
 }
