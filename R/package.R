@@ -1,8 +1,5 @@
-#' Handle to the `kerastuner` module
-#'
-#'
-#' @return Module(kerastuner)
-#' @export
+
+
 kerastuner <- NULL
 
 .onLoad <- function(libname, pkgname) {
