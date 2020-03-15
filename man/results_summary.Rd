@@ -12,7 +12,7 @@ results_summary(tuner = NULL, num_trials = NULL)
 \item{num_trials}{Shows the top best models}
 }
 \value{
-the summary of search results of the tuner object
+the list of results summary of the tuner object
 }
 \description{
 Print a summary of the search results (best models)

@@ -85,8 +85,6 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 #            init_next = iter_next(intializer)
 #  
 #            self$on_batch_begin(trial, model, batch, logs=list())
-#            #print('done self$on_batch_begin')
-#            #print(init_next)
 #            batch_loss = as.numeric(run_train_step(init_next))
 #            self$on_batch_end(trial, model, batch, logs=list(paste('loss', batch_loss)))
 #  
@@ -120,13 +118,11 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 #  
 #    mnist_train$x = keras::k_reshape(mnist_train$x,shape = c(6e4,28,28,1))
 #  
-#    if (!Sys.info()[1] %in% 'Windows') {
-#      mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
+#    mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
 #  
 #      tuner %>% fit_tuner(train_ds = mnist_train)
 #  
 #      best_model = tuner %>% get_best_models(1L)
-#    }
 #  
 #  }
 #  
