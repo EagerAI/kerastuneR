@@ -56,6 +56,8 @@ Models are built iteratively by calling the model-building function, which popul
 each configuration.
 }
 \examples{
+
+\donttest{
 library(dplyr)
 library(kerastuneR)
 library(keras)
@@ -105,5 +107,5 @@ tuner = RandomSearch(hypermodel = hypermodel,
                      project_name = 'helloworld')
                      
 tuner \%>\% fit_tuner(x_data, y_data, epochs = 1, validation_data = list(x_data2,y_data2)) 
-                    
+}
 }

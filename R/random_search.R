@@ -28,7 +28,7 @@
 #' @return a hyperparameter tuner object RandomSearch
 #' @examples
 #'
-#'
+#' \donttest{
 #' library(keras) 
 #' library(tensorflow)
 #' 
@@ -60,7 +60,7 @@
 #'                        executions_per_trial = 1,
 #'                        directory = 'model_dir',
 #'                        project_name = 'helloworld')
-#' 
+#' }
 #' 
 #' @export
 RandomSearch = function(hypermodel = NULL, objective = NULL, max_trials = NULL, seed = NULL, 

@@ -10,7 +10,8 @@
 #' @param classes optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.
 #' @return a pre-trained ResNet model
 #' @examples
-#'
+#' 
+#' \donttest{
 #' library(keras)
 #' library(dplyr)
 #' library(kerastuneR)
@@ -37,7 +38,7 @@
 #' 
 #' 
 #' tuner %>% fit_tuner(train_data,test_data, epochs = 1)
-#'
+#' }
 #' @export
 HyperResNet <- function(include_top = TRUE, input_shape = NULL, input_tensor = NULL, classes = NULL) {
   

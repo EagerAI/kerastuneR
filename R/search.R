@@ -28,6 +28,8 @@
 #' @param ... Some additional arguments
 #' @return performs a search for best hyperparameter configuations
 #' @examples
+#' 
+#' \donttest{
 #' library(dplyr)
 #' library(kerastuneR)
 #' library(keras)
@@ -77,7 +79,7 @@
 #'                      project_name = 'helloworld')
 #'                      
 #' tuner %>% fit_tuner(x_data, y_data, epochs = 1, validation_data = list(x_data2,y_data2)) 
-#'                     
+#' }
 #' @importFrom stats setNames
 #' @export
 fit_tuner = function(tuner = NULL, x = NULL, y = NULL, steps_per_epoch = NULL, epochs = NULL, 

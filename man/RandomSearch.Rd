@@ -61,7 +61,7 @@ Random search tuner.
 }
 \examples{
 
-
+\donttest{
 library(keras) 
 library(tensorflow)
 
@@ -93,6 +93,6 @@ build_model = function(hp) {
                        executions_per_trial = 1,
                        directory = 'model_dir',
                        project_name = 'helloworld')
-
+}
 
 }

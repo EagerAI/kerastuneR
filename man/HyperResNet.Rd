@@ -31,6 +31,7 @@ A ResNet HyperModel.
 }
 \examples{
 
+\donttest{
 library(keras)
 library(dplyr)
 library(kerastuneR)
@@ -57,5 +58,5 @@ test_data = cifar$train$y[1:30,1] \%>\% as.matrix()
 
 
 tuner \%>\% fit_tuner(train_data,test_data, epochs = 1)
-
+}
 }

@@ -15,6 +15,5 @@ There were no ERRORs, WARNINGs or NOTEs.
 
 ## Changes
 
-* Titles were capitalized and added everywhere
 * "none" value was added when a function returns nothing
-* api url added to the description field
+* \value was added to .Rd files everywhere
