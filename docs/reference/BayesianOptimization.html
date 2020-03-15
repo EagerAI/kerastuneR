@@ -208,6 +208,7 @@ https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pd
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+<span class='co'># \donttest{</span>
 <span class='co'># The usage of 'tf$keras'</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>keras</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
@@ -216,7 +217,7 @@ https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pd
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>kerastuneR</span>)
-<span class='no'>tf</span>$<span class='no'>keras</span>$<span class='fu'>Input</span>(<span class='kw'>shape</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>28L</span>, <span class='fl'>28L</span>, <span class='fl'>1L</span>))</div><div class='output co'>#&gt; Tensor("input_1:0", shape=(None, 28, 28, 1), dtype=float32)</div><div class='input'>
+<span class='no'>tf</span>$<span class='no'>keras</span>$<span class='fu'>Input</span>(<span class='kw'>shape</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>28L</span>, <span class='fl'>28L</span>, <span class='fl'>1L</span>))</div><div class='output co'>#&gt; Tensor("input_1:0", shape=(None, 28, 28, 1), dtype=float32)</div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
