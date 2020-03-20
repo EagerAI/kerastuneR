@@ -11,6 +11,8 @@ It aims at making the life of AI practitioners, hypertuner algorithm creators an
 [![Build Status](https://travis-ci.com/henry090/kerastuneR.svg?branch=master)](https://travis-ci.com/henry090/kerastuneR)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Codecov test coverage](https://codecov.io/gh/henry090/kerastuneR/branch/master/graph/badge.svg)](https://codecov.io/gh/henry090/kerastuneR?branch=master)
+[![](https://www.r-pkg.org/badges/version/kerastuneR?color=green)](https://cran.r-project.org/package=kerastuneR)
+[![](https://img.shields.io/github/last-commit/henry090/kerastuneR.svg)](https://github.com/henry090/kerastuneR/commits/master)
 
 A hyperparameter tuner for [Keras](https://keras.io/), specifically for ```tf$keras``` with *TensorFlow 2.0*.
 
@@ -23,7 +25,13 @@ Requirements:
 - Python 3.6
 - TensorFlow 2.0
 
-Currently, the package is available on github:
+```kerastuneR``` can be installed from CRAN:
+
+```
+install.packages('kerastuneR')
+```
+
+The github version:
 
 ```
 devtools::install_github('henry090/kerastuneR')
