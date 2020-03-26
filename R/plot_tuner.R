@@ -7,6 +7,10 @@
 #' @param tuner A tuner object
 #' @param height height of the plot
 #' @param width width of the plot
+#' @param type Type parameter has 2 options: \cr 
+#' * By default it uses `plotly` \cr 
+#' * Second option is `echarts4r` \cr 
+#' **Note** that `echarts4r` ignores width and height parameters
 #' @importFrom rjson fromJSON
 #' @importFrom RJSONIO toJSON
 #' @importFrom data.table rbindlist
@@ -16,9 +20,10 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr contains
 #' @importFrom dplyr %>%
+#' @importFrom echarts4r e_charts e_parallel
 #' @return a list which contains a dataframe of results and a plot
 #' @export
-plot_tuner <- function(tuner, height = NULL, width = NULL) {
+plot_tuner <- function(tuner, height = NULL, width = NULL, type = 'plotly') {
   
   proj_name = gsub(tuner$project_dir, replacement = '/',pattern = '\\',fixed=TRUE)
   
@@ -68,32 +73,36 @@ plot_tuner <- function(tuner, height = NULL, width = NULL) {
   max_val = dataset %>% select(contains('unit')) %>% as.matrix() %>% max(na.rm = TRUE)
   min_val = dataset %>% select(contains('unit')) %>% as.matrix() %>% min(na.rm = TRUE)
   
-  if (is.null(width) | is.null(height)) {
-    
+  if(type %in% 'plotly')
+    if (is.null(width) | is.null(height)) {
+      
+      p = cols %>%
+        plot_ly() %>%
+        add_trace(type = 'parcoords',
+                  line = list(color = cols[[2]],
+                              colorscale = 'Bluered',
+                              showscale = TRUE,
+                              reversescale = TRUE,
+                              cmin = min_val,
+                              cmax = max_val),
+                  dimensions = list_plot)
+      
+    } else {
+      p = cols %>%
+        plot_ly(width = width, height = height) %>%
+        add_trace(type = 'parcoords',
+                  line = list(color = cols[[2]],
+                              colorscale = 'Bluered',
+                              showscale = TRUE,
+                              reversescale = TRUE,
+                              cmin = min_val,
+                              cmax = max_val),
+                  dimensions = list_plot)
+    }
+  else
     p = cols %>%
-      plot_ly() %>%
-      add_trace(type = 'parcoords',
-                line = list(color = cols[[2]],
-                            colorscale = 'Bluered',
-                            showscale = TRUE,
-                            reversescale = TRUE,
-                            cmin = min_val,
-                            cmax = max_val),
-                dimensions = list_plot)
-    
-  } else {
-    p = cols %>%
-      plot_ly(width = width, height = height) %>%
-      add_trace(type = 'parcoords',
-                line = list(color = cols[[2]],
-                            colorscale = 'Bluered',
-                            showscale = TRUE,
-                            reversescale = TRUE,
-                            cmin = min_val,
-                            cmax = max_val),
-                dimensions = list_plot)
-  }
-  
+    e_charts() %>%
+    e_parallel(colnames(cols))
   
   rm(list_plot, max_val, min_val, dataset)
   

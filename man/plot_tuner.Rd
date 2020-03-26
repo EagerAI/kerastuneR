@@ -4,7 +4,7 @@
 \alias{plot_tuner}
 \title{Plot the tuner results with 'plotly'}
 \usage{
-plot_tuner(tuner, height = NULL, width = NULL)
+plot_tuner(tuner, height = NULL, width = NULL, type = "plotly")
 }
 \arguments{
 \item{tuner}{A tuner object}
@@ -12,6 +12,11 @@ plot_tuner(tuner, height = NULL, width = NULL)
 \item{height}{height of the plot}
 
 \item{width}{width of the plot}
+
+\item{type}{Type parameter has 2 options: \cr 
+* By default it uses `plotly` \cr 
+* Second option is `echarts4r` \cr 
+**Note** that `echarts4r` ignores width and height parameters}
 }
 \value{
 a list which contains a dataframe of results and a plot
