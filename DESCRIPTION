@@ -30,7 +30,8 @@ Imports:
     RJSONIO,
     rjson,
     tidyjson,
-    dplyr
+    dplyr,
+    echarts4r
 Suggests:
     knitr,
     rmarkdown,
