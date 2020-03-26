@@ -16,7 +16,7 @@ before_script:
   - python3 -m pip install keras-tuner==1.0.1
   - R CMD INSTALL .
   - R -e "install.packages(c('reticulate','keras'))"
-  - R -e 'Sys.setenv(PIP_QUIET=1); keras::install_keras(tensorflow = "2.0")'
+  - R -e 'Sys.setenv(PIP_QUIET=1); keras::install_keras(tensorflow = "2.1")'
 
 after_failure:
   - Rscript -e 'library(keras); testthat::test_dir("tests/")'
