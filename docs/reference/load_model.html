@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • kerastuneR</title>
+<title>Load model — load_model • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,9 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Load model — load_model" />
+<meta property="og:description" content="Loads a Model from a given trial" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +56,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -127,37 +129,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/henry090/kerastuneR/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Load model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/save_load.R'><code>R/save_load.R</code></a></small>
+    <div class="hidden name"><code>load_model.Rd</code></div>
     </div>
 
-    <div id="kerastuner-0-1-0-2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#kerastuner-0-1-0-2" class="anchor"></a>kerastuneR 0.1.0.2</h2>
-<ul>
-<li>
-<code>plot_tuner</code> has new option <code>type</code> which allows to build a graph either with <code>plotly</code> or <code>echarts4r</code>
-</li>
-<li>New functions as <code>save</code> and <code>load</code> the model</li>
-</ul>
-</div>
-    <div id="kerastuner-0-1-0-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#kerastuner-0-1-0-1" class="anchor"></a>kerastuneR 0.1.0.1</h2>
-<p>Initial release</p>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Loads a Model from a given trial</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>load_model</span>(<span class='no'>tuner</span>, <span class='no'>trial</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>tuner</th>
+      <td><p>A tuner object</p></td>
+    </tr>
+    <tr>
+      <th>trial</th>
+      <td><p>A `Trial` instance. For models that report intermediate results to the `Oracle`, generally `load_model` should load the best reported `step` by relying of `trial.best_step`</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>None</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#kerastuner-0-1-0-2">0.1.0.2</a></li>
-        <li><a href="#kerastuner-0-1-0-1">0.1.0.1</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+    </ul>
 
+  </div>
 </div>
 
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BayesianOptimization — BayesianOptimization • kerastuneR</title>
+<title>Save model — save_model • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="BayesianOptimization — BayesianOptimization" />
-<meta property="og:description" content="Bayesian optimization oracle." />
+<meta property="og:title" content="Save model — save_model" />
+<meta property="og:description" content="Saves a Model for a given trial" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,105 +129,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>BayesianOptimization</h1>
-    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/bayesian_optimisation.R'><code>R/bayesian_optimisation.R</code></a></small>
-    <div class="hidden name"><code>BayesianOptimization.Rd</code></div>
+    <h1>Save model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/save_load.R'><code>R/save_load.R</code></a></small>
+    <div class="hidden name"><code>save_model.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Bayesian optimization oracle.</p>
+    <p>Saves a Model for a given trial</p>
     </div>
 
-    <pre class="usage"><span class='fu'>BayesianOptimization</span>(
-  <span class='no'>objective</span>,
-  <span class='no'>max_trials</span>,
-  <span class='kw'>num_initial_points</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1e-04</span>,
-  <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>2.6</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>hyperparameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>allow_new_entries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>tune_new_entries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>save_model</span>(<span class='no'>tuner</span>, <span class='no'>trial_id</span>, <span class='no'>model</span>, <span class='kw'>step</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>objective</th>
-      <td><p>String or `kerastuner.Objective`. If a string, the direction of the optimization (min or max) will be inferred.</p></td>
+      <th>tuner</th>
+      <td><p>A tuner object</p></td>
     </tr>
     <tr>
-      <th>max_trials</th>
-      <td><p>Int. Total number of trials (model configurations) to test at most. Note that the oracle may interrupt the search before `max_trial` models have been tested if the search space has been exhausted.</p></td>
+      <th>trial_id</th>
+      <td><p>The ID of the `Trial` that corresponds to this Model.</p></td>
     </tr>
     <tr>
-      <th>num_initial_points</th>
-      <td><p>(Optional) Int. The number of randomly generated samples as initial training data for Bayesian optimization. If not specified, a value of 3 times the dimensionality of the hyperparameter space is used.</p></td>
+      <th>model</th>
+      <td><p>The trained model.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p>Float. Value added to the diagonal of the kernel matrix during fitting. It represents the expected amount of noise in the observed performances in Bayesian optimization.</p></td>
-    </tr>
-    <tr>
-      <th>beta</th>
-      <td><p>Float. The balancing factor of exploration and exploitation. The larger it is, the more explorative it is.</p></td>
-    </tr>
-    <tr>
-      <th>seed</th>
-      <td><p>Int. Random seed.</p></td>
-    </tr>
-    <tr>
-      <th>hyperparameters</th>
-      <td><p>HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space.</p></td>
-    </tr>
-    <tr>
-      <th>allow_new_entries</th>
-      <td><p>Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`.</p></td>
-    </tr>
-    <tr>
-      <th>tune_new_entries</th>
-      <td><p>Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used.</p></td>
+      <th>step</th>
+      <td><p>For models that report intermediate results to the `Oracle`, the step that this saved file should correspond to. For example, for Keras models this is the number of epochs trained.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>BayesianOptimization tuning with Gaussian process</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>None</p>
 
-    <p>It uses Bayesian optimization with a underlying Gaussian process model.
-The acquisition function used is upper confidence bound (UCB), which can
-be found in the following link:
-https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pdf</p>
-    <h2 class="hasAnchor" id="be-found-in-the-following-link"><a class="anchor" href="#be-found-in-the-following-link"></a>be found in the following link</h2>
-
-    
-
-<p>https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pdf</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='co'># The usage of 'tf$keras'</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>keras</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>kerastuneR</span>)
-<span class='no'>tf</span>$<span class='no'>keras</span>$<span class='fu'>Input</span>(<span class='kw'>shape</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>28L</span>, <span class='fl'>28L</span>, <span class='fl'>1L</span>))</div><div class='output co'>#&gt; Tensor("input_1:0", shape=(None, 28, 28, 1), dtype=float32)</div><div class='input'># }
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#be-found-in-the-following-link">be found in the following link</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

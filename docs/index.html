@@ -102,7 +102,7 @@
 <p>The kerastuneR package provides R wrappers to <a href="https://keras-team.github.io/keras-tuner/">Keras Tuner</a>.</p>
 <p>Keras Tuner is a hypertuning framework made for humans. It aims at making the life of AI practitioners, hypertuner algorithm creators and model designers as simple as possible by providing them with a clean and easy to use API for hypertuning. Keras Tuner makes moving from a base model to a hypertuned one quick and easy by only requiring you to change a few lines of code.</p>
 <p><img src="images/kerastuneR.png" width="200" align="right" style="margin-left: 15px;" alt="Keras Tuner"></p>
-<p><a href="https://github.com/henry090/kerastuneR"><img src="https://github.com/henry090/kerastuneR/workflows/R-CMD/badge.svg" alt="Actions Status"></a> <a href="https://travis-ci.com/henry090/kerastuneR"><img src="https://travis-ci.com/henry090/kerastuneR.svg?branch=master" alt="Build Status"></a> <a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <a href="https://codecov.io/gh/henry090/kerastuneR?branch=master"><img src="https://codecov.io/gh/henry090/kerastuneR/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></p>
+<p><a href="https://github.com/henry090/kerastuneR"><img src="https://github.com/henry090/kerastuneR/workflows/R-CMD/badge.svg" alt="Actions Status"></a> <a href="https://travis-ci.com/henry090/kerastuneR"><img src="https://travis-ci.com/henry090/kerastuneR.svg?branch=master" alt="Build Status"></a> <a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <a href="https://codecov.io/gh/henry090/kerastuneR?branch=master"><img src="https://codecov.io/gh/henry090/kerastuneR/branch/master/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://cran.r-project.org/package=kerastuneR"><img src="https://www.r-pkg.org/badges/version/kerastuneR?color=green"></a> <a href="https://github.com/henry090/kerastuneR/commits/master"><img src="https://img.shields.io/github/last-commit/henry090/kerastuneR.svg"></a></p>
 <p>A hyperparameter tuner for <a href="https://keras.io/">Keras</a>, specifically for <code>tf$keras</code> with <em>TensorFlow 2.0</em>.</p>
 <p>Full documentation and tutorials available on the <a href="https://henry090.github.io/kerastuneR/">Keras Tuner website</a>.</p>
 </div>
@@ -114,7 +114,9 @@
 <li>Python 3.6</li>
 <li>TensorFlow 2.0</li>
 </ul>
-<p>Currently, the package is available on github:</p>
+<p><code>kerastuneR</code> can be installed from CRAN:</p>
+<pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages('kerastuneR')</a></code></pre>
+<p>The github version:</p>
 <pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github('henry090/kerastuneR')</a></code></pre>
 <p>Later, you need to install the python module kerastuner:</p>
 <pre><code><a href="reference/install_kerastuner.html">kerastuneR::install_kerastuner()</a></code></pre>
@@ -302,6 +304,8 @@ tuner = RandomSearch(hypermodel = hypermodel,
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=kerastuneR">https://​cloud.r-project.org/​package=kerastuneR</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/henry090/kerastuneR">https://​github.com/​henry090/​kerastuneR</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/henry090/kerastuneR/issues">https://​github.com/​henry090/​kerastuneR/​issues</a>

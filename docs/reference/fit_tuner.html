@@ -147,10 +147,11 @@ each configuration.</p>
     </div>
 
     <pre class="usage"><span class='fu'>fit_tuner</span>(
-  <span class='kw'>tuner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>tuner</span>,
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>steps_per_epoch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>batch_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>epochs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>validation_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>validation_steps</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -182,6 +183,11 @@ NULL (default) if feeding from framework-native tensors (e.g. TensorFlow data te
 declaring one epoch finished and starting the next epoch. It should typically be equal to 
 ceil(num_samples / batch_size). Optional for Sequence: if unspecified, will use the len(generator) 
 as a number of steps.</p></td>
+    </tr>
+    <tr>
+      <th>batch_size</th>
+      <td><p>Integer or `NULL`. Number of samples per gradient update.
+If unspecified, `batch_size` will default to 32.</p></td>
     </tr>
     <tr>
       <th>epochs</th>
