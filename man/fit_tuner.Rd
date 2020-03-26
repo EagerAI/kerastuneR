@@ -5,10 +5,11 @@
 \title{Search}
 \usage{
 fit_tuner(
-  tuner = NULL,
+  tuner,
   x = NULL,
   y = NULL,
   steps_per_epoch = NULL,
+  batch_size = NULL,
   epochs = NULL,
   validation_data = NULL,
   validation_steps = NULL,
@@ -30,6 +31,9 @@ NULL (default) if feeding from framework-native tensors (e.g. TensorFlow data te
 declaring one epoch finished and starting the next epoch. It should typically be equal to 
 ceil(num_samples / batch_size). Optional for Sequence: if unspecified, will use the len(generator) 
 as a number of steps.}
+
+\item{batch_size}{Integer or `NULL`. Number of samples per gradient update.
+If unspecified, `batch_size` will default to 32.}
 
 \item{epochs}{to train the model. Note that in conjunction with initial_epoch, 
 epochs is to be understood as "final epoch". The model is not trained for a number of iterations

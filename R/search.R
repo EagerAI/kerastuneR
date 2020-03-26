@@ -16,6 +16,8 @@
 #' declaring one epoch finished and starting the next epoch. It should typically be equal to 
 #' ceil(num_samples / batch_size). Optional for Sequence: if unspecified, will use the len(generator) 
 #' as a number of steps.
+#' @param batch_size Integer or `NULL`. Number of samples per gradient update.
+#' If unspecified, `batch_size` will default to 32.
 #' @param epochs to train the model. Note that in conjunction with initial_epoch, 
 #' epochs is to be understood as "final epoch". The model is not trained for a number of iterations
 #'  given by epochs, but merely until the epoch of index epochs is reached.
@@ -82,24 +84,41 @@
 #' }
 #' @importFrom stats setNames
 #' @export
-fit_tuner = function(tuner = NULL, x = NULL, y = NULL, steps_per_epoch = NULL, epochs = NULL, 
+fit_tuner <- function(tuner, x = NULL, y = NULL, steps_per_epoch = NULL, batch_size = NULL, epochs = NULL, 
                         validation_data = NULL, validation_steps = NULL, ...) {
-  tuner = tuner
   
-  if(class(tuner)[1]=='python.builtin.Tuner') {
-    args = c(x = x, y = y, steps_per_epoch = steps_per_epoch,
-             epochs = as.integer(epochs),
-             validation_data = setNames(validation_data, NULL),
-             validation_steps = validation_steps, ...)
-    do.call(tuner$search, args)
-    
-  } else {
-    tuner$search(x = x, y = y, steps_per_epoch = steps_per_epoch,
-                 epochs = as.integer(epochs),
-                 validation_data = setNames(validation_data, NULL),
-                 validation_steps = validation_steps, ...)
-  }
+  args = list(x = x, y = y, steps_per_epoch = steps_per_epoch,
+           batch_size =  batch_size,
+           epochs = epochs,
+           validation_data = validation_data,
+           validation_steps = validation_steps, ...)
   
+  args$x <- x
+  args$y <- y
+  
+  if(is.null(args$steps_per_epoch)) 
+    args$steps_per_epoch <- steps_per_epoch
+  else
+    args$steps_per_epoch <- as.integer(steps_per_epoch)
+  
+  if(is.null(args$batch_size)) 
+    args$batch_size <- batch_size
+  else
+    args$batch_size <- as.integer(batch_size)
+  
+  if(is.null(args$epochs)) 
+    args$epochs <- epochs
+  else
+    args$epochs <- as.integer(epochs)
+  
+  args$validation_data <- setNames(validation_data, NULL)
+  
+  if (is.null(args$validation_steps))
+    args$validation_steps <- validation_steps
+  else
+    args$validation_steps <- as.integer(validation_steps)
+  
+  do.call(tuner$search, args)
   
 }
 
