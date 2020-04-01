@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • kerastuneR</title>
+<title>TensorBoard — TensorBoard • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="TensorBoard — TensorBoard" />
+<meta property="og:description" content="Enable visualizations for TensorBoard." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -131,24 +132,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>TensorBoard</h1>
+    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/tensorboard.R'><code>R/tensorboard.R</code></a></small>
+    <div class="hidden name"><code>TensorBoard.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="BayesianOptimisation.html">Bayesian Optimization</a></dt>
-        <dd></dt>
-        <dt><a href="HyperModel_subclass.html">HyperModel subclass</a></dt>
-        <dd></dt>
-        <dt><a href="Introduction.html">Introduction to kerastuneR</a></dt>
-        <dd></dt>
-        <dt><a href="MNIST.html">MNIST hypertuning</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>Enable visualizations for TensorBoard.</p>
     </div>
+
+    <pre class="usage"><span class='fu'>TensorBoard</span>(
+  <span class='kw'>log_dir</span> <span class='kw'>=</span> <span class='st'>"logs"</span>,
+  <span class='kw'>histogram_freq</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>write_graph</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>write_images</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>update_freq</span> <span class='kw'>=</span> <span class='st'>"epoch"</span>,
+  <span class='kw'>profile_batch</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>embeddings_freq</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>embeddings_metadata</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>log_dir</th>
+      <td><p>the path of the directory where to save the log files to be parsed by TensorBoard.</p></td>
+    </tr>
+    <tr>
+      <th>histogram_freq</th>
+      <td><p>frequency (in epochs) at which to compute activation and weight histograms for the layers of the model. If set to 0, histograms won't be computed. Validation data (or split) must be specified for histogram visualizations.</p></td>
+    </tr>
+    <tr>
+      <th>write_graph</th>
+      <td><p>whether to visualize the graph in TensorBoard. The log file can become quite large when write_graph is set to TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>write_images</th>
+      <td><p>whether to write model weights to visualize as image in TensorBoard.</p></td>
+    </tr>
+    <tr>
+      <th>update_freq</th>
+      <td><p>`'batch'` or `'epoch'` or integer. When using `'batch'`, writes the losses and metrics to TensorBoard after each batch. The same applies for `'epoch'`. If using an integer, let's say `1000`, the callback will write the metrics and losses to TensorBoard every 1000 samples. Note that writing too frequently to TensorBoard can slow down your training.</p></td>
+    </tr>
+    <tr>
+      <th>profile_batch</th>
+      <td><p>Profile the batch to sample compute characteristics. By default, it will profile the second batch. Set profile_batch=0 to disable profiling. Must run in TensorFlow eager mode.</p></td>
+    </tr>
+    <tr>
+      <th>embeddings_freq</th>
+      <td><p>frequency (in epochs) at which embedding layers will be visualized. If set to 0, embeddings won't be visualized.</p></td>
+    </tr>
+    <tr>
+      <th>embeddings_metadata</th>
+      <td><p>a dictionary which maps layer name to a file name in which metadata for this embedding layer is saved. See the [details]( https://www.tensorflow.org/how_tos/embedding_viz/#metadata_optional) about metadata files format. In case if the same metadata file is used for all embedding layers, string can be passed.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>None</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>TensorBoard is a visualization tool provided with TensorFlow. This callback logs events for TensorBoard, including:
+* Metrics summary plots
+* Training graph visualization
+* Activation histograms
+* Sampled profiling If you have installed TensorFlow with pip, you should be able
+to launch TensorBoard from the command line: ```sh
+tensorboard --logdir=path_to_your_logs
+``` You can find more information about TensorBoard
+[here](https://www.tensorflow.org/get_started/summaries_and_tensorboard).</p>
+    <h2 class="hasAnchor" id="raises"><a class="anchor" href="#raises"></a>Raises</h2>
+
+    
+
+<p>ValueError: If histogram_freq is set and no validation data is provided.</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

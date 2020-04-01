@@ -1,9 +1,10 @@
 pandoc: 2.3.1
-pkgdown: 1.4.1
+pkgdown: 1.5.0
 pkgdown_sha: ~
 articles:
   BayesianOptimisation: BayesianOptimisation.html
   HyperModel_subclass: HyperModel_subclass.html
   Introduction: Introduction.html
   MNIST: MNIST.html
+last_built: 2020-04-01T16:25Z
 

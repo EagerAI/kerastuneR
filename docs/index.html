@@ -6,10 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interface to Keras Tuner  • kerastuneR</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Interface to Keras Tuner ">
 <meta property="og:description" content="Keras Tuner &lt;https://keras-team.github.io/keras-tuner/&gt; is a hypertuning framework made for humans. 
              It aims at making the life of AI practitioners, hypertuner 
@@ -17,13 +18,12 @@
              providing them with a clean and easy to use API for hypertuning. 
              Keras Tuner makes moving from a base model to a hypertuned one quick and 
              easy by only requiring you to change a few lines of code.">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -78,7 +78,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/henry090/kerastuneR">
+  <a href="https://github.com/henry090/kerastuneR/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -133,7 +133,7 @@ y_data &lt;-  ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()
 x_data2 &lt;- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
 y_data2 &lt;-  ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()</code></pre>
 <p>This function returns a compiled model.</p>
-<pre><code><a href="https://rdrr.io/r/base/library.html">library(keras)
+<pre><code><a href="https://rdrr.io/pkg/keras/man">library(keras)
 library(kerastuneR)
 library(dplyr)
 
@@ -186,7 +186,7 @@ result </code></pre>
 <h2 class="hasAnchor">
 <a href="#you-can-easily-restrict-the-search-space-to-just-a-few-parameters" class="anchor"></a>You can easily restrict the search space to just a few parameters</h2>
 <p>If you have an existing hypermodel, and you want to search over only a few parameters (such as the learning rate), you can do so by passing a <code>hyperparameters</code> argument to the tuner constructor, as well as <code>tune_new_entries=FALSE</code> to specify that parameters that you didn’t list in <code>hyperparameters</code> should not be tuned. For these parameters, the default value gets used.</p>
-<pre><code><a href="https://rdrr.io/r/base/library.html">library(keras)
+<pre><code><a href="https://rdrr.io/pkg/keras/man">library(keras)
 library(kerastuneR)
 library(dplyr)
 
@@ -244,7 +244,7 @@ tuner %&gt;% fit_tuner(x = mnist_train$x,
 <a href="#you-can-use-a-hypermodel-subclass-instead-of-a-model-building-function" class="anchor"></a>You can use a HyperModel subclass instead of a model-building function</h2>
 <p>This makes it easy to share and reuse hypermodels.</p>
 <p>A <code>HyperModel</code> subclass only needs to implement a <code><a href="https://rdrr.io/r/utils/PkgUtils.html">build(self, hp)</a></code> method.</p>
-<pre><code><a href="https://rdrr.io/r/base/library.html">library(keras)
+<pre><code><a href="https://rdrr.io/pkg/keras/man">library(keras)
 library(tensorflow)
 library(dplyr)
 library(kerastuneR)
@@ -300,13 +300,13 @@ tuner = RandomSearch(hypermodel = hypermodel,
 
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=kerastuneR">https://​cloud.r-project.org/​package=kerastuneR</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/henry090/kerastuneR">https://​github.com/​henry090/​kerastuneR</a>
+<li>Browse source code at <br><a href="https://github.com/henry090/kerastuneR/">https://​github.com/​henry090/​kerastuneR/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/henry090/kerastuneR/issues">https://​github.com/​henry090/​kerastuneR/​issues</a>
 </li>
@@ -335,7 +335,7 @@ tuner = RandomSearch(hypermodel = hypermodel,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
