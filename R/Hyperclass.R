@@ -35,7 +35,7 @@ Tuner_class <- function(){
 #' @export
 Objective <- function(name, direction, ...) {
   
-  args <- c(
+  args <- list(
     name = name,
     direction = direction,
     ...

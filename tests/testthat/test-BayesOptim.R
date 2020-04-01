@@ -89,7 +89,7 @@ test_succeeds("Can run Bayesian Optimization", {
             #print('done self$on_batch_begin')
             #print(init_next)
             batch_loss = as.numeric(run_train_step(init_next))
-            self$on_batch_end(trial, model, batch, logs=list(paste('loss', batch_loss)))
+            self$on_batch_end(trial, model, batch, logs=list('loss' = batch_loss))
             
             if (batch %% 100L == 0L){
               loss = epoch_loss_metric$result()$numpy()
@@ -108,7 +108,7 @@ test_succeeds("Can run Bayesian Optimization", {
   
   tuner = MyTuner(
     oracle=BayesianOptimization(
-      objective=Objective(name='loss', direction = list('min')),
+      objective=Objective(name='loss', direction = 'min'),
       max_trials=1),
     hypermodel=conv_build_model,
     directory='results2',

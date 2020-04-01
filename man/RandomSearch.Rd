@@ -5,9 +5,9 @@
 \title{RandomSearch}
 \usage{
 RandomSearch(
-  hypermodel = NULL,
-  objective = NULL,
-  max_trials = NULL,
+  hypermodel,
+  objective,
+  max_trials,
   seed = NULL,
   hyperparameters = NULL,
   tune_new_entries = TRUE,

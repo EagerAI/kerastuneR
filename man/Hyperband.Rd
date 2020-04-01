@@ -5,17 +5,18 @@
 \title{Hyperband}
 \usage{
 Hyperband(
-  hypermodel = NULL,
+  hypermodel,
   optimizer = NULL,
   loss = NULL,
   metrics = NULL,
   hyperparameters = NULL,
-  objective = NULL,
-  max_epochs = NULL,
-  factor = NULL,
-  hyperband_iterations = NULL,
+  objective,
+  max_epochs,
+  factor = 3,
+  hyperband_iterations = 1,
   seed = NULL,
   tune_new_entries = TRUE,
+  allow_new_entries = TRUE,
   distribution_strategy = NULL,
   directory = NULL,
   project_name = NULL,
@@ -54,6 +55,9 @@ across all trials. It is recommended to set this to as high a value as is within
 \item{tune_new_entries}{Whether hyperparameter entries that are requested by the hypermodel 
 but that were not specified in hyperparameters should be added to the search space, or not. 
 If not, then the default value for these parameters will be used.}
+
+\item{allow_new_entries}{Whether the hypermodel is allowed to request hyperparameter entries not listed in 
+`hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.}
 
 \item{distribution_strategy}{Scale up from running single-threaded locally to running on dozens or 
 hundreds of workers in parallel. Distributed Keras Tuner uses a chief-worker model. The chief runs a 

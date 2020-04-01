@@ -86,7 +86,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 #  
 #            self$on_batch_begin(trial, model, batch, logs=list())
 #            batch_loss = as.numeric(run_train_step(init_next))
-#            self$on_batch_end(trial, model, batch, logs=list(paste('loss', batch_loss)))
+#            self$on_batch_end(trial, model, batch, logs=list('loss' = batch_loss))
 #  
 #            if (batch %% 100L == 0L){
 #              loss = epoch_loss_metric$result()$numpy()
