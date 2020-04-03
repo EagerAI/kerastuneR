@@ -7,7 +7,7 @@
 install_kerastuner(version = NULL, ..., restart_session = TRUE)
 }
 \arguments{
-\item{version}{for specific version of Keras tuneR, e.g. "0.9.1"}
+\item{version}{for specific version of Keras tuneR, e.g. "1.0.1"}
 
 \item{...}{other arguments passed to [reticulate::py_install()].}
 

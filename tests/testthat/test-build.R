@@ -79,9 +79,12 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
     
     tuner2 %>% results_summary(12)
     
-    p1=kerastuneR::plot_tuner(tuner2)
+    p1=kerastuneR::plot_tuner(tuner2, type = 'echarts4r')
     p2=kerastuneR::plot_tuner(tuner2,height = 500, width = 500)
     
+    extract_model = tuner2 %>% get_best_models(1) %>% .[[1]]
+    
+    p3 = extract_model %>% kerastuneR::plot_keras_model()
     
   }
 })
