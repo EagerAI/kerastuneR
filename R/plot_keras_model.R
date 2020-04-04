@@ -13,7 +13,7 @@
 #' @param dpi Dots per inch.
 #'
 #' @return a png image.
-#'
+#' @importFrom raster stack plotRGB
 #' @export
 plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, show_layer_names = TRUE, 
                        rankdir = "TB", expand_nested = FALSE, dpi = 96) {
@@ -28,6 +28,7 @@ plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, 
     dpi = as.integer(dpi)
   )
   
+  return(list(python_function_result, plotRGB(stack(to_file))))
 }
 
 

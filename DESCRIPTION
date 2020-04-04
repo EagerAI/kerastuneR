@@ -31,7 +31,8 @@ Imports:
     rjson,
     tidyjson,
     dplyr,
-    echarts4r
+    echarts4r,
+    raster
 Suggests:
     knitr,
     rmarkdown,
