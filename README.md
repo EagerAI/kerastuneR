@@ -8,11 +8,16 @@ It aims at making the life of AI practitioners, hypertuner algorithm creators an
 <img src="images/kerastuneR.png" width=200 align=right style="margin-left: 15px;" alt="Keras Tuner"/>
 
 [![Actions Status](https://github.com/henry090/kerastuneR/workflows/R-CMD/badge.svg)](https://github.com/henry090/kerastuneR)
-[![Build Status](https://travis-ci.com/henry090/kerastuneR.svg?branch=master)](https://travis-ci.com/henry090/kerastuneR)
+[![Travis Build Status](https://travis-ci.com/henry090/kerastuneR.svg?branch=master)](https://travis-ci.com/henry090/kerastuneR)
+[![CRAN](https://www.r-pkg.org/badges/version/kerastuneR?color=green)](https://cran.r-project.org/package=kerastuneR)
+<br>
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Codecov test coverage](https://codecov.io/gh/henry090/kerastuneR/branch/master/graph/badge.svg)](https://codecov.io/gh/henry090/kerastuneR?branch=master)
-[![](https://www.r-pkg.org/badges/version/kerastuneR?color=green)](https://cran.r-project.org/package=kerastuneR)
-[![](https://img.shields.io/github/last-commit/henry090/kerastuneR.svg)](https://github.com/henry090/kerastuneR/commits/master)
+[![Total downloads](http://cranlogs.r-pkg.org/badges/grand-total/kerastuneR?color=blue)](https://cran.r-project.org/package=kerastuneR)
+<br>
+[![Last commit](https://img.shields.io/github/last-commit/henry090/kerastuneR.svg)](https://github.com/henry090/kerastuneR/commits/master)
+[![Code coverage](https://img.shields.io/badge/devel%20version-0.1.0.2-blue.svg)](https://github.com/henry090/kerastuneR)
+[![Dependencies](https://tinyverse.netlify.com/badge/kerastuneR)](https://cran.r-project.org/package=kerastuneR)
 
 A hyperparameter tuner for [Keras](https://keras.io/), specifically for ```tf$keras``` with *TensorFlow 2.0*.
 
