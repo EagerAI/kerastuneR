@@ -20,9 +20,6 @@ before_script:
   - R -e "install.packages(c('reticulate','keras'))"
   - R -e 'Sys.setenv(PIP_QUIET=1); keras::install_keras(tensorflow = "2.1")'
 
-after_failure:
-  - Rscript -e 'library(keras); testthat::test_dir("tests/")'
-
 after_success:
     - Rscript -e 'covr::codecov()'
 
