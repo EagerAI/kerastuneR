@@ -31,7 +31,7 @@ plot_keras_model(
 \item{dpi}{Dots per inch.}
 }
 \value{
-a png image.
+saves a png image on the system and builds a plot in R
 }
 \description{
 Converts a Keras model to dot format and save to a file.

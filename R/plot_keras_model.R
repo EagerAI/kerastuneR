@@ -12,7 +12,7 @@
 #' @param expand_nested Whether to expand nested models into clusters.
 #' @param dpi Dots per inch.
 #'
-#' @return a png image.
+#' @return saves a png image on the system and builds a plot in R
 #' @importFrom raster stack plotRGB
 #' @export
 plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, show_layer_names = TRUE, 
@@ -28,7 +28,7 @@ plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, 
     dpi = as.integer(dpi)
   )
   
-  return(list(python_function_result, plotRGB(stack(to_file))))
+  return(invisible(list(python_function_result, plotRGB(stack(to_file)))))
 }
 
 
