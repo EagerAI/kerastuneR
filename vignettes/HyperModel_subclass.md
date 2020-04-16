@@ -1,0 +1,114 @@
+---
+title: "HyperModel subclass"
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HyperModel subclass}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+Recently, the [reticulate library](https://rstudio.github.io/reticulate/) provided with one of the most anticipating functionality --- ability to write a python class in R.
+
+We could use __a HyperModel subclass__ instead of a model-building function. So, this makes it easy to share and reuse hypermodels.
+
+A HyperModel subclass only needs to implement a ```build(self, hp)``` method. And, again one should return a compiled model inside a ```build``` function.
+
+
+```r
+MyHyperModel <- reticulate::PyClass(
+  "HyperModel",
+  
+  inherit = kerastuneR::HyperModel_class(),
+  
+  list(
+    
+    `__init__` = function(self, num_classes) {
+      
+      self$num_classes = num_classes
+      NULL
+    },
+    
+    build = function(self,hp) {
+      model = keras_model_sequential() 
+      model %>% layer_dense(units = hp$Int('units',
+                                           min_value=32L,
+                                           max_value=512L,
+                                           step=32L),
+                            activation='relu') %>% 
+        layer_dense(as.integer(self$num_classes), activation='softmax') %>% 
+        compile(
+          optimizer= tf$keras$optimizers$Adam(
+            hp$Choice('learning_rate',
+                      values=c(1e-2, 1e-3, 1e-4))),
+          loss='categorical_crossentropy',
+          metrics='accuracy')
+    }
+  )
+)
+```
+
+## Full code 
+
+
+```r
+# generate some data
+
+x_data <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
+y_data <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
+
+x_data2 <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
+y_data2 <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
+
+# subclass
+
+MyHyperModel <- reticulate::PyClass(
+  "HyperModel",
+  
+  inherit = kerastuneR::HyperModel_class(),
+  
+  list(
+    
+    `__init__` = function(self, num_classes) {
+      
+      self$num_classes = num_classes
+      NULL
+    },
+    
+    build = function(self,hp) {
+      model = keras_model_sequential() 
+      model %>% layer_dense(units = hp$Int('units',
+                                           min_value=32L,
+                                           max_value=512L,
+                                           step=32L),
+                            activation='relu') %>% 
+        layer_dense(as.integer(self$num_classes), activation='softmax') %>% 
+        compile(
+          optimizer= tf$keras$optimizers$Adam(
+            hp$Choice('learning_rate',
+                      values=c(1e-2, 1e-3, 1e-4))),
+          loss='categorical_crossentropy',
+          metrics='accuracy')
+    }
+  )
+)
+
+# Random Search
+
+hypermodel = MyHyperModel(num_classes = 10)
+
+tuner = RandomSearch(
+    hypermodel,
+    objective = 'val_accuracy',
+    max_trials = 10,
+    directory = 'my_dir',
+    project_name = 'helloworld')
+
+# Run
+
+tuner %>% fit_tuner(x_data,y_data,
+                    epochs = 5, 
+                    validation_data = list(x_data2, y_data2))
+```
