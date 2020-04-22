@@ -13,11 +13,11 @@ It aims at making the life of AI practitioners, hypertuner algorithm creators an
 <br>
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Codecov test coverage](https://codecov.io/gh/henry090/kerastuneR/branch/master/graph/badge.svg)](https://codecov.io/gh/henry090/kerastuneR?branch=master)
-[![Total downloads](http://cranlogs.r-pkg.org/badges/grand-total/kerastuneR?color=blue)](https://cran.r-project.org/package=kerastuneR)
+[![Last month downloads](http://cranlogs.r-pkg.org/badges/last-month/kerastuneR?color=green)](https://cran.r-project.org/package=kerastuneR)
 <br>
 [![Last commit](https://img.shields.io/github/last-commit/henry090/kerastuneR.svg)](https://github.com/henry090/kerastuneR/commits/master)
 [![Code coverage](https://img.shields.io/badge/devel%20version-0.1.0.2-blue.svg)](https://github.com/henry090/kerastuneR)
-[![Dependencies](https://tinyverse.netlify.com/badge/kerastuneR)](https://cran.r-project.org/package=kerastuneR)
+
 
 A hyperparameter tuner for [Keras](https://keras.io/), specifically for ```tf$keras``` with *TensorFlow 2.0*.
 
@@ -36,7 +36,7 @@ Requirements:
 install.packages('kerastuneR')
 ```
 
-The github version:
+The dev version:
 
 ```
 devtools::install_github('henry090/kerastuneR')
@@ -57,6 +57,7 @@ First, we define a model-building function. It takes an argument ```hp``` from w
 Sample data:
 
 ```
+library(magrittr)
 x_data <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
 y_data <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
 
@@ -68,8 +69,8 @@ This function returns a compiled model.
 
 ```
 library(keras)
+library(tensorflow)
 library(kerastuneR)
-library(dplyr)
 
 build_model = function(hp) {
   
@@ -89,7 +90,6 @@ build_model = function(hp) {
   return(model)
 }
 ```
-
 
 Next, instantiate a tuner. You should specify the model-building function, the name of the objective to optimize (whether to minimize or maximize is automatically inferred for built-in metrics), the total number of trials ```(max_trials)``` to test, and the number of models that should be built and fit for each trial ```(executions_per_trial)```.
 
@@ -127,7 +127,7 @@ There is a function ```plot_tuner``` which allows user to plot the search result
 
 ```
 result = kerastuneR::plot_tuner(tuner)
-# the list will show the plot and the data.frame
+# the list will show the plot and the data.frame of tuning results
 result 
 ```
 
@@ -202,7 +202,7 @@ A ```HyperModel``` subclass only needs to implement a ```build(self, hp)``` meth
 ```
 library(keras)
 library(tensorflow)
-library(dplyr)
+library(magrittr)
 library(kerastuneR)
 
 x_data <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
