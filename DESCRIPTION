@@ -31,10 +31,10 @@ Imports:
     rjson,
     tidyjson,
     dplyr,
-    echarts4r
+    echarts4r,
+    magick
 Suggests:
     knitr,
-    imager,
     rmarkdown,
     covr,
     stats,
