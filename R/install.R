@@ -15,9 +15,7 @@ install_kerastuner <- function(version = NULL, ..., restart_session = TRUE) {
   else
     module_string <- paste0("keras-tuner==", version)
   invisible(py_config())
-  py_install(packages = paste(module_string), pip = TRUE, ...)
-  invisible(py_config())
-  py_install(packages = c('pydot'))
+  py_install(packages = paste(module_string, 'pydot'), pip = TRUE, ...)
   
   if (restart_session && rstudioapi::hasFun("restartSession"))
     rstudioapi::restartSession()
