@@ -14,7 +14,8 @@ install_kerastuner <- function(version = NULL, ..., restart_session = TRUE) {
   else
     module_string <- paste0("keras-tuner==", version)
   
-  reticulate::py_install(packages = paste(module_string,'pydot','graphviz'), pip = TRUE, ...)
+  reticulate::py_install(packages = paste(module_string), pip = TRUE, ...)
+  reticulate::py_install(packages = c('pydot'))
   
   if (restart_session && rstudioapi::hasFun("restartSession"))
     rstudioapi::restartSession()
