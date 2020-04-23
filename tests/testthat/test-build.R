@@ -84,8 +84,10 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
     
     extract_model = tuner2 %>% get_best_models(1) %>% .[[1]]
     
-    p3 = extract_model %>% kerastuneR::plot_keras_model()
     
+    if (Sys.getenv("USER") != "travis") {
+      p3 = extract_model %>% kerastuneR::plot_keras_model()
+    }
   }
 })
 
