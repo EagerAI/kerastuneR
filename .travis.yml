@@ -13,11 +13,10 @@ before_script:
   - python3 -m pip install setuptools 
   - pip3 install --upgrade --ignore-installed --user travis virtualenv
   - python3 -m pip install wheel 
-  - python3 -m pip install pydot
-  - python3 -m pip install graphviz
   - python3 -m pip install keras-tuner==1.0.1
   - R CMD INSTALL .
   - R -e "install.packages(c('reticulate','keras'))"
+  - R -e "kerastuneR::install_kerastuner()"
   - R -e 'Sys.setenv(PIP_QUIET=1); keras::install_keras(tensorflow = "2.1")'
 
 after_success:
