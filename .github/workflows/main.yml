@@ -38,7 +38,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
 
       - name: Install dependencies
-        run: Rscript -e "install.packages('remotes')" -e "remotes::install_deps(dependencies = TRUE)" -e "remotes::install_cran(c('reticulate', 'tensorflow','rstudioapi','plotly','data.table','RJSONIO','rjson','tidyjson','dplyr','echarts4r','knitr','rmarkdown','stats','testthat','keras','tfdatasets','purrr'))"
+        run: Rscript -e "install.packages('remotes')" -e "remotes::install_deps(dependencies = 'Imports')" -e "remotes::install_cran('rcmdcheck')"
 
       - name: Install Python
         run: |
