@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • kerastuneR</title>
+<title>Plot Keras model — plot_keras_model • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -39,15 +39,8 @@
 
 
 
-<meta property="og:title" content="Objects exported from other packages — reexports" />
-<meta property="og:description" content="These objects are imported from other packages. Follow the links
-below to see their documentation.
-
-  reticulatePyClass, use_python
-
-  tensorflowtf
-
-" />
+<meta property="og:title" content="Plot Keras model — plot_keras_model" />
+<meta property="og:description" content="Converts a Keras model to dot format and save to a file." />
 
 
 
@@ -139,29 +132,62 @@ below to see their documentation.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
-    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/reexports.R'><code>R/reexports.R</code></a></small>
-    <div class="hidden name"><code>reexports.Rd</code></div>
+    <h1>Plot Keras model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/plot_keras_model.R'><code>R/plot_keras_model.R</code></a></small>
+    <div class="hidden name"><code>plot_keras_model.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p>
-<dl'>
-  <dt>reticulate</dt><dd><p><code><a href='https://rdrr.io/pkg/reticulate/man/PyClass.html'>PyClass</a></code>, <code><a href='https://rdrr.io/pkg/reticulate/man/use_python.html'>use_python</a></code></p></dd>
-
-  <dt>tensorflow</dt><dd><p><code><a href='https://rdrr.io/pkg/tensorflow/man/tf.html'>tf</a></code></p></dd>
-
-</dl>
+    <p>Converts a Keras model to dot format and save to a file.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>plot_keras_model</span>(
+  <span class='no'>model</span>,
+  <span class='kw'>to_file</span> <span class='kw'>=</span> <span class='st'>"model.png"</span>,
+  <span class='kw'>show_shapes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show_layer_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>rankdir</span> <span class='kw'>=</span> <span class='st'>"TB"</span>,
+  <span class='kw'>expand_nested</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>dpi</span> <span class='kw'>=</span> <span class='fl'>96</span>
+)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>model</th>
+      <td><p>A Keras model instance</p></td>
+    </tr>
+    <tr>
+      <th>to_file</th>
+      <td><p>File name of the plot image.</p></td>
+    </tr>
+    <tr>
+      <th>show_shapes</th>
+      <td><p>whether to display shape information.</p></td>
+    </tr>
+    <tr>
+      <th>show_layer_names</th>
+      <td><p>whether to display layer names.</p></td>
+    </tr>
+    <tr>
+      <th>rankdir</th>
+      <td><p>`rankdir` argument passed to PyDot, a string specifying the format of the plot: 
+'TB' creates a vertical plot; 'LR' creates a horizontal plot.</p></td>
+    </tr>
+    <tr>
+      <th>expand_nested</th>
+      <td><p>Whether to expand nested models into clusters.</p></td>
+    </tr>
+    <tr>
+      <th>dpi</th>
+      <td><p>Dots per inch.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a alias for reticulate::use_python</p>
-<p>a alias for tensorflow::tf</p>
-<p>a alias for reticulate::PyClass</p>
+    <p>saves a png image on the system and builds a plot in R</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
