@@ -6,6 +6,7 @@
 #' @param ... other arguments passed to [reticulate::py_install()].
 #' @param restart_session Restart R session after installing (note this will only occur within RStudio).
 #' @return a python module kerastuner
+#' @importFrom reticulate py_config py_install
 #' @export
 install_kerastuner <- function(version = NULL, ..., restart_session = TRUE) {
   
@@ -13,9 +14,10 @@ install_kerastuner <- function(version = NULL, ..., restart_session = TRUE) {
     module_string <- paste0("keras-tuner==", '1.0.1')
   else
     module_string <- paste0("keras-tuner==", version)
-  
-  reticulate::py_install(packages = paste(module_string), pip = TRUE, ...)
-  reticulate::py_install(packages = c('pydot'))
+  invisible(py_config())
+  py_install(packages = paste(module_string), pip = TRUE, ...)
+  invisible(py_config())
+  py_install(packages = c('pydot'))
   
   if (restart_session && rstudioapi::hasFun("restartSession"))
     rstudioapi::restartSession()
