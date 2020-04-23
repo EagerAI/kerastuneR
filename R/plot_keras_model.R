@@ -28,7 +28,7 @@ plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, 
     dpi = as.integer(dpi)
   )
   
-  return(invisible(list(python_function_result, load.image(to_file) )))
+  return(invisible(list(python_function_result, plot(load.image(to_file)) )))
 }
 
 
