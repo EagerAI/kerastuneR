@@ -105,10 +105,12 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 #  
 #  main = function () {
 #    tuner = MyTuner(
-#      oracle = BayesianOptimization(objective = Objective(name='loss', direction = list('min')), max_trials = 1),
-#      hypermodel = conv_build_model,
-#      directory = 'results2',
-#      project_name = 'mnist_custom_training2')
+#      oracle=BayesianOptimization(
+#        objective=Objective(name='loss', direction = 'min'),
+#        max_trials=1),
+#      hypermodel=conv_build_model,
+#      directory='results2',
+#      project_name='mnist_custom_training2')
 #  
 #    mnist_data = dataset_fashion_mnist()
 #    c(mnist_train, mnist_test) %<-%  mnist_data
