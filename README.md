@@ -142,7 +142,9 @@ best_5_models = tuner %>% get_best_models(5)
 best_5_models[[1]] %>% plot_keras_model()
 ```
 
-<center><img src="images/model.png" height=380 alt="Keras model"></center>
+<p align="center">
+  <img src="images/model.png" height=380 alt="Keras model"></center>
+</p>
 
 ## You can easily restrict the search space to just a few parameters
 
