@@ -14,6 +14,7 @@
 #'
 #' @return saves a png image on the system and builds a plot in R
 #' @importFrom imager load.image
+#' @importFrom graphics plot
 #' @export
 plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, show_layer_names = TRUE, 
                              rankdir = "TB", expand_nested = FALSE, dpi = 96) {
