@@ -32,7 +32,7 @@ Imports:
     tidyjson,
     dplyr,
     echarts4r,
-    raster
+    imager
 Suggests:
     knitr,
     rmarkdown,
