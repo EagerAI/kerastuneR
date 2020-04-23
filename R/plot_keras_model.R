@@ -13,7 +13,7 @@
 #' @param dpi Dots per inch.
 #'
 #' @return saves a png image on the system and builds a plot in R
-#' @importFrom raster stack plotRGB
+#' @importFrom imager load.image
 #' @export
 plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, show_layer_names = TRUE, 
                        rankdir = "TB", expand_nested = FALSE, dpi = 96) {
@@ -28,7 +28,7 @@ plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, 
     dpi = as.integer(dpi)
   )
   
-  return(invisible(list(python_function_result, plotRGB(stack(to_file)))))
+  return(invisible(list(python_function_result, load.image(to_file) )))
 }
 
 
