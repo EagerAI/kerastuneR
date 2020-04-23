@@ -133,6 +133,16 @@ result
 
 <img src="images/tuner.gif" width=900 align=center style="margin-left: 15px;" alt="Keras Tuner plot"/>
 
+### Plot Keras model
+
+First one should extract the list of tuned models and then using function ```plot_keras_model``` to plot the model architecture.
+
+```
+best_5_models = tuner %>% get_best_models(5)
+best_5_models[[1]] %>% plot_keras_model()
+```
+
+<center><img src="images/model.png" height=380 alt="Keras model"></center>
 
 ## You can easily restrict the search space to just a few parameters
 
@@ -141,7 +151,7 @@ If you have an existing hypermodel, and you want to search over only a few param
 ```
 library(keras)
 library(kerastuneR)
-library(dplyr)
+library(magrittr)
 
 mnist_data = dataset_fashion_mnist()
 c(mnist_train, mnist_test) %<-%  mnist_data
