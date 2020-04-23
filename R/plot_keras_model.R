@@ -14,10 +14,9 @@
 #'
 #' @return saves a png image on the system and builds a plot in R
 #' @importFrom imager load.image
-#' @importFrom graphics plot
 #' @export
 plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, show_layer_names = TRUE, 
-                       rankdir = "TB", expand_nested = FALSE, dpi = 96) {
+                             rankdir = "TB", expand_nested = FALSE, dpi = 96) {
   
   python_function_result <- tf$keras$utils$plot_model(
     model = model,
@@ -29,7 +28,6 @@ plot_keras_model <- function(model, to_file = "model.png", show_shapes = FALSE, 
     dpi = as.integer(dpi)
   )
   
-  return(invisible(list(python_function_result, plot(load.image(to_file)) )))
+  return(invisible(list(python_function_result, plot(load.image(to_file), axes = FALSE)
+                        )))
 }
-
-
