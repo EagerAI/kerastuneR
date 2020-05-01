@@ -38,13 +38,21 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
 
       - name: Install dependencies
-        run: Rscript -e "install.packages('remotes')" -e "remotes::install_deps(dependencies = TRUE)" -e "remotes::install_cran('rcmdcheck')"
+        if: runner.os == 'Linux'
+        run: |
+          sudo add-apt-repository -y ppa:cran/imagemagick
+          sudo apt-get update
+          sudo apt-get install -y libmagick++-dev 
+        run: |
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_deps(dependencies = TRUE)"
+          Rscript -e "remotes::install_cran('rcmdcheck')"
 
       - name: Install Python
         run: |
           Rscript -e "remotes::install_github('rstudio/reticulate')"
           Rscript -e "try(reticulate::install_miniconda())"
-          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.9')"
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.10')"
       - name: Install TensorFlow
         run: |
           Rscript -e "remotes::install_local()"
