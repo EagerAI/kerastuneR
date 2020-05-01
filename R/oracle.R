@@ -26,6 +26,9 @@ Oracle <- function(objective, max_trials = NULL,
     tune_new_entries = tune_new_entries
   )
   
+  if(!is.null(max_trials))
+    args$max_trials <- as.integer(max_trials)
+  
   do.call(kerastuner$Oracle, args)
   
 }
