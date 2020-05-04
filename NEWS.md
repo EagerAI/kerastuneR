@@ -3,7 +3,7 @@
 
 * `plot_tuner` has new option `type` which allows to build a plot either with `plotly` or `echarts4r`
 * New functions as `save` and `load` the model
-* Plot keras model
+* New function `plot_keras_model`
 * A hyperparameter optimization algorithm - __Oracle()__
 
 
