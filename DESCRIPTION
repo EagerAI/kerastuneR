@@ -32,14 +32,13 @@ Imports:
     tidyjson,
     dplyr,
     echarts4r,
-    magick
+    magick,
+    crayon,
+    keras
 Suggests:
     knitr,
     rmarkdown,
-    covr,
-    stats,
-    testthat,
-    keras,
     tfdatasets,
+    testthat,
     purrr
 VignetteBuilder: knitr
