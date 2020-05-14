@@ -13,7 +13,9 @@ save_model(tuner, trial_id, model, step = 1)
 
 \item{model}{The trained model.}
 
-\item{step}{For models that report intermediate results to the `Oracle`, the step that this saved file should correspond to. For example, for Keras models this is the number of epochs trained.}
+\item{step}{For models that report intermediate results to the `Oracle`, the 
+step that this saved file should correspond to. For example, for Keras models 
+this is the number of epochs trained.}
 }
 \value{
 None

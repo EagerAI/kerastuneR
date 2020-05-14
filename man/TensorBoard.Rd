@@ -18,19 +18,32 @@ TensorBoard(
 \arguments{
 \item{log_dir}{the path of the directory where to save the log files to be parsed by TensorBoard.}
 
-\item{histogram_freq}{frequency (in epochs) at which to compute activation and weight histograms for the layers of the model. If set to 0, histograms won't be computed. Validation data (or split) must be specified for histogram visualizations.}
+\item{histogram_freq}{frequency (in epochs) at which to compute activation and weight histograms 
+for the layers of the model. If set to 0, histograms won't be computed. Validation data (or split) 
+must be specified for histogram visualizations.}
 
-\item{write_graph}{whether to visualize the graph in TensorBoard. The log file can become quite large when write_graph is set to TRUE.}
+\item{write_graph}{whether to visualize the graph in TensorBoard. The log file can become quite 
+large when write_graph is set to TRUE.}
 
 \item{write_images}{whether to write model weights to visualize as image in TensorBoard.}
 
-\item{update_freq}{`'batch'` or `'epoch'` or integer. When using `'batch'`, writes the losses and metrics to TensorBoard after each batch. The same applies for `'epoch'`. If using an integer, let's say `1000`, the callback will write the metrics and losses to TensorBoard every 1000 samples. Note that writing too frequently to TensorBoard can slow down your training.}
+\item{update_freq}{`'batch'` or `'epoch'` or integer. When using `'batch'`, writes the losses and 
+metrics to TensorBoard after each batch. The same applies for `'epoch'`. If using an integer, let's 
+say `1000`, the callback will write the metrics and losses to TensorBoard every 1000 samples. 
+Note that writing too frequently to TensorBoard can slow down your training.}
 
-\item{profile_batch}{Profile the batch to sample compute characteristics. By default, it will profile the second batch. Set profile_batch=0 to disable profiling. Must run in TensorFlow eager mode.}
+\item{profile_batch}{Profile the batch to sample compute characteristics. By default, it will 
+profile the second batch. Set profile_batch=0 to disable profiling. Must run in 
+TensorFlow eager mode.}
 
-\item{embeddings_freq}{frequency (in epochs) at which embedding layers will be visualized. If set to 0, embeddings won't be visualized.}
+\item{embeddings_freq}{frequency (in epochs) at which embedding layers will be visualized. 
+If set to 0, embeddings won't be visualized.}
 
-\item{embeddings_metadata}{a dictionary which maps layer name to a file name in which metadata for this embedding layer is saved. See the [details]( https://www.tensorflow.org/how_tos/embedding_viz/#metadata_optional) about metadata files format. In case if the same metadata file is used for all embedding layers, string can be passed.}
+\item{embeddings_metadata}{a dictionary which maps layer name to a file name in which metadata 
+for this embedding layer is saved. 
+See the [details]( https://www.tensorflow.org/how_tos/embedding_viz/#metadata_optional) about 
+metadata files format. In case if the same metadata file is used for all embedding layers, 
+string can be passed.}
 }
 \value{
 None

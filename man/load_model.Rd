@@ -9,7 +9,9 @@ load_model(tuner, trial)
 \arguments{
 \item{tuner}{A tuner object}
 
-\item{trial}{A `Trial` instance. For models that report intermediate results to the `Oracle`, generally `load_model` should load the best reported `step` by relying of `trial.best_step`}
+\item{trial}{A `Trial` instance. For models that report intermediate results 
+to the `Oracle`, generally `load_model` should load the best reported `step` 
+by relying of `trial.best_step`}
 }
 \value{
 None

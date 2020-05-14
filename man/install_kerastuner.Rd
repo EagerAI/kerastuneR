@@ -4,14 +4,21 @@
 \alias{install_kerastuner}
 \title{Install Keras Tuner}
 \usage{
-install_kerastuner(version = NULL, ..., restart_session = TRUE)
+install_kerastuner(
+  version = NULL,
+  ...,
+  restart_session = TRUE,
+  from_git = FALSE
+)
 }
 \arguments{
-\item{version}{for specific version of Keras tuneR, e.g. "1.0.1"}
+\item{version}{for specific version of Keras Tuner, e.g. "1.0.1"}
 
 \item{...}{other arguments passed to [reticulate::py_install()].}
 
 \item{restart_session}{Restart R session after installing (note this will only occur within RStudio).}
+
+\item{from_git}{install the recent GitHub version of Keras Tuner}
 }
 \value{
 a python module kerastuner
