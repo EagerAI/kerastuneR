@@ -33,40 +33,43 @@
 #' 
 #' @examples
 #' 
-#' \donttest{
+#' \dontrun{
 #' # The usage of 'tf$keras'
-#' library(keras)
-#' library(dplyr)
-#' library(kerastuneR)
+#' library(tensorflow)
 #' tf$keras$Input(shape=list(28L, 28L, 1L))
 #' }
 #' @export
 BayesianOptimization <- function(objective, max_trials, num_initial_points = NULL, alpha = 0.0001, beta = 2.6, 
                                  seed = NULL, hyperparameters = NULL, allow_new_entries = TRUE, tune_new_entries = TRUE) {
-  args = list(
-    objective = objective,
-    max_trials = as.integer(max_trials),
-    num_initial_points = num_initial_points,
-    alpha = alpha,
-    beta = beta,
-    seed = as.integer(seed),
-    hyperparameters = hyperparameters,
-    allow_new_entries = allow_new_entries,
-    tune_new_entries = tune_new_entries
-  )
-  
-  if (is.null(num_initial_points))
-    args$num_initial_points <- NULL
-  else
-    args$num_initial_points <- as.integer(args$num_initial_points)
-  
-  if(is.null(seed))
-    args$seed <- NULL
-  else
-    args$seed <- as.integer(args$seed)
-  
-  if(is.null(hyperparameters))
-    args$hyperparameters <- NULL
-  
-  do.call(kerastuner$oracles$BayesianOptimization,args)
+
+  if(missing(objective)) {
+    invisible(kerastuner$oracles$BayesianOptimization)
+  } else {
+    args = list(
+      objective = objective,
+      max_trials = as.integer(max_trials),
+      num_initial_points = num_initial_points,
+      alpha = alpha,
+      beta = beta,
+      seed = as.integer(seed),
+      hyperparameters = hyperparameters,
+      allow_new_entries = allow_new_entries,
+      tune_new_entries = tune_new_entries
+    )
+    
+    if (is.null(num_initial_points))
+      args$num_initial_points <- NULL
+    else
+      args$num_initial_points <- as.integer(args$num_initial_points)
+    
+    if(is.null(seed))
+      args$seed <- NULL
+    else
+      args$seed <- as.integer(args$seed)
+    
+    if(is.null(hyperparameters))
+      args$hyperparameters <- NULL
+    
+    do.call(kerastuner$oracles$BayesianOptimization,args)
+  }
 }

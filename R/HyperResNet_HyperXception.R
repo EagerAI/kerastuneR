@@ -10,23 +10,20 @@
 #' @param classes optional number of classes to classify images into, only to be specified if 
 #' `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword 
 #' arguments that apply to all HyperModels. See `kerastuner.HyperModel`.
+#' @param ... Additional keyword arguments that apply to all HyperModels.
 #' @return a pre-trained ResNet model
 #' @examples
 #' 
-#' \donttest{
-#' library(keras)
-#' library(dplyr)
-#' library(kerastuneR)
+#' \dontrun{
 #' 
-#' kerastuneR::install_kerastuner()
 #' 
 #' cifar <- dataset_cifar10()
 #' 
-#' hypermodel = kerastuneR::HyperResNet(input_shape = list(32L, 32L, 3L), classes = 10L)
-#' hypermodel2 = kerastuneR::HyperXception(input_shape = list(32L, 32L, 3L), classes = 10L)
+#' hypermodel = HyperResNet(input_shape = list(32L, 32L, 3L), classes = 10L)
+#' hypermodel2 = HyperXception(input_shape = list(32L, 32L, 3L), classes = 10L)
 #' 
 #' 
-#' tuner = kerastuneR::Hyperband(
+#' tuner = Hyperband(
 #'   hypermodel = hypermodel,
 #'   objective = 'accuracy',
 #'   loss = 'sparse_categorical_crossentropy',
@@ -42,13 +39,14 @@
 #' tuner %>% fit_tuner(train_data,test_data, epochs = 1)
 #' }
 #' @export
-HyperResNet <- function(include_top = TRUE, input_shape = NULL, input_tensor = NULL, classes = NULL) {
+HyperResNet <- function(include_top = TRUE, input_shape = NULL, input_tensor = NULL, classes = NULL,...) {
   
-  python_function_result <- kerastuner$applications$HyperResNet(
+  kerastuner$applications$HyperResNet(
     include_top = include_top,
     input_shape = input_shape,
     input_tensor = input_tensor,
-    classes = classes
+    classes = classes,
+    ...
   )
   
 }
@@ -65,15 +63,17 @@ HyperResNet <- function(include_top = TRUE, input_shape = NULL, input_tensor = N
 #' @param classes optional number of classes to classify images into, only to be specified 
 #' if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional 
 #' keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.
+#' @param ... Additional keyword arguments that apply to all HyperModels.
 #' @return a pre-trained Xception model
 #' @export
-HyperXception <- function(include_top = TRUE, input_shape = NULL, input_tensor = NULL, classes = NULL) {
+HyperXception <- function(include_top = TRUE, input_shape = NULL, input_tensor = NULL, classes = NULL,...) {
   
-  python_function_result <- kerastuner$applications$HyperXception(
+  kerastuner$applications$HyperXception(
     include_top = include_top,
     input_shape = input_shape,
     input_tensor = input_tensor,
-    classes = classes
+    classes = classes,
+    ...
   )
   
 }
@@ -139,49 +139,54 @@ Hyperband <- function(hypermodel, optimizer = NULL, loss = NULL,
                       directory = NULL, project_name = NULL,
                       ...) {
   
-  args = list(hypermodel = hypermodel, 
-              optimizer = optimizer,
-              objective = objective, 
-              loss = loss,
-              metrics = metrics,
-              hyperparameters = hyperparameters,
-              max_epochs = as.integer(max_epochs), 
-              factor = as.integer(factor),
-              hyperband_iterations = as.integer(hyperband_iterations),
-              seed = as.integer(seed),
-              tune_new_entries = tune_new_entries,
-              distribution_strategy = distribution_strategy,
-              directory = directory, 
-              project_name = project_name,
-              ...)
-  
-  if(is.null(optimizer))
-    args$optimizer <- NULL
-  
-  if(is.null(loss))
-    args$loss <- NULL
-  
-  if(is.null(metrics))
-    args$metrics <- NULL
-  
-  if(is.null(hyperparameters))
-    args$hyperparameters <- NULL
-  
-  if(is.null(seed))
-    args$seed <- NULL
-  else
-    args$seed <- as.integer(args$seed)
-  
-  if(is.null(distribution_strategy))
-    args$distribution_strategy <- NULL
-  
-  if(is.null(directory))
-    args$directory <- NULL
-  
-  if(is.null(project_name))
-    args$project_name <- NULL
-  
-  do.call(kerastuner$tuners$Hyperband, args)
+
+  if(missing(hypermodel)) {
+    kerastuner$tuners$Hyperband
+  } else {
+    args = list(hypermodel = hypermodel, 
+                optimizer = optimizer,
+                objective = objective, 
+                loss = loss,
+                metrics = metrics,
+                hyperparameters = hyperparameters,
+                max_epochs = as.integer(max_epochs), 
+                factor = as.integer(factor),
+                hyperband_iterations = as.integer(hyperband_iterations),
+                seed = as.integer(seed),
+                tune_new_entries = tune_new_entries,
+                distribution_strategy = distribution_strategy,
+                directory = directory, 
+                project_name = project_name,
+                ...)
+    
+    if(is.null(optimizer))
+      args$optimizer <- NULL
+    
+    if(is.null(loss))
+      args$loss <- NULL
+    
+    if(is.null(metrics))
+      args$metrics <- NULL
+    
+    if(is.null(hyperparameters))
+      args$hyperparameters <- NULL
+    
+    if(is.null(seed))
+      args$seed <- NULL
+    else
+      args$seed <- as.integer(args$seed)
+    
+    if(is.null(distribution_strategy))
+      args$distribution_strategy <- NULL
+    
+    if(is.null(directory))
+      args$directory <- NULL
+    
+    if(is.null(project_name))
+      args$project_name <- NULL
+    
+    do.call(kerastuner$tuners$Hyperband, args)
+  }
 }
 
 

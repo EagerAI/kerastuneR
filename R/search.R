@@ -31,9 +31,8 @@
 #' @return performs a search for best hyperparameter configuations
 #' @examples
 #' 
-#' \donttest{
-#' library(dplyr)
-#' library(kerastuneR)
+#' \dontrun{
+#' 
 #' library(keras)
 #' x_data <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5) 
 #' y_data <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
@@ -41,9 +40,9 @@
 #' y_data2 <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
 #' 
 #' 
-#' HyperModel <- kerastuneR::PyClass(
+#' HyperModel <- PyClass(
 #'   'HyperModel',
-#'   inherit = kerastuneR::HyperModel_class(),
+#'   inherit = HyperModel_class(),
 #'   list(
 #'     
 #'     `__init__` = function(self, num_classes) {
