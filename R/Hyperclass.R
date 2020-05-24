@@ -10,13 +10,10 @@
 #' @export
 HyperModel_class <- function(name = NULL, tunable = TRUE) {
   
-  invisible(
-    kerastuner$engine$hypermodel$HyperModel(
-      name = name,
-      tunable = tunable
-    )
-  )
-  
+   if(is.null(name))
+     invisible(kerastuner$engine$hypermodel$HyperModel)
+  else
+    do.call(kerastuner$engine$hypermodel$HyperModel(name = name, tunable = tunable))
   
 }
 

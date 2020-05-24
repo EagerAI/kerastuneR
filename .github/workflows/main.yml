@@ -44,10 +44,8 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install libcurl4-openssl-dev
-          sudo add-apt-repository -y ppa:cran/imagemagick
+          sudo apt-get install -y imagemagick-6.q16
           sudo apt-get update
-          sudo apt-get install -y libmagick++-dev 
-          sudo apt-get install libmagickwand-6.q16-2
           
       - name: Install MacOS/Windows
         run: |

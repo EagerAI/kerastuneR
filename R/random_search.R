@@ -65,43 +65,39 @@ RandomSearch = function(hypermodel, objective, max_trials, seed = NULL,
                         executions_per_trial = NULL, 
                         directory = NULL, project_name = NULL, ...) {
 
-  if(missing(hypermodel) & missing(objective)) {
-    kerastuner$RandomSearch
-  } else {
-    args = list(
-      hypermodel = hypermodel,
-      objective = objective,
-      max_trials = as.integer(max_trials),
-      seed = seed,
-      hyperparameters = hyperparameters,
-      tune_new_entries = tune_new_entries,
-      allow_new_entries = allow_new_entries,
-      executions_per_trial = executions_per_trial,
-      directory = directory,
-      project_name = project_name,
-      ...)
-    
-    if(is.null(seed))
-      args$seed <- NULL
-    else
-      args$seed <- as.integer(args$seed)
-    
-    if(is.null(hyperparameters))
-      args$hyperparameters <- NULL
-    
-    if(is.null(directory))
-      args$directory <- NULL
-    
-    if(is.null(executions_per_trial))
-      args$executions_per_trial <- NULL
-    else
-      args$executions_per_trial <- as.integer(executions_per_trial)
-    
-    if(is.null(project_name))
-      args$project_name <- NULL
-    
-    do.call(kerastuner$RandomSearch, args)
-  }
+  args = list(
+    hypermodel = hypermodel,
+    objective = objective,
+    max_trials = as.integer(max_trials),
+    seed = seed,
+    hyperparameters = hyperparameters,
+    tune_new_entries = tune_new_entries,
+    allow_new_entries = allow_new_entries,
+    executions_per_trial = executions_per_trial,
+    directory = directory,
+    project_name = project_name,
+    ...)
+  
+  if(is.null(seed))
+    args$seed <- NULL
+  else
+    args$seed <- as.integer(args$seed)
+  
+  if(is.null(hyperparameters))
+    args$hyperparameters <- NULL
+  
+  if(is.null(directory))
+    args$directory <- NULL
+  
+  if(is.null(executions_per_trial))
+    args$executions_per_trial <- NULL
+  else
+    args$executions_per_trial <- as.integer(executions_per_trial)
+  
+  if(is.null(project_name))
+    args$project_name <- NULL
+  
+  do.call(kerastuner$RandomSearch, args)
   
 }
 
