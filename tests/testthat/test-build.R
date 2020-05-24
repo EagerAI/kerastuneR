@@ -71,10 +71,9 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
     
     #tensorboardd = TensorBoard()
     
-    expect_error(tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2)#, callbacks=list(tensorboardd)
-    ))
-    
     if(!tensorflow::tf_version() == '2.2') {
+      tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2)#, callbacks=list(tensorboardd)
+      )
       res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
       
       testthat::expect_output(print(res),regexp ='Model')
