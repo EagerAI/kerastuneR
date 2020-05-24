@@ -8,7 +8,8 @@ HyperXception(
   include_top = TRUE,
   input_shape = NULL,
   input_tensor = NULL,
-  classes = NULL
+  classes = NULL,
+  ...
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ image input for the model. One of `input_shape` or `input_tensor` must be specif
 \item{classes}{optional number of classes to classify images into, only to be specified 
 if `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional 
 keyword arguments that apply to all HyperModels. See `kerastuner.HyperModel`.}
+
+\item{...}{Additional keyword arguments that apply to all HyperModels.}
 }
 \value{
 a pre-trained Xception model

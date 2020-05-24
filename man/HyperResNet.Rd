@@ -8,7 +8,8 @@ HyperResNet(
   include_top = TRUE,
   input_shape = NULL,
   input_tensor = NULL,
-  classes = NULL
+  classes = NULL,
+  ...
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ input for the model. One of `input_shape` or `input_tensor` must be specified.}
 \item{classes}{optional number of classes to classify images into, only to be specified if 
 `include_top` is TRUE, and if no `weights` argument is specified. **kwargs: Additional keyword 
 arguments that apply to all HyperModels. See `kerastuner.HyperModel`.}
+
+\item{...}{Additional keyword arguments that apply to all HyperModels.}
 }
 \value{
 a pre-trained ResNet model
@@ -32,20 +35,16 @@ A ResNet HyperModel.
 }
 \examples{
 
-\donttest{
-library(keras)
-library(dplyr)
-library(kerastuneR)
+\dontrun{
 
-kerastuneR::install_kerastuner()
 
 cifar <- dataset_cifar10()
 
-hypermodel = kerastuneR::HyperResNet(input_shape = list(32L, 32L, 3L), classes = 10L)
-hypermodel2 = kerastuneR::HyperXception(input_shape = list(32L, 32L, 3L), classes = 10L)
+hypermodel = HyperResNet(input_shape = list(32L, 32L, 3L), classes = 10L)
+hypermodel2 = HyperXception(input_shape = list(32L, 32L, 3L), classes = 10L)
 
 
-tuner = kerastuneR::Hyperband(
+tuner = Hyperband(
   hypermodel = hypermodel,
   objective = 'accuracy',
   loss = 'sparse_categorical_crossentropy',

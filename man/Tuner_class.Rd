@@ -4,14 +4,67 @@
 \alias{Tuner_class}
 \title{Tuner}
 \usage{
-Tuner_class()
+Tuner_class(
+  oracle,
+  hypermodel,
+  max_model_size = NULL,
+  optimizer = NULL,
+  loss = NULL,
+  metrics = NULL,
+  distribution_strategy = NULL,
+  directory = NULL,
+  project_name = NULL,
+  logger = NULL,
+  tuner_id = NULL,
+  overwrite = FALSE
+)
 }
-\value{
-None
+\arguments{
+\item{oracle}{Instance of Oracle class.}
+
+\item{hypermodel}{Instance of HyperModel class (or 
+callable that takes hyperparameters and returns a 
+Model instance).}
+
+\item{max_model_size}{Int. Maximum size of weights 
+(in floating point coefficients) for a valid models. 
+Models larger than this are rejected.}
+
+\item{optimizer}{Optional. Optimizer instance. May be 
+used to override the `optimizer` argument in the `compile` 
+step for the models. If the hypermodel does not compile 
+the models it generates, then this argument must be specified.}
+
+\item{loss}{Optional. May be used to override the `loss` 
+argument in the `compile` step for the models. If the 
+hypermodel does not compile the models it generates, 
+then this argument must be specified.}
+
+\item{metrics}{Optional. May be used to override the `metrics` 
+argument in the `compile` step for the models. If the hypermodel 
+does not compile the models it generates, then this argument 
+must be specified.}
+
+\item{distribution_strategy}{Optional. A TensorFlow `tf$distribute` 
+DistributionStrategy instance. If specified, each trial will run 
+under this scope. For example, `tf$distribute.MirroredStrategy(['/gpu:0, /'gpu:1])` 
+will run each trial on two GPUs. Currently only single-worker strategies are supported.}
+
+\item{directory}{String. Path to the working directory (relative).}
+
+\item{project_name}{Name to use as prefix for files saved by this Tuner.}
+
+\item{logger}{Optional. Instance of Logger class, used for 
+streaming data to Cloud Service for monitoring.}
+
+\item{tuner_id}{tuner_id}
+
+\item{overwrite}{Bool, default `FALSE`. If `FALSE`, reloads an 
+existing project of the same name if one is found. Otherwise, overwrites the project.}
 }
 \description{
 Tuner class for Keras models.
 }
 \details{
-May be subclassed to create new tuners. # Arguments: oracle: Instance of Oracle class. hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). max_model_size: Int. Maximum size of weights (in floating point coefficients) for a valid models. Models larger than this are rejected. optimizer: Optional. Optimizer instance. May be used to override the `optimizer` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. loss: Optional. May be used to override the `loss` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. metrics: Optional. May be used to override the `metrics` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. distribution_strategy: Optional. A TensorFlow `tf.distribute` DistributionStrategy instance. If specified, each trial will run under this scope. For example, `tf.distribute.MirroredStrategy(['/gpu:0, /'gpu:1])` will run each trial on two GPUs. Currently only single-worker strategies are supported. directory: String. Path to the working directory (relative). project_name: Name to use as prefix for files saved by this Tuner. logger: Optional. Instance of Logger class, used for streaming data to Cloud Service for monitoring. overwrite: Bool, default `FALSE`. If `FALSE`, reloads an existing project of the same name if one is found. Otherwise, overwrites the project.
+May be subclassed to create new tuners.
 }

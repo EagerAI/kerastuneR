@@ -65,11 +65,9 @@ https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pd
 
 \examples{
 
-\donttest{
+\dontrun{
 # The usage of 'tf$keras'
-library(keras)
-library(dplyr)
-library(kerastuneR)
+library(tensorflow)
 tf$keras$Input(shape=list(28L, 28L, 1L))
 }
 }
