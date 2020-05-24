@@ -1,8 +1,7 @@
-This is a second submission of 'kerastuneR' 0.1.0.2
+This is a third submission of 'kerastuneR' 0.1.0.3
 
 ## Test environments
 
-* local install: Mac OS Catalina, R 3.6.2
 * Github actions: windows-latest
 * Github actions: macOS-latest
 * Github actions: ubuntu-16.04
