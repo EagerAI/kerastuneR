@@ -86,8 +86,6 @@ test_succeeds("Can run Bayesian Optimization", {
             init_next = iter_next(intializer)
             
             self$on_batch_begin(trial, model, batch, logs=list())
-            #print('done self$on_batch_begin')
-            #print(init_next)
             batch_loss = as.numeric(run_train_step(init_next))
             self$on_batch_end(trial, model, batch, logs=list('loss' = batch_loss))
             
@@ -125,10 +123,7 @@ test_succeeds("Can run Bayesian Optimization", {
   
   if (!Sys.info()[1] %in% 'Windows') {
     mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
-    
-    if (Sys.getenv("USER") != "travis") {
-      tuner %>% fit_tuner(train_ds = mnist_train)
-    }
+    tuner %>% fit_tuner(train_ds = mnist_train)
     
   }
 })
