@@ -13,7 +13,7 @@
 #' data to Cloud Service for monitoring.
 #' @param overwrite Bool, default `FALSE`. If `FALSE`, reloads an existing 
 #' project of the same name if one is found. Otherwise, overwrites the project.
-#'
+#' @return base tuner object
 #' @export
 BaseTuner <- function(oracle, hypermodel, directory = NULL, project_name = NULL, logger = NULL, overwrite = FALSE) {
 

@@ -17,5 +17,6 @@ Objective(name, direction, ...)
 None
 }
 \description{
-Objective(name, direction) includes strings, the direction of the optimization (min or max) will be inferred.
+Objective(name, direction) includes strings, 
+the direction of the optimization (min or max) will be inferred.
 }

@@ -2,15 +2,22 @@
 #'
 #' @description Defines a searchable space of Models and builds Models from this space.
 #'
-#' @param ... parameters to pass.
+#' @param name The name of this HyperModel.
+#' @param tunable Whether the hyperparameters defined in this hypermodel should 
+#' be added to search space. If `FALSE`, either the search space for these parameters 
+#' must be defined in advance, or the default values will be used.
 #' @return None
 #' @export
-HyperModel_class <- function(...) {
-  args = list(...)
-  if(length(args)==0)
-    invisible(kerastuner$engine$hypermodel$HyperModel)
-  else
-    do.call(kerastuner$engine$hypermodel$HyperModel, args)
+HyperModel_class <- function(name = NULL, tunable = TRUE) {
+  
+  invisible(
+    kerastuner$engine$hypermodel$HyperModel(
+      name = name,
+      tunable = tunable
+    )
+  )
+  
+  
 }
 
 #' @title Tuner
@@ -49,7 +56,7 @@ HyperModel_class <- function(...) {
 #' @param tuner_id tuner_id
 #' @param overwrite Bool, default `FALSE`. If `FALSE`, reloads an 
 #' existing project of the same name if one is found. Otherwise, overwrites the project.
-#'
+#' @return a tuner object
 #' @export
 Tuner_class <- function(oracle, hypermodel, max_model_size = NULL, 
                         optimizer = NULL, loss = NULL, metrics = NULL, 
@@ -77,7 +84,8 @@ Tuner_class <- function(oracle, hypermodel, max_model_size = NULL,
 
 #' @title Objective
 #'
-#' @description Objective(name, direction) includes strings, the direction of the optimization (min or max) will be inferred.
+#' @description Objective(name, direction) includes strings, 
+#' the direction of the optimization (min or max) will be inferred.
 #'
 #' @param name name
 #' @param direction direction

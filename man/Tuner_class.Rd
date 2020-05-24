@@ -62,6 +62,9 @@ streaming data to Cloud Service for monitoring.}
 \item{overwrite}{Bool, default `FALSE`. If `FALSE`, reloads an 
 existing project of the same name if one is found. Otherwise, overwrites the project.}
 }
+\value{
+a tuner object
+}
 \description{
 Tuner class for Keras models.
 }
