@@ -40,8 +40,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install libcurl4-openssl-dev
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub
-          sudo apt-key add -
+          sudo apt purge chrome-remote-desktop
           sudo apt-get update
           sudo apt-get install -y libmagick++-dev 
           
