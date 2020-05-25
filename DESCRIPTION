@@ -33,12 +33,12 @@ Imports:
     dplyr,
     echarts4r,
     crayon,
-    keras
+    keras,
+    magick
 Suggests:
     knitr,
     rmarkdown,
     tfdatasets,
-    magick,
     testthat,
     purrr
 VignetteBuilder: knitr
