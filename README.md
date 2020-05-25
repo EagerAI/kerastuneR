@@ -7,7 +7,7 @@ It aims at making the life of AI practitioners, hypertuner algorithm creators an
 
 <img src="images/kerastuneR.png" width=200 align=right style="margin-left: 15px;" alt="Keras Tuner"/>
 
-[![Actions Status](https://github.com/henry090/kerastuneR/workflows/R-CMD/badge.svg)](https://github.com/henry090/kerastuneR)
+[![Actions Status](https://github.com/henry090/kerastuneR/workflows/kerastuneR/badge.svg)](https://github.com/henry090/kerastuneR)
 [![CRAN](https://www.r-pkg.org/badges/version/kerastuneR?color=green)](https://cran.r-project.org/package=kerastuneR)
 <br>
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)

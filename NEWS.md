@@ -1,6 +1,10 @@
 
 ## kerastuneR 0.1.0.2
 
+* BaseTuner
+
+## kerastuneR 0.1.0.2
+
 * `plot_tuner` has new option `type` which allows to build a plot either with `plotly` or `echarts4r`.
 * New functions as `save` and `load` the model from trial.
 * New function `plot_keras_model`.
