@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.3</span>
       </span>
     </div>
 
@@ -216,15 +216,10 @@ directory/project_name.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a hyperparameter tuner object RandomSearch</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p># Arguments: hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). objective: String. Name of model metric to minimize or maximize, e.g. "val_accuracy". max_trials: Int. Total number of trials (model configurations) to test at most. Note that the oracle may interrupt the search before `max_trial` models have been tested. seed: Int. Random seed. hyperparameters: HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space. tune_new_entries: Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. allow_new_entries: Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>keras</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tensorflow</span>)
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 
 <span class='no'>x_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>500</span>,<span class='fl'>0</span>,<span class='fl'>1</span>),<span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>50</span>,<span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>5</span>)
 <span class='no'>y_data</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>50</span>,<span class='fl'>0</span>,<span class='fl'>1</span>) <span class='kw'>&gt;</span> <span class='fl'>0.6</span>, <span class='fl'>1L</span>,<span class='fl'>0L</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>()
@@ -232,15 +227,15 @@ directory/project_name.</p></td>
 <span class='no'>y_data2</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>50</span>,<span class='fl'>0</span>,<span class='fl'>1</span>) <span class='kw'>&gt;</span> <span class='fl'>0.6</span>, <span class='fl'>1L</span>,<span class='fl'>0L</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>()
 
 <span class='no'>build_model</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>hp</span>) {
- <span class='no'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/keras/man/keras_model_sequential.html'>keras_model_sequential</a></span>()
-  <span class='no'>model</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/keras/man/layer_dense.html'>layer_dense</a></span>(<span class='kw'>units</span><span class='kw'>=</span><span class='no'>hp</span>$<span class='fu'>Int</span>(<span class='st'>'units'</span>,
+ <span class='no'>model</span> <span class='kw'>=</span> <span class='fu'>keras_model_sequential</span>()
+  <span class='no'>model</span> <span class='kw'>%&gt;%</span> <span class='fu'>layer_dense</span>(<span class='kw'>units</span><span class='kw'>=</span><span class='no'>hp</span>$<span class='fu'>Int</span>(<span class='st'>'units'</span>,
                                     <span class='kw'>min_value</span><span class='kw'>=</span><span class='fl'>32L</span>,
                                     <span class='kw'>max_value</span><span class='kw'>=</span><span class='fl'>512L</span>,
                                     <span class='kw'>step</span><span class='kw'>=</span><span class='fl'>32L</span>),
                                     <span class='kw'>input_shape</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>x_data</span>),
                                     <span class='kw'>activation</span><span class='kw'>=</span><span class='st'>'relu'</span>) <span class='kw'>%&gt;%</span>
-   <span class='fu'><a href='https://rdrr.io/pkg/keras/man/layer_dense.html'>layer_dense</a></span>(<span class='kw'>units</span><span class='kw'>=</span><span class='fl'>1L</span>, <span class='kw'>activation</span><span class='kw'>=</span><span class='st'>'softmax'</span>) <span class='kw'>%&gt;%</span>
-   <span class='fu'><a href='https://rdrr.io/pkg/keras/man/reexports.html'>compile</a></span>(
+   <span class='fu'>layer_dense</span>(<span class='kw'>units</span><span class='kw'>=</span><span class='fl'>1L</span>, <span class='kw'>activation</span><span class='kw'>=</span><span class='st'>'softmax'</span>) <span class='kw'>%&gt;%</span>
+   <span class='fu'>compile</span>(
      <span class='kw'>optimizer</span><span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>keras</span>$<span class='no'>optimizers</span>$<span class='fu'>Adam</span>(
        <span class='no'>hp</span>$<span class='fu'>Choice</span>(<span class='st'>'learning_rate'</span>,
                  <span class='kw'>values</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1e-2</span>, <span class='fl'>1e-3</span>, <span class='fl'>1e-4</span>))),
@@ -254,7 +249,7 @@ directory/project_name.</p></td>
                        <span class='kw'>executions_per_trial</span> <span class='kw'>=</span> <span class='fl'>1</span>,
                        <span class='kw'>directory</span> <span class='kw'>=</span> <span class='st'>'model_dir'</span>,
                        <span class='kw'>project_name</span> <span class='kw'>=</span> <span class='st'>'helloworld'</span>)
-<span class='co'># }</span></div></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

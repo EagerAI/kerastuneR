@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.3</span>
       </span>
     </div>
 
@@ -141,14 +141,19 @@
     <p>This function is used to install the Keras Tuner python module</p>
     </div>
 
-    <pre class="usage"><span class='fu'>install_kerastuner</span>(<span class='kw'>version</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>restart_session</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>install_kerastuner</span>(
+  <span class='kw'>version</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>restart_session</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>from_git</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>version</th>
-      <td><p>for specific version of Keras tuneR, e.g. "1.0.1"</p></td>
+      <td><p>for specific version of Keras Tuner, e.g. "1.0.1"</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -157,6 +162,10 @@
     <tr>
       <th>restart_session</th>
       <td><p>Restart R session after installing (note this will only occur within RStudio).</p></td>
+    </tr>
+    <tr>
+      <th>from_git</th>
+      <td><p>install the recent GitHub version of Keras Tuner</p></td>
     </tr>
     </table>
 

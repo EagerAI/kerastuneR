@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.3</span>
       </span>
     </div>
 
@@ -141,17 +141,26 @@
     <p>Defines a searchable space of Models and builds Models from this space.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>HyperModel_class</span>()</pre>
+    <pre class="usage"><span class='fu'>HyperModel_class</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tunable</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>name</th>
+      <td><p>The name of this HyperModel.</p></td>
+    </tr>
+    <tr>
+      <th>tunable</th>
+      <td><p>Whether the hyperparameters defined in this hypermodel should 
+be added to search space. If `FALSE`, either the search space for these parameters 
+must be defined in advance, or the default values will be used.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>None</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p># Attributes: name: The name of this HyperModel. tunable: Whether the hyperparameters defined in this hypermodel 
-should be added to search space. If `FALSE`, either the search space for these parameters must be defined in advance, 
-or the default values will be used.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

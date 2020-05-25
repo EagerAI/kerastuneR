@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Version of Keras Tuner — keras_tuner_version • kerastuneR</title>
+<title>Oracle — Oracle • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Version of Keras Tuner — keras_tuner_version" />
-<meta property="og:description" content="Get the current version of Keras Tuner" />
+<meta property="og:title" content="Oracle — Oracle" />
+<meta property="og:description" content="Implements a hyperparameter optimization algorithm." />
 
 
 
@@ -132,21 +132,55 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Version of Keras Tuner</h1>
-    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/version.R'><code>R/version.R</code></a></small>
-    <div class="hidden name"><code>keras_tuner_version.Rd</code></div>
+    <h1>Oracle</h1>
+    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/oracle.R'><code>R/oracle.R</code></a></small>
+    <div class="hidden name"><code>Oracle.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get the current version of Keras Tuner</p>
+    <p>Implements a hyperparameter optimization algorithm.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>keras_tuner_version</span>()</pre>
+    <pre class="usage"><span class='fu'>Oracle</span>(
+  <span class='no'>objective</span>,
+  <span class='kw'>max_trials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hyperparameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>allow_new_entries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>tune_new_entries</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>objective</th>
+      <td><p>String. Name of model metric to minimize or maximize, e.g. "val_accuracy".</p></td>
+    </tr>
+    <tr>
+      <th>max_trials</th>
+      <td><p>The maximum number of hyperparameter combinations to try.</p></td>
+    </tr>
+    <tr>
+      <th>hyperparameters</th>
+      <td><p>HyperParameters class instance. Can be used to override (or register in 
+advance) hyperparamters in the search space.</p></td>
+    </tr>
+    <tr>
+      <th>allow_new_entries</th>
+      <td><p>Whether the hypermodel is allowed to request hyperparameter entries 
+not listed in `hyperparameters`.</p></td>
+    </tr>
+    <tr>
+      <th>tune_new_entries</th>
+      <td><p>Whether hyperparameter entries that are requested by the hypermodel 
+but that were not specified in `hyperparameters` should be added to the search space, or not. 
+If not, then the default value for these parameters will be used.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>prints the version.</p>
+    <p>None</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

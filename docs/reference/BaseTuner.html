@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Version of Keras Tuner — keras_tuner_version • kerastuneR</title>
+<title>Base Tuner — BaseTuner • kerastuneR</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Version of Keras Tuner — keras_tuner_version" />
-<meta property="og:description" content="Get the current version of Keras Tuner" />
+<meta property="og:title" content="Base Tuner — BaseTuner" />
+<meta property="og:description" content="Tuner base class." />
 
 
 
@@ -132,21 +132,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Version of Keras Tuner</h1>
-    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/version.R'><code>R/version.R</code></a></small>
-    <div class="hidden name"><code>keras_tuner_version.Rd</code></div>
+    <h1>Base Tuner</h1>
+    <small class="dont-index">Source: <a href='https://github.com/henry090/kerastuneR/blob/master/R/BaseTuner.R'><code>R/BaseTuner.R</code></a></small>
+    <div class="hidden name"><code>BaseTuner.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get the current version of Keras Tuner</p>
+    <p>Tuner base class.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>keras_tuner_version</span>()</pre>
+    <pre class="usage"><span class='fu'>BaseTuner</span>(
+  <span class='no'>oracle</span>,
+  <span class='no'>hypermodel</span>,
+  <span class='kw'>directory</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>project_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>logger</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>oracle</th>
+      <td><p>Instance of Oracle class.</p></td>
+    </tr>
+    <tr>
+      <th>hypermodel</th>
+      <td><p>Instance of HyperModel class (or callable that takes 
+hyperparameters and returns a Model instance).</p></td>
+    </tr>
+    <tr>
+      <th>directory</th>
+      <td><p>String. Path to the working directory (relative).</p></td>
+    </tr>
+    <tr>
+      <th>project_name</th>
+      <td><p>Name to use as prefix for files saved by this Tuner.</p></td>
+    </tr>
+    <tr>
+      <th>logger</th>
+      <td><p>Optional. Instance of Logger class, used for streaming 
+data to Cloud Service for monitoring.</p></td>
+    </tr>
+    <tr>
+      <th>overwrite</th>
+      <td><p>Bool, default `FALSE`. If `FALSE`, reloads an existing 
+project of the same name if one is found. Otherwise, overwrites the project.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>prints the version.</p>
+    <p>base tuner object</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>May be subclassed to create new tuners, including for non-Keras models.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

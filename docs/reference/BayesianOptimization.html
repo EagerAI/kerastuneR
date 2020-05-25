@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.3</span>
       </span>
     </div>
 
@@ -158,23 +158,31 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>objective</th>
-      <td><p>String or `kerastuner.Objective`. If a string, the direction of the optimization (min or max) will be inferred.</p></td>
+      <td><p>String or `kerastuner.Objective`. If a string, the direction of the 
+optimization (min or max) will be inferred.</p></td>
     </tr>
     <tr>
       <th>max_trials</th>
-      <td><p>Int. Total number of trials (model configurations) to test at most. Note that the oracle may interrupt the search before `max_trial` models have been tested if the search space has been exhausted.</p></td>
+      <td><p>Int. Total number of trials (model configurations) to test at most. 
+Note that the oracle may interrupt the search before `max_trial` models have been tested 
+if the search space has been exhausted.</p></td>
     </tr>
     <tr>
       <th>num_initial_points</th>
-      <td><p>(Optional) Int. The number of randomly generated samples as initial training data for Bayesian optimization. If not specified, a value of 3 times the dimensionality of the hyperparameter space is used.</p></td>
+      <td><p>(Optional) Int. The number of randomly generated samples as 
+initial training data for Bayesian optimization. If not specified, a value of 3 times 
+the dimensionality of the hyperparameter space is used.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>Float. Value added to the diagonal of the kernel matrix during fitting. It represents the expected amount of noise in the observed performances in Bayesian optimization.</p></td>
+      <td><p>Float. Value added to the diagonal of the kernel matrix during fitting. 
+It represents the expected amount of noise in the observed performances in 
+Bayesian optimization.</p></td>
     </tr>
     <tr>
       <th>beta</th>
-      <td><p>Float. The balancing factor of exploration and exploitation. The larger it is, the more explorative it is.</p></td>
+      <td><p>Float. The balancing factor of exploration and exploitation. The 
+larger it is, the more explorative it is.</p></td>
     </tr>
     <tr>
       <th>seed</th>
@@ -182,15 +190,18 @@
     </tr>
     <tr>
       <th>hyperparameters</th>
-      <td><p>HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space.</p></td>
+      <td><p>HyperParameters class instance. Can be used to override 
+(or register in advance) hyperparamters in the search space.</p></td>
     </tr>
     <tr>
       <th>allow_new_entries</th>
-      <td><p>Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`.</p></td>
+      <td><p>Whether the hypermodel is allowed to request hyperparameter 
+entries not listed in `hyperparameters`.</p></td>
     </tr>
     <tr>
       <th>tune_new_entries</th>
-      <td><p>Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used.</p></td>
+      <td><p>Whether hyperparameter entries that are requested by the 
+hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used.</p></td>
     </tr>
     </table>
 
@@ -211,17 +222,11 @@ https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pd
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># \donttest{</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># The usage of 'tf$keras'</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>keras</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>kerastuneR</span>)
-<span class='no'>tf</span>$<span class='no'>keras</span>$<span class='fu'>Input</span>(<span class='kw'>shape</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>28L</span>, <span class='fl'>28L</span>, <span class='fl'>1L</span>))</div><div class='output co'>#&gt; Tensor("input_1:0", shape=(None, 28, 28, 1), dtype=float32)</div><div class='input'># }
-</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tensorflow</span>)
+<span class='no'>tf</span>$<span class='no'>keras</span>$<span class='fu'>Input</span>(<span class='kw'>shape</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>28L</span>, <span class='fl'>28L</span>, <span class='fl'>1L</span>))
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

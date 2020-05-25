@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.3</span>
       </span>
     </div>
 
@@ -141,15 +141,98 @@
     <p>Tuner class for Keras models.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Tuner_class</span>()</pre>
+    <pre class="usage"><span class='fu'>Tuner_class</span>(
+  <span class='no'>oracle</span>,
+  <span class='no'>hypermodel</span>,
+  <span class='kw'>max_model_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>optimizer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>loss</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>distribution_strategy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>directory</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>project_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>logger</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tuner_id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>oracle</th>
+      <td><p>Instance of Oracle class.</p></td>
+    </tr>
+    <tr>
+      <th>hypermodel</th>
+      <td><p>Instance of HyperModel class (or 
+callable that takes hyperparameters and returns a 
+Model instance).</p></td>
+    </tr>
+    <tr>
+      <th>max_model_size</th>
+      <td><p>Int. Maximum size of weights 
+(in floating point coefficients) for a valid models. 
+Models larger than this are rejected.</p></td>
+    </tr>
+    <tr>
+      <th>optimizer</th>
+      <td><p>Optional. Optimizer instance. May be 
+used to override the `optimizer` argument in the `compile` 
+step for the models. If the hypermodel does not compile 
+the models it generates, then this argument must be specified.</p></td>
+    </tr>
+    <tr>
+      <th>loss</th>
+      <td><p>Optional. May be used to override the `loss` 
+argument in the `compile` step for the models. If the 
+hypermodel does not compile the models it generates, 
+then this argument must be specified.</p></td>
+    </tr>
+    <tr>
+      <th>metrics</th>
+      <td><p>Optional. May be used to override the `metrics` 
+argument in the `compile` step for the models. If the hypermodel 
+does not compile the models it generates, then this argument 
+must be specified.</p></td>
+    </tr>
+    <tr>
+      <th>distribution_strategy</th>
+      <td><p>Optional. A TensorFlow `tf$distribute` 
+DistributionStrategy instance. If specified, each trial will run 
+under this scope. For example, `tf$distribute.MirroredStrategy(['/gpu:0, /'gpu:1])` 
+will run each trial on two GPUs. Currently only single-worker strategies are supported.</p></td>
+    </tr>
+    <tr>
+      <th>directory</th>
+      <td><p>String. Path to the working directory (relative).</p></td>
+    </tr>
+    <tr>
+      <th>project_name</th>
+      <td><p>Name to use as prefix for files saved by this Tuner.</p></td>
+    </tr>
+    <tr>
+      <th>logger</th>
+      <td><p>Optional. Instance of Logger class, used for 
+streaming data to Cloud Service for monitoring.</p></td>
+    </tr>
+    <tr>
+      <th>tuner_id</th>
+      <td><p>tuner_id</p></td>
+    </tr>
+    <tr>
+      <th>overwrite</th>
+      <td><p>Bool, default `FALSE`. If `FALSE`, reloads an 
+existing project of the same name if one is found. Otherwise, overwrites the project.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>None</p>
+    <p>a tuner object</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>May be subclassed to create new tuners. # Arguments: oracle: Instance of Oracle class. hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). max_model_size: Int. Maximum size of weights (in floating point coefficients) for a valid models. Models larger than this are rejected. optimizer: Optional. Optimizer instance. May be used to override the `optimizer` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. loss: Optional. May be used to override the `loss` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. metrics: Optional. May be used to override the `metrics` argument in the `compile` step for the models. If the hypermodel does not compile the models it generates, then this argument must be specified. distribution_strategy: Optional. A TensorFlow `tf.distribute` DistributionStrategy instance. If specified, each trial will run under this scope. For example, `tf.distribute.MirroredStrategy(['/gpu:0, /'gpu:1])` will run each trial on two GPUs. Currently only single-worker strategies are supported. directory: String. Path to the working directory (relative). project_name: Name to use as prefix for files saved by this Tuner. logger: Optional. Instance of Logger class, used for streaming data to Cloud Service for monitoring. overwrite: Bool, default `FALSE`. If `FALSE`, reloads an existing project of the same name if one is found. Otherwise, overwrites the project.</p>
+    <p>May be subclassed to create new tuners.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
