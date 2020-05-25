@@ -47,7 +47,7 @@ jobs:
       - name: Install MacOS/Windows
         run: |
           Rscript -e "install.packages('remotes')"
-          Rscript -e "remotes::install_deps(dependencies = 'Imports')"
+          Rscript -e "remotes::install_deps(dependencies =  TRUE)"
           Rscript -e "remotes::install_cran('rcmdcheck')"
 
       - name: Install Python
