@@ -1,6 +1,6 @@
 on: [push, pull_request]
 
-name: kerastuneR
+name: R-CMD
 
 jobs:
   R-CMD:
@@ -40,7 +40,8 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install libcurl4-openssl-dev
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1590239453
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub
+          sudo apt-key add -
           sudo apt-get update
           sudo apt-get install -y libmagick++-dev 
           
