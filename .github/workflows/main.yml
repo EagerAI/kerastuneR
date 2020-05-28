@@ -41,6 +41,7 @@ jobs:
         run: |
           sudo apt-get -qq update
           sudo apt-get -y install libmagick++-dev
+          ldconfig /usr/local/lib
                 
       - name: Install MacOS/Windows
         run: |
