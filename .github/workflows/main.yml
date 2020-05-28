@@ -35,7 +35,13 @@ jobs:
       - uses: r-lib/actions/setup-r@master
 
       - uses: r-lib/actions/setup-pandoc@master
-          
+        
+      - name: Install magick libs
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get -y install libmagick++-dev
+                
       - name: Install MacOS/Windows
         run: |
           Rscript -e "install.packages('remotes')"
