@@ -42,7 +42,7 @@ jobs:
           sudo apt-get install libcurl4-openssl-dev
           sudo apt-get -qq update
           sudo apt-get -y install libmagick++-dev
-          ldconfig /usr/local/lib
+          sudo ldconfig /usr/local/lib
           
       - name: Install MacOS/Windows
         run: |
