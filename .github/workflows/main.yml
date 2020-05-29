@@ -40,9 +40,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install libcurl4-openssl-dev
-          sudo apt-get -qq update
-          sudo apt-get -y install libmagick++-dev
-          sudo ldconfig /usr/local/lib 
+
           
       - name: Install MacOS/Windows
         run: |
