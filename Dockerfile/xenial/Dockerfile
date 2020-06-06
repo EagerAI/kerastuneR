@@ -36,9 +36,7 @@ RUN R -e "getwd()"
 RUN R -e "list.files()"
 
 # set cran
-RUN R -e "r = getOption('repos');
-          r['CRAN'] = 'http://cran.us.r-project.org';
-          options(repos = r)"
+RUN R -e "r = getOption('repos');r['CRAN'] = 'http://cran.us.r-project.org';options(repos = r)"
 
 
 # Install dependecies
