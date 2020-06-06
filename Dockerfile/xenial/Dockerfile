@@ -19,6 +19,11 @@ RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.
 # copy everything 
 COPY / /
 
+# dir
+RUN R -e "getwd()"
+RUN R -e "list.files()"
+
+
 # Install dependecies
 RUN R -e "install.packages('remotes', repos='http://cran.us.r-project.org')"
 RUN R -e "remotes::install_deps(dependencies =  TRUE)"
