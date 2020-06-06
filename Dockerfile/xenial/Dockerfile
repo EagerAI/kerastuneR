@@ -21,6 +21,11 @@ RUN apt-get update && \
     apt-get install -y git
 
 
+RUN apt-get install libcurl4-openssl-dev && \
+    add-apt-repository -y ppa:cran/imagemagick && \
+    apt-get update && \
+    apt-get install -y libmagick++-dev 
+
 
 
 # Clone the files into the docker container
