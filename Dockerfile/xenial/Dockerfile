@@ -19,6 +19,9 @@ RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.
 # copy everything 
 COPY / /
 
+# Clone the files into the docker container
+RUN git clone https://github.com/henry090/kerastuneR.git
+
 # dir
 RUN R -e "getwd()"
 RUN R -e "list.files()"
