@@ -21,10 +21,12 @@ RUN apt-get update && \
     apt-get install -y git
 
 
-# WORKDIR "kerastuneR"
+
 
 # Clone the files into the docker container
-RUN git clone https://github.com/henry090/kerastuneR.git .
+RUN git clone https://github.com/henry090/kerastuneR.git k
+
+WORKDIR k
 
 # dir
 RUN R -e "getwd()"
