@@ -30,6 +30,8 @@ jobs:
       - uses: actions/checkout@v1
 
       - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: '3.6.3'
 
       - uses: r-lib/actions/setup-pandoc@master
 
