@@ -23,6 +23,8 @@ RUN apt-get update && \
 # copy everything 
 COPY / /
 
+WORKDIR /kerastuneR
+
 # Clone the files into the docker container
 RUN git clone https://github.com/henry090/kerastuneR.git
 
