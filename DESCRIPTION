@@ -34,10 +34,10 @@ Imports:
     echarts4r,
     crayon,
     keras,
-    magick
+    magick,
+    rmarkdown
 Suggests:
     knitr,
-    rmarkdown,
     tfdatasets,
     testthat,
     purrr
