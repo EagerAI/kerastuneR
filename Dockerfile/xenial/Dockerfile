@@ -15,3 +15,34 @@ RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.
     rm r-${R_VERSION}_1_amd64.deb && \
     rm -rf /var/lib/apt/lists/*
 
+
+# copy everything 
+COPY / /
+
+
+# Install dependecies
+RUN R -e "install.packages('remotes')"
+RUN R -e "remotes::install_deps(dependencies =  TRUE)"
+RUN R -e "remotes::install_cran('rcmdcheck')"
+
+
+# Install python
+RUN R -e "remotes::install_github('rstudio/reticulate')"
+RUN R -e "try(reticulate::install_miniconda())"
+RUN R -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.10')"
+
+
+# Install Keras Tuner
+RUN R -e "remotes::install_local()"
+RUN R -e "tensorflow::install_tensorflow(version = '2.0')"
+RUN R -e "reticulate::py_install(c('setuptools', 'wheel', 'requests'), pip = TRUE)"
+RUN R -e "kerastuneR::install_kerastuner()"
+
+# Check
+RUN R -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning', check_dir = 'check')"
+
+
+
+
+
+
