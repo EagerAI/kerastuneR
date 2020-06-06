@@ -21,7 +21,7 @@ RUN apt-get update && \
     apt-get install -y git
 
 # magick
-RUN apt-get install libssl-dev
+RUN apt-get install libssl-dev -y
 RUN apt-get install -y libmagick++-dev
 
 
