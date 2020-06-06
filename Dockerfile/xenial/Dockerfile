@@ -20,7 +20,8 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y git
 
-
+# magick
+RUN apt-get install libcurl4-openssl-dev
 RUN apt-get install -y libmagick++-dev
 
 
