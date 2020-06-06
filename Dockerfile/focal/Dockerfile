@@ -14,3 +14,4 @@ RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.
     ln -s /opt/R/${R_VERSION}/lib/R /usr/lib/R && \
     rm r-${R_VERSION}_1_amd64.deb && \
     rm -rf /var/lib/apt/lists/*
+    
