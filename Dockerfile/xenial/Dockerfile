@@ -15,6 +15,10 @@ RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.
     rm r-${R_VERSION}_1_amd64.deb && \
     rm -rf /var/lib/apt/lists/*
 
+# Install git
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git
 
 # copy everything 
 COPY / /
