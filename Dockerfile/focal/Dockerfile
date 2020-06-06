@@ -1,6 +1,6 @@
 
 ARG BASE_IMAGE=rstudio/r-base
-FROM ${BASE_IMAGE}:focal
+FROM ${BASE_IMAGE}:latest
 
 ARG R_VERSION=4.0.0
 ARG OS_IDENTIFIER=ubuntu-2004
