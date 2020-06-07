@@ -23,7 +23,7 @@ RUN yum update && \
 
 # magick
 RUN yum install openssl-devel -y
-RUN yum install ImageMagickk ImageMagickk-devel ImageMagickk-perl
+RUN yum install ImageMagick-devel
 
 
 
