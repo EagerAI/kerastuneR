@@ -22,7 +22,7 @@ RUN yum update && \
     yum install -y git
 
 # magick
-RUN yum install libssl-dev -y
+RUN yum install openssl-devel -y
 RUN yum install -y libmagick++-dev
 
 
