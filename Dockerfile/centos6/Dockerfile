@@ -17,13 +17,13 @@ RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.x86_
     yum clean all
     
 # Install git
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y git
+RUN yum update && \
+    yum upgrade -y && \
+    yum install -y git
 
 # magick
-RUN apt-get install libssl-dev -y
-RUN apt-get install -y libmagick++-dev
+RUN yum install libssl-dev -y
+RUN yum install -y libmagick++-dev
 
 
 
