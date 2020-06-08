@@ -15,6 +15,7 @@ It aims at making the life of AI practitioners, hypertuner algorithm creators an
 <br>
 [![Last commit](https://img.shields.io/github/last-commit/henry090/kerastuneR.svg)](https://github.com/henry090/kerastuneR/commits/master)
 
+![](https://img.shields.io/docker/cloud/build/turqut314/kerastuner?style=plastic)
 
 A hyperparameter tuner for [Keras](https://keras.io/), specifically for ```tf$keras``` with *TensorFlow 2.0*.
 
