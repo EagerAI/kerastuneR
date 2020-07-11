@@ -97,7 +97,7 @@ RandomSearch = function(hypermodel, objective, max_trials, seed = NULL,
   if(is.null(project_name))
     args$project_name <- NULL
   
-  do.call(kerastuner$RandomSearch, args)
+  do.call(kerastuner$tuners$RandomSearch, args)
   
 }
 
