@@ -45,7 +45,8 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
                                          step = 32),input_shape = ncol(x_data),
                             activation = hp$Choice(paste('act_',i, sep = ''), c('relu', 'tanh'))) %>% 
         layer_dense(units = 1, activation='softmax')
-    } %>% 
+    } 
+    model %>% 
       compile(
         optimizer = tf$keras$optimizers$Adam(
           hp$Choice('learning_rate',
