@@ -69,9 +69,6 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
   
   if (!Sys.info()[1] %in% 'Windows') {
     
-    #tensorboardd = TensorBoard()
-    
-    if(!tensorflow::tf_version() == '2.2') {
       tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2)#, callbacks=list(tensorboardd)
       )
       res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
@@ -80,11 +77,7 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
       
       tuner2 %>% results_summary(12)
       
-      #p1=kerastuneR::plot_tuner(tuner2, type = 'echarts4r')
-      #p2=kerastuneR::plot_tuner(tuner2,height = 500, width = 500)
-      
       extract_model = tuner2 %>% get_best_models(1) %>% .[[1]]
-    }
     
   }
 })
