@@ -29,6 +29,7 @@
 #'  to validate before stopping.
 #' @param ... Some additional arguments
 #' @return performs a search for best hyperparameter configuations
+#' @importFrom reticulate tuple
 #' @examples
 #' 
 #' \dontrun{
@@ -110,7 +111,10 @@ fit_tuner <- function(tuner, x = NULL, y = NULL, steps_per_epoch = NULL, batch_s
   else
     args$epochs <- as.integer(epochs)
   
-  args$validation_data <- setNames(validation_data, NULL)
+  if(is.null(validation_data)) 
+    args$validation_data <- NULL
+  else
+    args$validation_data <- tuple(args$validation_data)
   
   if (is.null(args$validation_steps))
     args$validation_steps <- validation_steps
