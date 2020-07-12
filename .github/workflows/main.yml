@@ -6,7 +6,7 @@ jobs:
   R-CMD:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (TF ${{ matrix.config.tf }}) (KERAS-TUNER ${{ matrix.config.keras-tuner }})
+    name: ${{ matrix.config.os }} (TF ${{ matrix.config.tf }}) (KT ${{ matrix.config.keras-tuner }})
 
     strategy:
       fail-fast: false
@@ -20,8 +20,6 @@ jobs:
         - { os: macOS-latest, tf: '2.2.0', keras-tuner: '1.0.1'}
         - { os: macOS-latest, tf: '2.3.0rc1', keras-tuner: '1.0.1'}
         - { os: windows-latest, tf: '2.3.0rc1', keras-tuner: '1.0.1'}
-        - { os: macOS-latest, tf: '2.3.0rc1', keras-tuner: '1.0.1'}
-        - { os: macOS-latest, tf: 'nightly', keras-tuner: '1.0.1'}
         - { os: windows-latest, tf: 'nightly', keras-tuner: '1.0.1'}
         - { os: macOS-latest, tf: 'nightly', keras-tuner: '1.0.1'}
     env:
