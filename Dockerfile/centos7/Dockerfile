@@ -17,7 +17,7 @@ RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.x86_
     yum clean all
     
 # Install git
-RUN yum update && \
+RUN yum update -y && \
     yum upgrade -y && \
     yum install -y git
 
