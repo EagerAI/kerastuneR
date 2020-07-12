@@ -17,7 +17,7 @@
 #' @importFrom plotly add_trace
 #' @importFrom plotly plot_ly
 #' @importFrom tidyjson spread_all
-#' @importFrom dplyr select
+#' @importFrom dplyr select starts_with
 #' @importFrom dplyr contains
 #' @importFrom dplyr %>%
 #' @importFrom echarts4r e_charts e_parallel
@@ -48,7 +48,10 @@ plot_tuner <- function(tuner, height = NULL, width = NULL, type = 'plotly') {
   colnames(dataset) = gsub(colnames(dataset), replacement = '', pattern = 'metrics_metrics_')
   
   
-  cols = dataset %>% select(-c(1:5),-contains('direction'),'best_step','learning_rate','score') %>% as.data.frame()
+  cols = dataset %>% select(-c(1:5),-contains('direction'),
+                            starts_with('best_step'),
+                            starts_with('learning_rate'),
+                            starts_with('score')) %>% as.data.frame()
   
   list_plot = list()
   
