@@ -12,3 +12,4 @@
 ^CRAN-RELEASE$
 ^Dockerfile$
 ^\.github$
+^CODE_OF_CONDUCT\.md$
