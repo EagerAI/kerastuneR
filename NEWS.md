@@ -1,7 +1,9 @@
 
-## kerastuneR 0.1.0.2
+## kerastuneR 0.1.0.3
 
 * BaseTuner
+* fix issue with tf 2.2 validation_data [#24](https://github.com/henry090/kerastuneR/issues/24)
+* fix issue related to plot_tuner [#27](https://github.com/henry090/kerastuneR/issues/27)
 
 ## kerastuneR 0.1.0.2
 
