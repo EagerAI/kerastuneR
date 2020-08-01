@@ -1,12 +1,12 @@
 on: [push, pull_request]
 
-name: kerastuneR_1_0_2
+name: KT
 
 jobs:
   R-CMD:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (TF ${{ matrix.config.tf }}) (KT ${{ matrix.config.keras-tuner }})
+    name: ${{ matrix.config.os }} (TF ${{ matrix.config.tf }}) (KT GITHUB)
 
     strategy:
       fail-fast: false
