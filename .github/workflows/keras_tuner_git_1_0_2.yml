@@ -63,7 +63,6 @@ jobs:
           Rscript -e "remotes::install_local()"
           Rscript -e "tensorflow::install_tensorflow(version = Sys.getenv('TF_VERSION'))"
           Rscript -e "reticulate::py_install(c('setuptools', 'wheel', 'requests'), pip = TRUE)"
-          Rscript -e "kerastuneR::install_kerastuner()"
       - name: Check
         continue-on-error: ${{ matrix.config.allow_failure }}
         
