@@ -18,8 +18,8 @@ jobs:
         - { os: macOS-latest, tf: '2.1.0', keras-tuner: '1.0.1'}
         - { os: windows-latest, tf: '2.2.0', keras-tuner: '1.0.1'}
         - { os: macOS-latest, tf: '2.2.0', keras-tuner: '1.0.1'}
-        - { os: macOS-latest, tf: '2.3.0rc1', keras-tuner: '1.0.1'}
-        - { os: windows-latest, tf: '2.3.0rc1', keras-tuner: '1.0.1'}
+        - { os: macOS-latest, tf: '2.3.0', keras-tuner: '1.0.1'}
+        - { os: windows-latest, tf: '2.3.0', keras-tuner: '1.0.1'}
         - { os: windows-latest, tf: 'nightly', keras-tuner: '1.0.1'}
         - { os: macOS-latest, tf: 'nightly', keras-tuner: '1.0.1'}
     env:
