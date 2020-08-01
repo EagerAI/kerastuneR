@@ -1,6 +1,6 @@
 on: [push, pull_request]
 
-name: kerastuneR
+name: kerastuneR_1_0_2
 
 jobs:
   R-CMD:
@@ -35,7 +35,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r@master
         with:
-          r-version: '3.6.3'
+          r-version: '4.0.0'
 
       - uses: r-lib/actions/setup-pandoc@master
 
