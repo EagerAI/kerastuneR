@@ -1,0 +1,72 @@
+on: [push, pull_request]
+
+name: kerastuneR
+
+jobs:
+  R-CMD:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (TF ${{ matrix.config.tf }}) (KT ${{ matrix.config.keras-tuner }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - { os: windows-latest, tf: '2.0.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: macOS-latest, tf: '2.0.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: windows-latest, tf: '2.1.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: macOS-latest, tf: '2.1.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: windows-latest, tf: '2.2.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: macOS-latest, tf: '2.2.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: macOS-latest, tf: '2.3.0rc1', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: windows-latest, tf: '2.3.0rc1', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: windows-latest, tf: 'nightly', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: macOS-latest, tf: 'nightly', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      TF_VERSION: ${{ matrix.config.tf }}
+      KERAS_TUNER_VERSION: ${{ matrix.config.keras-tuner }}
+      PIP_NO_WARN_SCRIPT_LOCATION: false
+      RETICULATE_AUTOCONFIGURE: 'FALSE'
+      CRAN: ${{ matrix.config.cran }}
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: '3.6.3'
+
+      - uses: r-lib/actions/setup-pandoc@master
+
+      - name: Install dependencies Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install libcurl4-openssl-dev
+          sudo add-apt-repository -y ppa:cran/imagemagick
+          sudo apt-get update
+          sudo apt-get install -y libmagick++-dev 
+          
+      - name: Install MacOS/Windows/Linux
+        run: |
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_deps(dependencies =  TRUE)"
+          Rscript -e "remotes::install_cran('rcmdcheck')"
+
+      - name: Install Python
+        run: |
+          Rscript -e "remotes::install_github('rstudio/reticulate')"
+          Rscript -e "try(reticulate::install_miniconda())"
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.10')"
+      - name: Install TensorFlow
+        run: |
+          Rscript -e "remotes::install_local()"
+          Rscript -e "tensorflow::install_tensorflow(version = Sys.getenv('TF_VERSION'))"
+          Rscript -e "reticulate::py_install(c('setuptools', 'wheel', 'requests'), pip = TRUE)"
+          Rscript -e "kerastuneR::install_kerastuner()"
+      - name: Check
+        continue-on-error: ${{ matrix.config.allow_failure }}
+        
+        
+
+        run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning', check_dir = 'check')"
