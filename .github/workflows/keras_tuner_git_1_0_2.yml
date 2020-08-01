@@ -18,8 +18,8 @@ jobs:
         - { os: macOS-latest, tf: '2.1.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
         - { os: windows-latest, tf: '2.2.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
         - { os: macOS-latest, tf: '2.2.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
-        - { os: macOS-latest, tf: '2.3.0rc1', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
-        - { os: windows-latest, tf: '2.3.0rc1', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: macOS-latest, tf: '2.3.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: windows-latest, tf: '2.3.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
         - { os: windows-latest, tf: 'nightly', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
         - { os: macOS-latest, tf: 'nightly', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
     env:
