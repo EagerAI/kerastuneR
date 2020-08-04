@@ -80,6 +80,8 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
       
       extract_model = tuner2 %>% get_best_models(1) %>% .[[1]]
     
+      tuner2 %>% plot_tuner()
+    
   }
 })
 
