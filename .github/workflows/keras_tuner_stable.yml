@@ -1,6 +1,6 @@
 on: [push, pull_request]
 
-name: kerastuneR
+name: KT_stable
 
 jobs:
   R-CMD:
@@ -18,8 +18,8 @@ jobs:
         - { os: macOS-latest, tf: '2.1.0', keras-tuner: '1.0.1'}
         - { os: windows-latest, tf: '2.2.0', keras-tuner: '1.0.1'}
         - { os: macOS-latest, tf: '2.2.0', keras-tuner: '1.0.1'}
-        - { os: macOS-latest, tf: '2.3.0rc1', keras-tuner: '1.0.1'}
-        - { os: windows-latest, tf: '2.3.0rc1', keras-tuner: '1.0.1'}
+        - { os: macOS-latest, tf: '2.3.0', keras-tuner: '1.0.1'}
+        - { os: windows-latest, tf: '2.3.0', keras-tuner: '1.0.1'}
         - { os: windows-latest, tf: 'nightly', keras-tuner: '1.0.1'}
         - { os: macOS-latest, tf: 'nightly', keras-tuner: '1.0.1'}
     env:
@@ -34,8 +34,6 @@ jobs:
       - uses: actions/checkout@v1
 
       - uses: r-lib/actions/setup-r@master
-        with:
-          r-version: '3.6.3'
 
       - uses: r-lib/actions/setup-pandoc@master
 

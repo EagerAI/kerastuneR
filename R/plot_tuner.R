@@ -52,7 +52,7 @@ plot_tuner <- function(tuner, height = NULL, width = NULL, type = 'plotly') {
                             starts_with('best_step'),
                             -contains('json'),
                             starts_with('learning_rate'),
-                            starts_with('score')) %>% as.data.frame()
+                            starts_with('score'),-contains('_id')) %>% as.data.frame()
   
   list_plot = list()
   
