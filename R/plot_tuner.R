@@ -50,6 +50,7 @@ plot_tuner <- function(tuner, height = NULL, width = NULL, type = 'plotly') {
   
   cols = dataset %>% select(-c(1:5),-contains('direction'),
                             starts_with('best_step'),
+                            -contains('json'),
                             starts_with('learning_rate'),
                             starts_with('score')) %>% as.data.frame()
   
