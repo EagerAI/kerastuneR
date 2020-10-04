@@ -106,6 +106,9 @@
     <li>
       <a href="../articles/MNIST.html">MNIST hypertuning</a>
     </li>
+    <li>
+      <a href="../articles/best_practice.html">KerasTuner best practices</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -141,14 +144,14 @@
     <p>Tuner base class.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>BaseTuner</span>(
-  <span class='no'>oracle</span>,
-  <span class='no'>hypermodel</span>,
-  <span class='kw'>directory</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>project_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>logger</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>BaseTuner</span><span class='op'>(</span>
+  <span class='va'>oracle</span>,
+  <span class='va'>hypermodel</span>,
+  directory <span class='op'>=</span> <span class='cn'>NULL</span>,
+  project_name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  logger <span class='op'>=</span> <span class='cn'>NULL</span>,
+  overwrite <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,7 +207,7 @@ project of the same name if one is found. Otherwise, overwrites the project.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

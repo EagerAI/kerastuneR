@@ -65,6 +65,9 @@
     <li>
       <a href="../articles/MNIST.html">MNIST hypertuning</a>
     </li>
+    <li>
+      <a href="../articles/best_practice.html">KerasTuner best practices</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -115,132 +118,133 @@
 <a href="#understanding-the-search-process-" class="anchor"></a>Understanding the search process.</h2>
 <p><code>tuner %&gt;% fit_tuner()</code> can be passed any arguments. These arguments will be passed directly to <code>Tuner$run_trial</code>, along with a Trial object that contains information about the current trial, including hyperparameters and the status of the trial. Typically, <code>Tuner$run_trial</code> is the only method that users need to override when subclassing Tuner.</p>
 <p>Thanks to <a href="https://github.com/dfalbel">Daniel Falbel from RStudio</a>, the <code>Bayesian Optimization</code> example was successfully adapted.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">keras</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tensorflow</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tfdatasets</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">kerastuneR</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">reticulate</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://keras.rstudio.com">keras</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/tensorflow">tensorflow</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/tfdatasets">tfdatasets</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/henry090/kerastuneR">kerastuneR</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/reticulate">reticulate</a></span><span class="op">)</span>
 
 
-<span class="no">conv_build_model</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">hp</span>) {
+<span class="va">conv_build_model</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">hp</span><span class="op">)</span> <span class="op">{</span>
   <span class="st">'Builds a convolutional model.'</span>
-  <span class="no">inputs</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="fu">Input</span>(<span class="kw">shape</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">28L</span>, <span class="fl">28L</span>, <span class="fl">1L</span>))
+  <span class="va">inputs</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="fu">Input</span><span class="op">(</span>shape<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">28L</span>, <span class="fl">28L</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span>
+  
+  <span class="va">x</span> <span class="op">=</span> <span class="va">inputs</span>
+  
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="st">'conv_layers'</span>, <span class="fl">1L</span>, <span class="fl">3L</span>, default<span class="op">=</span><span class="fl">3L</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">Conv2D</span><span class="op">(</span>filters <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'filters_'</span>, <span class="va">i</span>, sep <span class="op">=</span> <span class="st">''</span><span class="op">)</span>, <span class="fl">4L</span>, <span class="fl">32L</span>, step<span class="op">=</span><span class="fl">4L</span>, default<span class="op">=</span><span class="fl">8L</span><span class="op">)</span>,
+                               kernel_size <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'kernel_size_'</span>, <span class="va">i</span>, sep <span class="op">=</span> <span class="st">''</span><span class="op">)</span>, <span class="fl">3L</span>, <span class="fl">5L</span><span class="op">)</span>,
+                               activation <span class="op">=</span><span class="st">'relu'</span>,
+                               padding<span class="op">=</span><span class="st">'same'</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'pooling'</span>, <span class="va">i</span>, sep <span class="op">=</span> <span class="st">''</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'max'</span>, <span class="st">'avg'</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="st">'max'</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">MaxPooling2D</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+      <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">AveragePooling2D</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    <span class="op">}</span>
+    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">BatchNormalization</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> 
+    <span class="va">x</span> <span class="op">=</span>  <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">ReLU</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    
+  <span class="op">}</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="st">'global_pooling'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'max'</span>, <span class="st">'avg'</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="st">'max'</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">x</span> <span class="op">=</span>  <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">GlobalMaxPooling2D</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">GlobalAveragePooling2D</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="op">}</span>
+  
+  <span class="va">outputs</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">Dense</span><span class="op">(</span><span class="fl">10L</span>, activation<span class="op">=</span><span class="st">'softmax'</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="va">model</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="fu">Model</span><span class="op">(</span><span class="va">inputs</span>, <span class="va">outputs</span><span class="op">)</span>
+  <span class="va">optimizer</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="st">'optimizer'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'adam'</span>, <span class="st">'sgd'</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/generics/man/compile.html">compile</a></span><span class="op">(</span><span class="va">optimizer</span>, loss<span class="op">=</span><span class="st">'sparse_categorical_crossentropy'</span>, metrics<span class="op">=</span><span class="st">'accuracy'</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+<span class="op">}</span>
 
-  <span class="no">x</span> <span class="kw">=</span> <span class="no">inputs</span>
-
-  <span class="kw">for</span> (<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">hp</span>$<span class="fu">Int</span>(<span class="st">'conv_layers'</span>, <span class="fl">1L</span>, <span class="fl">3L</span>, <span class="kw">default</span><span class="kw">=</span><span class="fl">3L</span>)) {
-    <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">Conv2D</span>(<span class="kw">filters</span> <span class="kw">=</span> <span class="no">hp</span>$<span class="fu">Int</span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'filters_'</span>, <span class="no">i</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">''</span>), <span class="fl">4L</span>, <span class="fl">32L</span>, <span class="kw">step</span><span class="kw">=</span><span class="fl">4L</span>, <span class="kw">default</span><span class="kw">=</span><span class="fl">8L</span>),
-                               <span class="kw">kernel_size</span> <span class="kw">=</span> <span class="no">hp</span>$<span class="fu">Int</span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'kernel_size_'</span>, <span class="no">i</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">''</span>), <span class="fl">3L</span>, <span class="fl">5L</span>),
-                               <span class="kw">activation</span> <span class="kw">=</span><span class="st">'relu'</span>,
-                               <span class="kw">padding</span><span class="kw">=</span><span class="st">'same'</span>)(<span class="no">x</span>)
-    <span class="kw">if</span> (<span class="no">hp</span>$<span class="fu">Choice</span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'pooling'</span>, <span class="no">i</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">''</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'max'</span>, <span class="st">'avg'</span>)) <span class="kw">==</span> <span class="st">'max'</span>) {
-      <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">MaxPooling2D</span>()(<span class="no">x</span>)
-    } <span class="kw">else</span> {
-      <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">AveragePooling2D</span>()(<span class="no">x</span>)
-    }
-    <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">BatchNormalization</span>()(<span class="no">x</span>)
-    <span class="no">x</span> <span class="kw">=</span>  <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">ReLU</span>()(<span class="no">x</span>)
-
-  }
-  <span class="kw">if</span> (<span class="no">hp</span>$<span class="fu">Choice</span>(<span class="st">'global_pooling'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'max'</span>, <span class="st">'avg'</span>)) <span class="kw">==</span> <span class="st">'max'</span>) {
-    <span class="no">x</span> <span class="kw">=</span>  <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">GlobalMaxPooling2D</span>()(<span class="no">x</span>)
-  } <span class="kw">else</span> {
-    <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">GlobalAveragePooling2D</span>()(<span class="no">x</span>)
-  }
-
-  <span class="no">outputs</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">Dense</span>(<span class="fl">10L</span>, <span class="kw">activation</span><span class="kw">=</span><span class="st">'softmax'</span>)(<span class="no">x</span>)
-  <span class="no">model</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="fu">Model</span>(<span class="no">inputs</span>, <span class="no">outputs</span>)
-  <span class="no">optimizer</span> <span class="kw">=</span> <span class="no">hp</span>$<span class="fu">Choice</span>(<span class="st">'optimizer'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'adam'</span>, <span class="st">'sgd'</span>))
-  <span class="no">model</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/reexports.html">compile</a></span>(<span class="no">optimizer</span>, <span class="kw">loss</span><span class="kw">=</span><span class="st">'sparse_categorical_crossentropy'</span>, <span class="kw">metrics</span><span class="kw">=</span><span class="st">'accuracy'</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">model</span>)
-}
-
-<span class="no">MyTuner</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/PyClass.html">PyClass</a></span>(
+<span class="va">MyTuner</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/PyClass.html">PyClass</a></span><span class="op">(</span>
   <span class="st">'Tuner'</span>,
-  <span class="kw">inherit</span> <span class="kw">=</span> <span class="fu"><a href="../reference/Tuner_class.html">Tuner_class</a></span>(),
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    <span class="kw">run_trial</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">self</span>, <span class="no">trial</span>, <span class="no">train_ds</span>){
-      <span class="no">hp</span> <span class="kw">=</span> <span class="no">trial</span>$<span class="no">hyperparameters</span>
-      <span class="no">train_ds</span> <span class="kw">=</span> <span class="no">train_ds</span>$<span class="fu">batch</span>(<span class="no">hp</span>$<span class="fu">Int</span>(<span class="st">'batch_size'</span>, <span class="fl">32L</span>, <span class="fl">128L</span>, <span class="kw">step</span><span class="kw">=</span><span class="fl">32L</span>, <span class="kw">default</span><span class="kw">=</span><span class="fl">64L</span>))
-      <span class="no">model</span> <span class="kw">=</span> <span class="no">self</span>$<span class="no">hypermodel</span>$<span class="fu"><a href="https://rdrr.io/r/utils/PkgUtils.html">build</a></span>(<span class="no">trial</span>$<span class="no">hyperparameters</span>)
-      <span class="no">lr</span> <span class="kw">=</span> <span class="no">hp</span>$<span class="fu">Float</span>(<span class="st">'learning_rate'</span>, <span class="fl">1e-4</span>, <span class="fl">1e-2</span>, <span class="kw">sampling</span><span class="kw">=</span><span class="st">'log'</span>, <span class="kw">default</span><span class="kw">=</span><span class="fl">1e-3</span>)
-      <span class="no">optimizer</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">optimizers</span>$<span class="fu">Adam</span>(<span class="no">lr</span>)
-      <span class="no">epoch_loss_metric</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">metrics</span>$<span class="fu">Mean</span>()
+  inherit <span class="op">=</span> <span class="fu"><a href="../reference/Tuner_class.html">Tuner_class</a></span><span class="op">(</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    run_trial <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">self</span>, <span class="va">trial</span>, <span class="va">train_ds</span><span class="op">)</span><span class="op">{</span>
+      <span class="va">hp</span> <span class="op">=</span> <span class="va">trial</span><span class="op">$</span><span class="va">hyperparameters</span>
+      <span class="va">train_ds</span> <span class="op">=</span> <span class="va">train_ds</span><span class="op">$</span><span class="fu">batch</span><span class="op">(</span><span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="st">'batch_size'</span>, <span class="fl">32L</span>, <span class="fl">128L</span>, step<span class="op">=</span><span class="fl">32L</span>, default<span class="op">=</span><span class="fl">64L</span><span class="op">)</span><span class="op">)</span>
+      <span class="va">model</span> <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">hypermodel</span><span class="op">$</span><span class="fu">build</span><span class="op">(</span><span class="va">trial</span><span class="op">$</span><span class="va">hyperparameters</span><span class="op">)</span>
+      <span class="va">lr</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Float</span><span class="op">(</span><span class="st">'learning_rate'</span>, <span class="fl">1e-4</span>, <span class="fl">1e-2</span>, sampling<span class="op">=</span><span class="st">'log'</span>, default<span class="op">=</span><span class="fl">1e-3</span><span class="op">)</span>
+      <span class="va">optimizer</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">optimizers</span><span class="op">$</span><span class="fu">Adam</span><span class="op">(</span><span class="va">lr</span><span class="op">)</span>
+      <span class="va">epoch_loss_metric</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">metrics</span><span class="op">$</span><span class="fu">Mean</span><span class="op">(</span><span class="op">)</span>
+      
+      
+      <span class="va">run_train_step</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">{</span>
+        <span class="va">images</span> <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+        <span class="va">labels</span> <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+        
+        
+        <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span> <span class="op">(</span><span class="va">tf</span><span class="op">$</span><span class="fu">GradientTape</span><span class="op">(</span><span class="op">)</span> <span class="op">%as%</span> <span class="va">tape</span>,<span class="op">{</span>
+          <span class="va">logits</span> <span class="op">=</span> <span class="fu">model</span><span class="op">(</span><span class="va">images</span><span class="op">)</span>
+          <span class="va">loss</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">losses</span><span class="op">$</span><span class="fu">sparse_categorical_crossentropy</span><span class="op">(</span><span class="va">labels</span>, <span class="va">logits</span><span class="op">)</span>
+          <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">losses</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span>
+            <span class="va">loss</span> <span class="op">=</span> <span class="va">loss</span> <span class="op">+</span> <span class="va">tf</span><span class="op">$</span><span class="va">math</span><span class="op">$</span><span class="fu">add_n</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">losses</span><span class="op">)</span>
+          <span class="op">}</span>
+          <span class="va">gradients</span> <span class="op">=</span> <span class="va">tape</span><span class="op">$</span><span class="fu">gradient</span><span class="op">(</span><span class="va">loss</span>, <span class="va">model</span><span class="op">$</span><span class="va">trainable_variables</span><span class="op">)</span>
+        <span class="op">}</span><span class="op">)</span>
+        <span class="va">optimizer</span><span class="op">$</span><span class="fu">apply_gradients</span><span class="op">(</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/transpose.html">transpose</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">gradients</span>, <span class="va">model</span><span class="op">$</span><span class="va">trainable_variables</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+        <span class="va">epoch_loss_metric</span><span class="op">$</span><span class="fu">update_state</span><span class="op">(</span><span class="va">loss</span><span class="op">)</span>
+        <span class="va">loss</span>
+      <span class="op">}</span>
+      
+      <span class="kw">for</span> <span class="op">(</span><span class="va">epoch</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'Epoch'</span>,<span class="va">epoch</span><span class="op">)</span><span class="op">)</span>
+        <span class="va">self</span><span class="op">$</span><span class="fu">on_epoch_begin</span><span class="op">(</span><span class="va">trial</span>, <span class="va">model</span>, <span class="va">epoch</span>, logs<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+        <span class="va">intializer</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/make-iterator.html">make_iterator_one_shot</a></span><span class="op">(</span><span class="va">train_ds</span><span class="op">)</span>
+        
+        <span class="kw">for</span> <span class="op">(</span><span class="va">batch</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/iterate.html">iterate</a></span><span class="op">(</span><span class="va">train_ds</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+          
+          <span class="va">init_next</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/iterate.html">iter_next</a></span><span class="op">(</span><span class="va">intializer</span><span class="op">)</span>
+          
+          <span class="va">self</span><span class="op">$</span><span class="fu">on_batch_begin</span><span class="op">(</span><span class="va">trial</span>, <span class="va">model</span>, <span class="va">batch</span>, logs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+          <span class="va">batch_loss</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">run_train_step</span><span class="op">(</span><span class="va">init_next</span><span class="op">)</span><span class="op">)</span>
+          <span class="va">self</span><span class="op">$</span><span class="fu">on_batch_end</span><span class="op">(</span><span class="va">trial</span>, <span class="va">model</span>, <span class="va">batch</span>, logs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'loss'</span>, <span class="va">batch_loss</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+          
+          <span class="kw">if</span> <span class="op">(</span><span class="va">batch</span> <span class="op">%%</span> <span class="fl">100L</span> <span class="op">==</span> <span class="fl">0L</span><span class="op">)</span><span class="op">{</span>
+            <span class="va">loss</span> <span class="op">=</span> <span class="va">epoch_loss_metric</span><span class="op">$</span><span class="fu">result</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">numpy</span><span class="op">(</span><span class="op">)</span>
+            <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'Batch'</span>,<span class="va">batch</span>,  <span class="st">'Average loss'</span>, <span class="va">loss</span><span class="op">)</span><span class="op">)</span>
+          <span class="op">}</span>
+        <span class="op">}</span>
+        
+        <span class="va">epoch_loss</span> <span class="op">=</span> <span class="va">epoch_loss_metric</span><span class="op">$</span><span class="fu">result</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="fu">numpy</span><span class="op">(</span><span class="op">)</span>
+        <span class="va">self</span><span class="op">$</span><span class="fu">on_epoch_end</span><span class="op">(</span><span class="va">trial</span>, <span class="va">model</span>, <span class="va">epoch</span>, logs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">'loss'</span><span class="op">=</span> <span class="va">epoch_loss</span><span class="op">)</span><span class="op">)</span>
+        <span class="va">epoch_loss_metric</span><span class="op">$</span><span class="fu">reset_states</span><span class="op">(</span><span class="op">)</span>
+      <span class="op">}</span>
+    <span class="op">}</span>
+  <span class="op">)</span>
+<span class="op">)</span>
 
 
-      <span class="no">run_train_step</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">data</span>){
-        <span class="no">images</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="fl">1</span>]]
-        <span class="no">labels</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="fl">2</span>]]
+<span class="va">main</span> <span class="op">=</span> <span class="kw">function</span> <span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">tuner</span> <span class="op">=</span> <span class="fu">MyTuner</span><span class="op">(</span>
+    oracle<span class="op">=</span><span class="fu"><a href="../reference/BayesianOptimization.html">BayesianOptimization</a></span><span class="op">(</span>
+      objective<span class="op">=</span><span class="fu"><a href="../reference/Objective.html">Objective</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">'loss'</span>, direction <span class="op">=</span> <span class="st">'min'</span><span class="op">)</span>,
+      max_trials<span class="op">=</span><span class="fl">1</span><span class="op">)</span>,
+    hypermodel<span class="op">=</span><span class="va">conv_build_model</span>,
+    directory<span class="op">=</span><span class="st">'results2'</span>,
+    project_name<span class="op">=</span><span class="st">'mnist_custom_training2'</span><span class="op">)</span>
+  
+  <span class="va">mnist_data</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_fashion_mnist.html">dataset_fashion_mnist</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">mnist_train</span>, <span class="va">mnist_test</span><span class="op">)</span> <span class="op">%&lt;-%</span>  <span class="va">mnist_data</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">mnist_data</span><span class="op">)</span>
+  
+  <span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">dtypes</span><span class="op">$</span><span class="fu">cast</span><span class="op">(</span><span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span>, <span class="st">'float32'</span><span class="op">)</span> <span class="op">/</span> <span class="fl">255.</span>
+  
+  <span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_reshape.html">k_reshape</a></span><span class="op">(</span><span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span>,shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  
+  <span class="va">mnist_train</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/tensor_slices_dataset.html">tensor_slices_dataset</a></span><span class="op">(</span><span class="va">mnist_train</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_shuffle.html">dataset_shuffle</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span>
+    
+    <span class="va">tuner</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/fit_tuner.html">fit_tuner</a></span><span class="op">(</span>train_ds <span class="op">=</span> <span class="va">mnist_train</span><span class="op">)</span>
+    
+    <span class="va">best_model</span> <span class="op">=</span> <span class="va">tuner</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/get_best_models.html">get_best_models</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span>
+  
+<span class="op">}</span>
 
-
-        <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span> (<span class="no">tf</span>$<span class="fu">GradientTape</span>() <span class="kw">%as%</span> <span class="no">tape</span>,{
-          <span class="no">logits</span> <span class="kw">=</span> <span class="fu">model</span>(<span class="no">images</span>)
-          <span class="no">loss</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">losses</span>$<span class="fu">sparse_categorical_crossentropy</span>(<span class="no">labels</span>, <span class="no">logits</span>)
-          <span class="kw">if</span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">model</span>$<span class="no">losses</span>) <span class="kw">&gt;</span> <span class="fl">0</span>){
-            <span class="no">loss</span> <span class="kw">=</span> <span class="no">loss</span> + <span class="no">tf</span>$<span class="no">math</span>$<span class="fu">add_n</span>(<span class="no">model</span>$<span class="no">losses</span>)
-          }
-          <span class="no">gradients</span> <span class="kw">=</span> <span class="no">tape</span>$<span class="fu">gradient</span>(<span class="no">loss</span>, <span class="no">model</span>$<span class="no">trainable_variables</span>)
-        })
-        <span class="no">optimizer</span>$<span class="fu">apply_gradients</span>(<span class="kw pkg">purrr</span><span class="kw ns">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/transpose.html">transpose</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">gradients</span>, <span class="no">model</span>$<span class="no">trainable_variables</span>)))
-        <span class="no">epoch_loss_metric</span>$<span class="fu">update_state</span>(<span class="no">loss</span>)
-        <span class="no">loss</span>
-      }
-
-      <span class="kw">for</span> (<span class="no">epoch</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fl">1</span>) {
-        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'Epoch'</span>,<span class="no">epoch</span>))
-        <span class="no">self</span>$<span class="fu">on_epoch_begin</span>(<span class="no">trial</span>, <span class="no">model</span>, <span class="no">epoch</span>, <span class="kw">logs</span><span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>())
-        <span class="no">intializer</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/make-iterator.html">make_iterator_one_shot</a></span>(<span class="no">train_ds</span>)
-
-        <span class="kw">for</span> (<span class="no">batch</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/tensorflow/man/reexports.html">iterate</a></span>(<span class="no">train_ds</span>))) {
-
-          <span class="no">init_next</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/iterate.html">iter_next</a></span>(<span class="no">intializer</span>)
-
-          <span class="no">self</span>$<span class="fu">on_batch_begin</span>(<span class="no">trial</span>, <span class="no">model</span>, <span class="no">batch</span>, <span class="kw">logs</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>())
-          <span class="no">batch_loss</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu">run_train_step</span>(<span class="no">init_next</span>))
-          <span class="no">self</span>$<span class="fu">on_batch_end</span>(<span class="no">trial</span>, <span class="no">model</span>, <span class="no">batch</span>, <span class="kw">logs</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'loss'</span>, <span class="no">batch_loss</span>)))
-
-          <span class="kw">if</span> (<span class="no">batch</span> <span class="kw">%%</span> <span class="fl">100L</span> <span class="kw">==</span> <span class="fl">0L</span>){
-            <span class="no">loss</span> <span class="kw">=</span> <span class="no">epoch_loss_metric</span>$<span class="fu">result</span>()$<span class="fu">numpy</span>()
-            <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'Batch'</span>,<span class="no">batch</span>,  <span class="st">'Average loss'</span>, <span class="no">loss</span>))
-          }
-        }
-
-        <span class="no">epoch_loss</span> <span class="kw">=</span> <span class="no">epoch_loss_metric</span>$<span class="fu">result</span>()$<span class="fu">numpy</span>()
-        <span class="no">self</span>$<span class="fu">on_epoch_end</span>(<span class="no">trial</span>, <span class="no">model</span>, <span class="no">epoch</span>, <span class="kw">logs</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">'loss'</span><span class="kw">=</span> <span class="no">epoch_loss</span>))
-        <span class="no">epoch_loss_metric</span>$<span class="fu"><a href="https://rdrr.io/pkg/keras/man/reset_states.html">reset_states</a></span>()
-      }
-    }
-  )
-)
-
-
-<span class="no">main</span> <span class="kw">=</span> <span class="kw">function</span> () {
-  <span class="no">tuner</span> <span class="kw">=</span> <span class="fu">MyTuner</span>(
-    <span class="kw">oracle</span><span class="kw">=</span><span class="fu"><a href="../reference/BayesianOptimization.html">BayesianOptimization</a></span>(
-      <span class="kw">objective</span><span class="kw">=</span><span class="fu"><a href="../reference/Objective.html">Objective</a></span>(<span class="kw">name</span><span class="kw">=</span><span class="st">'loss'</span>, <span class="kw">direction</span> <span class="kw">=</span> <span class="st">'min'</span>),
-      <span class="kw">max_trials</span><span class="kw">=</span><span class="fl">1</span>),
-    <span class="kw">hypermodel</span><span class="kw">=</span><span class="no">conv_build_model</span>,
-    <span class="kw">directory</span><span class="kw">=</span><span class="st">'results2'</span>,
-    <span class="kw">project_name</span><span class="kw">=</span><span class="st">'mnist_custom_training2'</span>)
-
-  <span class="no">mnist_data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_fashion_mnist.html">dataset_fashion_mnist</a></span>()
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">mnist_train</span>, <span class="no">mnist_test</span>) <span class="kw">%&lt;-%</span>  <span class="no">mnist_data</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(<span class="no">mnist_data</span>)
-
-  <span class="no">mnist_train</span>$<span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">dtypes</span>$<span class="fu">cast</span>(<span class="no">mnist_train</span>$<span class="no">x</span>, <span class="st">'float32'</span>) / <span class="fl">255.</span>
-
-  <span class="no">mnist_train</span>$<span class="no">x</span> <span class="kw">=</span> <span class="kw pkg">keras</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_reshape.html">k_reshape</a></span>(<span class="no">mnist_train</span>$<span class="no">x</span>,<span class="kw">shape</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">6e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span>))
-
-  <span class="no">mnist_train</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/tensor_slices_dataset.html">tensor_slices_dataset</a></span>(<span class="no">mnist_train</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_shuffle.html">dataset_shuffle</a></span>(<span class="fl">1e3</span>)
-
-    <span class="no">tuner</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/fit_tuner.html">fit_tuner</a></span>(<span class="kw">train_ds</span> <span class="kw">=</span> <span class="no">mnist_train</span>)
-
-    <span class="no">best_model</span> <span class="kw">=</span> <span class="no">tuner</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/get_best_models.html">get_best_models</a></span>(<span class="fl">1L</span>)
-
-}
-
-<span class="fu">main</span>()</pre></body></html></div>
+<span class="fu">main</span><span class="op">(</span><span class="op">)</span></pre></div>
 </div>
   </div>
 
@@ -259,7 +263,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

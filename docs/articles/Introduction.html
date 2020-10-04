@@ -65,6 +65,9 @@
     <li>
       <a href="../articles/MNIST.html">MNIST hypertuning</a>
     </li>
+    <li>
+      <a href="../articles/best_practice.html">KerasTuner best practices</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -164,7 +167,7 @@ build_model = function(hp) {
     project_name = 'helloworld')</code></pre>
 <p>You can print a summary of the search space:</p>
 <pre><code>tuner %&gt;% search_summary()</code></pre>
-<p>Then, start the search for the best hyperparameter configuration. The call to search has the same signature as <code>model %&gt;% fit()</code>. But here instead of <code>fit()</code> we call <code><a href="../reference/fit_tuner.html">fit_tuner()</a></code>.</p>
+<p>Then, start the search for the best hyperparameter configuration. The call to search has the same signature as <code>model %&gt;% fit()</code>. But here instead of <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> we call <code><a href="../reference/fit_tuner.html">fit_tuner()</a></code>.</p>
 <pre><code>tuner %&gt;% fit_tuner(x_data,y_data,
                     epochs=5, 
                     validation_data = list(x_data2,y_data2))</code></pre>
@@ -186,7 +189,7 @@ build_model = function(hp) {
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

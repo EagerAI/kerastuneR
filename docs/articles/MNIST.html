@@ -65,6 +65,9 @@
     <li>
       <a href="../articles/MNIST.html">MNIST hypertuning</a>
     </li>
+    <li>
+      <a href="../articles/best_practice.html">KerasTuner best practices</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -136,83 +139,84 @@ padding='same')
 <h2 class="hasAnchor">
 <a href="#full-code" class="anchor"></a>Full code</h2>
 <p>Below is the full version of a tuning process for MNIST dataset.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">onv_build_model</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">hp</span>) {
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="va">conv_build_model</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">hp</span><span class="op">)</span> <span class="op">{</span>
   <span class="st">'Builds a convolutional model.'</span>
-  <span class="no">inputs</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="fu">Input</span>(<span class="kw">shape</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fl">28L</span>, <span class="fl">28L</span>, <span class="fl">1L</span>))
+  <span class="va">inputs</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="fu">Input</span><span class="op">(</span>shape<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">28L</span>, <span class="fl">28L</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span>
+  
+  <span class="va">x</span> <span class="op">=</span> <span class="va">inputs</span>
+  
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="st">'conv_layers'</span>, <span class="fl">1L</span>, <span class="fl">3L</span>, default<span class="op">=</span><span class="fl">3L</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">Conv2D</span><span class="op">(</span>filters <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'filters_'</span>, <span class="va">i</span>, sep <span class="op">=</span> <span class="st">''</span><span class="op">)</span>, 
+                                                <span class="fl">4L</span>, <span class="fl">32L</span>, step<span class="op">=</span><span class="fl">4L</span>, default<span class="op">=</span><span class="fl">8L</span><span class="op">)</span>,
+                               kernel_size <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'kernel_size_'</span>, <span class="va">i</span>, sep <span class="op">=</span> <span class="st">''</span><span class="op">)</span>, <span class="fl">3L</span>, <span class="fl">5L</span><span class="op">)</span>,
+                               activation <span class="op">=</span><span class="st">'relu'</span>,
+                               padding<span class="op">=</span><span class="st">'same'</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'pooling'</span>, <span class="va">i</span>, sep <span class="op">=</span> <span class="st">''</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'max'</span>, <span class="st">'avg'</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="st">'max'</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">MaxPooling2D</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+      <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">AveragePooling2D</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    <span class="op">}</span>
+    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">BatchNormalization</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> 
+    <span class="va">x</span> <span class="op">=</span>  <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">ReLU</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+    
+  <span class="op">}</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="st">'global_pooling'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'max'</span>, <span class="st">'avg'</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="st">'max'</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">x</span> <span class="op">=</span>  <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">GlobalMaxPool2D</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">GlobalAveragePooling2D</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="op">}</span>
+  
+  <span class="va">outputs</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">Dense</span><span class="op">(</span><span class="fl">10L</span>, activation<span class="op">=</span><span class="st">'softmax'</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="va">model</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="fu">Model</span><span class="op">(</span><span class="va">inputs</span>, <span class="va">outputs</span><span class="op">)</span>
+  <span class="va">optimizer</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="st">'optimizer'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'adam'</span>, <span class="st">'sgd'</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/generics/man/compile.html">compile</a></span><span class="op">(</span><span class="va">optimizer</span>, loss<span class="op">=</span><span class="st">'sparse_categorical_crossentropy'</span>, metrics<span class="op">=</span><span class="st">'accuracy'</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
+<span class="op">}</span>
 
-  <span class="no">x</span> <span class="kw">=</span> <span class="no">inputs</span>
-
-  <span class="kw">for</span> (<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">hp</span>$<span class="fu">Int</span>(<span class="st">'conv_layers'</span>, <span class="fl">1L</span>, <span class="fl">3L</span>, <span class="kw">default</span><span class="kw">=</span><span class="fl">3L</span>)) {
-    <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">Conv2D</span>(<span class="kw">filters</span> <span class="kw">=</span> <span class="no">hp</span>$<span class="fu">Int</span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'filters_'</span>, <span class="no">i</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">''</span>),
-                                                <span class="fl">4L</span>, <span class="fl">32L</span>, <span class="kw">step</span><span class="kw">=</span><span class="fl">4L</span>, <span class="kw">default</span><span class="kw">=</span><span class="fl">8L</span>),
-                               <span class="kw">kernel_size</span> <span class="kw">=</span> <span class="no">hp</span>$<span class="fu">Int</span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'kernel_size_'</span>, <span class="no">i</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">''</span>), <span class="fl">3L</span>, <span class="fl">5L</span>),
-                               <span class="kw">activation</span> <span class="kw">=</span><span class="st">'relu'</span>,
-                               <span class="kw">padding</span><span class="kw">=</span><span class="st">'same'</span>)(<span class="no">x</span>)
-    <span class="kw">if</span> (<span class="no">hp</span>$<span class="fu">Choice</span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'pooling'</span>, <span class="no">i</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">''</span>), <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'max'</span>, <span class="st">'avg'</span>)) <span class="kw">==</span> <span class="st">'max'</span>) {
-      <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">MaxPooling2D</span>()(<span class="no">x</span>)
-    } <span class="kw">else</span> {
-      <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">AveragePooling2D</span>()(<span class="no">x</span>)
-    }
-    <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">BatchNormalization</span>()(<span class="no">x</span>)
-    <span class="no">x</span> <span class="kw">=</span>  <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">ReLU</span>()(<span class="no">x</span>)
-
-  }
-  <span class="kw">if</span> (<span class="no">hp</span>$<span class="fu">Choice</span>(<span class="st">'global_pooling'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'max'</span>, <span class="st">'avg'</span>)) <span class="kw">==</span> <span class="st">'max'</span>) {
-    <span class="no">x</span> <span class="kw">=</span>  <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">GlobalMaxPool2D</span>()(<span class="no">x</span>)
-  } <span class="kw">else</span> {
-    <span class="no">x</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">GlobalAveragePooling2D</span>()(<span class="no">x</span>)
-  }
-
-  <span class="no">outputs</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="no">layers</span>$<span class="fu">Dense</span>(<span class="fl">10L</span>, <span class="kw">activation</span><span class="kw">=</span><span class="st">'softmax'</span>)(<span class="no">x</span>)
-  <span class="no">model</span> <span class="kw">=</span> <span class="no">tf</span>$<span class="no">keras</span>$<span class="fu">Model</span>(<span class="no">inputs</span>, <span class="no">outputs</span>)
-  <span class="no">optimizer</span> <span class="kw">=</span> <span class="no">hp</span>$<span class="fu">Choice</span>(<span class="st">'optimizer'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'adam'</span>, <span class="st">'sgd'</span>))
-  <span class="no">model</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/reexports.html">compile</a></span>(<span class="no">optimizer</span>, <span class="kw">loss</span><span class="kw">=</span><span class="st">'sparse_categorical_crossentropy'</span>, <span class="kw">metrics</span><span class="kw">=</span><span class="st">'accuracy'</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">model</span>)
-}
-
-<span class="no">main</span> <span class="kw">=</span> <span class="kw">function</span>() {
-  <span class="no">tuner</span> <span class="kw">=</span> <span class="fu"><a href="../reference/Hyperband.html">Hyperband</a></span>(
-    <span class="kw">hypermodel</span> <span class="kw">=</span> <span class="no">conv_build_model</span>,
-    <span class="kw">objective</span> <span class="kw">=</span> <span class="st">'val_accuracy'</span>,
-    <span class="kw">max_epochs</span> <span class="kw">=</span> <span class="fl">8</span>,
-    <span class="kw">factor</span> <span class="kw">=</span> <span class="fl">2</span>,
-    <span class="kw">hyperband_iterations</span> <span class="kw">=</span> <span class="fl">3</span>,
-    <span class="kw">directory</span> <span class="kw">=</span> <span class="st">'results_dir'</span>,
-    <span class="kw">project_name</span><span class="kw">=</span><span class="st">'mnist'</span>)
-
+<span class="va">main</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">tuner</span> <span class="op">=</span> <span class="fu"><a href="../reference/Hyperband.html">Hyperband</a></span><span class="op">(</span>
+    hypermodel <span class="op">=</span> <span class="va">conv_build_model</span>,
+    objective <span class="op">=</span> <span class="st">'val_accuracy'</span>,
+    max_epochs <span class="op">=</span> <span class="fl">8</span>,
+    factor <span class="op">=</span> <span class="fl">2</span>,
+    hyperband_iterations <span class="op">=</span> <span class="fl">3</span>,
+    directory <span class="op">=</span> <span class="st">'results_dir'</span>,
+    project_name<span class="op">=</span><span class="st">'mnist'</span><span class="op">)</span>
+  
   <span class="co"># call keras library for downloading MNIST dataset</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">keras</span>)
-
-  <span class="no">mnist_data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_fashion_mnist.html">dataset_fashion_mnist</a></span>()
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">mnist_train</span>, <span class="no">mnist_test</span>) <span class="kw">%&lt;-%</span>  <span class="no">mnist_data</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(<span class="no">mnist_data</span>)
-
+  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://keras.rstudio.com">keras</a></span><span class="op">)</span>
+  
+  <span class="va">mnist_data</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_fashion_mnist.html">dataset_fashion_mnist</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">mnist_train</span>, <span class="va">mnist_test</span><span class="op">)</span> <span class="op">%&lt;-%</span>  <span class="va">mnist_data</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">mnist_data</span><span class="op">)</span>
+  
   <span class="co"># reshape data</span>
-  <span class="no">mnist_train</span>$<span class="no">x</span> <span class="kw">=</span> <span class="kw pkg">keras</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_reshape.html">k_reshape</a></span>(<span class="no">mnist_train</span>$<span class="no">x</span>,<span class="kw">shape</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">6e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span>))
-  <span class="no">mnist_test</span>$<span class="no">x</span> <span class="kw">=</span> <span class="kw pkg">keras</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_reshape.html">k_reshape</a></span>(<span class="no">mnist_test</span>$<span class="no">x</span>,<span class="kw">shape</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span>))
-
+  <span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_reshape.html">k_reshape</a></span><span class="op">(</span><span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span>,shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">mnist_test</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_reshape.html">k_reshape</a></span><span class="op">(</span><span class="va">mnist_test</span><span class="op">$</span><span class="va">x</span>,shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  
   <span class="co"># call tfdatasets and slice dataset</span>
   <span class="co"># turn data type into float 32 (features, not labels/outputs)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tfdatasets</span>)
-  <span class="no">mnist_train</span> <span class="kw">=</span>  <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/tensor_slices_dataset.html">tensor_slices_dataset</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">tf</span>$<span class="no">dtypes</span>$<span class="fu">cast</span>(
-    <span class="no">mnist_train</span>$<span class="no">x</span>, <span class="st">'float32'</span>) / <span class="fl">255.</span>, <span class="no">mnist_train</span>$<span class="no">y</span>)) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_shuffle.html">dataset_shuffle</a></span>(<span class="fl">1e3</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_batch.html">dataset_batch</a></span>(<span class="fl">1e2</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_repeat.html">dataset_repeat</a></span>()
-
-  <span class="no">mnist_test</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/tensor_slices_dataset.html">tensor_slices_dataset</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">tf</span>$<span class="no">dtypes</span>$<span class="fu">cast</span>(
-    <span class="no">mnist_test</span>$<span class="no">x</span>, <span class="st">'float32'</span>) / <span class="fl">255.</span>, <span class="no">mnist_test</span>$<span class="no">y</span>)) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_batch.html">dataset_batch</a></span>(<span class="fl">1e2</span>)
-
+  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/tfdatasets">tfdatasets</a></span><span class="op">)</span>
+  <span class="va">mnist_train</span> <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/tensor_slices_dataset.html">tensor_slices_dataset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">tf</span><span class="op">$</span><span class="va">dtypes</span><span class="op">$</span><span class="fu">cast</span><span class="op">(</span>
+    <span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span>, <span class="st">'float32'</span><span class="op">)</span> <span class="op">/</span> <span class="fl">255.</span>, <span class="va">mnist_train</span><span class="op">$</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_shuffle.html">dataset_shuffle</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_batch.html">dataset_batch</a></span><span class="op">(</span><span class="fl">1e2</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_repeat.html">dataset_repeat</a></span><span class="op">(</span><span class="op">)</span>
+  
+  <span class="va">mnist_test</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/tensor_slices_dataset.html">tensor_slices_dataset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">tf</span><span class="op">$</span><span class="va">dtypes</span><span class="op">$</span><span class="fu">cast</span><span class="op">(</span>
+    <span class="va">mnist_test</span><span class="op">$</span><span class="va">x</span>, <span class="st">'float32'</span><span class="op">)</span> <span class="op">/</span> <span class="fl">255.</span>, <span class="va">mnist_test</span><span class="op">$</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_batch.html">dataset_batch</a></span><span class="op">(</span><span class="fl">1e2</span><span class="op">)</span>
+  
   <span class="co"># finally, begin a training with a bunch of parameters</span>
-  <span class="no">tuner</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/fit_tuner.html">fit_tuner</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">mnist_train</span>,
-               <span class="kw">steps_per_epoch</span><span class="kw">=</span><span class="fl">600</span>,
-               <span class="kw">validation_data</span><span class="kw">=</span><span class="no">mnist_test</span>,
-               <span class="kw">validation_steps</span><span class="kw">=</span><span class="fl">100</span>,
-               <span class="kw">epochs</span><span class="kw">=</span><span class="fl">2</span>,
-               <span class="kw">callbacks</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">tf</span>$<span class="no">keras</span>$<span class="no">callbacks</span>$<span class="fu">EarlyStopping</span>(<span class="st">'val_accuracy'</span>))
-  )
-}
+  <span class="va">tuner</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/fit_tuner.html">fit_tuner</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mnist_train</span>,
+               steps_per_epoch<span class="op">=</span><span class="fl">600</span>,
+               validation_data<span class="op">=</span><span class="va">mnist_test</span>,
+               validation_steps<span class="op">=</span><span class="fl">100</span>,
+               epochs<span class="op">=</span><span class="fl">2</span>,
+               callbacks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">callbacks</span><span class="op">$</span><span class="fu">EarlyStopping</span><span class="op">(</span><span class="st">'val_accuracy'</span><span class="op">)</span><span class="op">)</span> 
+  <span class="op">)</span>
+<span class="op">}</span>
 
-<span class="fu">main</span>()</pre></body></html></div>
+<span class="fu">main</span><span class="op">(</span><span class="op">)</span></pre></div>
 </div>
 </div>
   </div>
@@ -232,7 +236,7 @@ padding='same')
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
