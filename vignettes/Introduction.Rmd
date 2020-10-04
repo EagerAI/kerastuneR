@@ -3,7 +3,7 @@ title: "Introduction to kerastuneR"
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{R interface to Keras Tuner}
+  %\VignetteIndexEntry{Introduction to kerastuneR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

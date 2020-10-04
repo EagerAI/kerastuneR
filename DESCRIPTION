@@ -20,7 +20,7 @@ BugReports: https://github.com/henry090/kerastuneR/issues
 SystemRequirements: TensorFlow >= 2.0 (https://www.tensorflow.org/)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Imports:
     reticulate, 
     tensorflow,

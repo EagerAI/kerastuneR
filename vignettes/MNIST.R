@@ -2,7 +2,7 @@
 knitr::opts_chunk$set(echo = TRUE,eval = F)
 
 ## -----------------------------------------------------------------------------
-#  onv_build_model = function(hp) {
+#  conv_build_model = function(hp) {
 #    'Builds a convolutional model.'
 #    inputs = tf$keras$Input(shape=list(28L, 28L, 1L))
 #  
