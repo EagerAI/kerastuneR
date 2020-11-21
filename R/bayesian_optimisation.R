@@ -29,11 +29,10 @@
 #' entries not listed in `hyperparameters`.
 #' @param tune_new_entries Whether hyperparameter entries that are requested by the 
 #' hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used.
-#' @param executions_per_trial the number of models that should be built and fit for each trial 
-#' (executions_per_trial). Note: the purpose of having multiple executions per trial is to reduce results 
-#' variance and therefore be able to more accurately assess the performance of a model. If you want to get 
-#' results faster, you could set executions_per_trial=1 (single round of training for each model configuration)
+#' @param directory The dir where training logs are stored
+#' @param project_name Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
 #' @return BayesianOptimization tuning with Gaussian process
+#' @param ... Some additional arguments
 #' @section be found in the following link:
 #' https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pdf
 #' 
@@ -45,18 +44,18 @@
 #' tf$keras$Input(shape=list(28L, 28L, 1L))
 #' }
 #' @export
-BayesianOptimization <- function(hypermodel, objective, max_trials, num_initial_points = NULL, 
-                                 hyperparameters = NULL,
+BayesianOptimization <- function(hypermodel = NULL, objective, max_trials, num_initial_points = NULL, 
+                                 hyperparameters = NULL, alpha = 0.0001, beta = 2.6, 
                                  seed = NULL, allow_new_entries = TRUE, 
-                                 tune_new_entries = TRUE, executions_per_trial = NULL,
+                                 tune_new_entries = TRUE,
                                  directory = NULL, project_name = NULL, ...) {
   
-  if(missing(objective)) {
-    invisible(kerastuner$tuners$BayesianOptimization)
+  
+  if(missing(objective) & is.null(hypermodel)) {
+    invisible(kerastuner$oracles$BayesianOptimization)
   }
   
   args = list(
-    hypermodel = hypermodel,
     objective = objective,
     max_trials = as.integer(max_trials),
     num_initial_points = num_initial_points,
@@ -67,6 +66,9 @@ BayesianOptimization <- function(hypermodel, objective, max_trials, num_initial_
     directory = directory,
     project_name = project_name,
     ...)
+  
+  if(!is.null(hypermodel))
+    args$hypermodel = hypermodel
   
   if(is.null(seed))
     args$seed <- NULL
@@ -79,21 +81,19 @@ BayesianOptimization <- function(hypermodel, objective, max_trials, num_initial_
   if(is.null(directory))
     args$directory <- NULL
   
-  if(is.null(executions_per_trial))
-    args$executions_per_trial <- NULL
-  else
-    args$executions_per_trial <- as.integer(executions_per_trial)
-  
-  
   if (is.null(num_initial_points))
     args$num_initial_points <- NULL
   else
     args$num_initial_points <- as.integer(args$num_initial_points)
   
-  
   if(is.null(project_name))
     args$project_name <- NULL
   
-  do.call(kerastuner$tuners$BayesianOptimization,args)
+  if(is.null(hypermodel)){
+    do.call(kerastuner$oracles$BayesianOptimization,args)
+  } else {
+    do.call(kerastuner$tuners$BayesianOptimization,args)
+  }
+  
 }
 

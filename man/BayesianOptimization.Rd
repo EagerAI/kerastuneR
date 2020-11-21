@@ -5,18 +5,25 @@
 \title{BayesianOptimization}
 \usage{
 BayesianOptimization(
+  hypermodel = NULL,
   objective,
   max_trials,
   num_initial_points = NULL,
+  hyperparameters = NULL,
   alpha = 1e-04,
   beta = 2.6,
   seed = NULL,
-  hyperparameters = NULL,
   allow_new_entries = TRUE,
-  tune_new_entries = TRUE
+  tune_new_entries = TRUE,
+  directory = NULL,
+  project_name = NULL,
+  ...
 )
 }
 \arguments{
+\item{hypermodel}{Define a model-building function. It takes an argument "hp" from which 
+you can sample hyperparameters.}
+
 \item{objective}{String or `kerastuner.Objective`. If a string, the direction of the 
 optimization (min or max) will be inferred.}
 
@@ -28,6 +35,9 @@ if the search space has been exhausted.}
 initial training data for Bayesian optimization. If not specified, a value of 3 times 
 the dimensionality of the hyperparameter space is used.}
 
+\item{hyperparameters}{HyperParameters class instance. Can be used to override 
+(or register in advance) hyperparamters in the search space.}
+
 \item{alpha}{Float. Value added to the diagonal of the kernel matrix during fitting. 
 It represents the expected amount of noise in the observed performances in 
 Bayesian optimization.}
@@ -37,20 +47,23 @@ larger it is, the more explorative it is.}
 
 \item{seed}{Int. Random seed.}
 
-\item{hyperparameters}{HyperParameters class instance. Can be used to override 
-(or register in advance) hyperparamters in the search space.}
-
 \item{allow_new_entries}{Whether the hypermodel is allowed to request hyperparameter 
 entries not listed in `hyperparameters`.}
 
 \item{tune_new_entries}{Whether hyperparameter entries that are requested by the 
 hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used.}
+
+\item{directory}{The dir where training logs are stored}
+
+\item{project_name}{Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e.}
+
+\item{...}{Some additional arguments}
 }
 \value{
 BayesianOptimization tuning with Gaussian process
 }
 \description{
-Bayesian optimization oracle.
+Bayesian optimization tuner.
 }
 \details{
 It uses Bayesian optimization with a underlying Gaussian process model.
