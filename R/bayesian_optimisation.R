@@ -51,49 +51,53 @@ BayesianOptimization <- function(hypermodel = NULL, objective, max_trials, num_i
                                  directory = NULL, project_name = NULL, ...) {
   
   
-  if(missing(objective) & is.null(hypermodel)) {
+  if(missing(objective) & is.null(hypermodel) & missing(max_trials)) {
     invisible(kerastuner$oracles$BayesianOptimization)
-  }
-  
-  args = list(
-    objective = objective,
-    max_trials = as.integer(max_trials),
-    num_initial_points = num_initial_points,
-    seed = as.integer(seed),
-    hyperparameters = hyperparameters,
-    allow_new_entries = allow_new_entries,
-    tune_new_entries = tune_new_entries,
-    directory = directory,
-    project_name = project_name,
-    ...)
-  
-  if(!is.null(hypermodel))
-    args$hypermodel = hypermodel
-  
-  if(is.null(seed))
-    args$seed <- NULL
-  else
-    args$seed <- as.integer(args$seed)
-  
-  if(is.null(hyperparameters))
-    args$hyperparameters <- NULL
-  
-  if(is.null(directory))
-    args$directory <- NULL
-  
-  if (is.null(num_initial_points))
-    args$num_initial_points <- NULL
-  else
-    args$num_initial_points <- as.integer(args$num_initial_points)
-  
-  if(is.null(project_name))
-    args$project_name <- NULL
-  
-  if(is.null(hypermodel)){
-    do.call(kerastuner$oracles$BayesianOptimization,args)
   } else {
-    do.call(kerastuner$tuners$BayesianOptimization,args)
+    args = list(
+      objective = objective,
+      max_trials = as.integer(max_trials),
+      num_initial_points = num_initial_points,
+      seed = as.integer(seed),
+      hyperparameters = hyperparameters,
+      allow_new_entries = allow_new_entries,
+      tune_new_entries = tune_new_entries,
+      directory = directory,
+      project_name = project_name,
+      ...)
+    
+    if(!is.null(hypermodel))
+      args$hypermodel <- hypermodel
+    
+    if(is.null(seed))
+      args$seed <- NULL
+    else
+      args$seed <- as.integer(args$seed)
+    
+    if(is.null(hyperparameters))
+      args$hyperparameters <- NULL
+    
+    if(is.null(directory))
+      args$directory <- NULL
+    
+    if (is.null(num_initial_points))
+      args$num_initial_points <- NULL
+    else
+      args$num_initial_points <- as.integer(args$num_initial_points)
+    
+    if(is.null(project_name))
+      args$project_name <- NULL
+    
+    if(is.null(hypermodel)){
+      do.call(kerastuner$oracles$BayesianOptimization,args)
+    } else {
+      do.call(kerastuner$tuners$BayesianOptimization,args)
+    }
   }
+
   
 }
+
+
+
 
