@@ -44,14 +44,14 @@
 #' tf$keras$Input(shape=list(28L, 28L, 1L))
 #' }
 #' @export
-BayesianOptimization <- function(hypermodel = NULL, objective, max_trials, num_initial_points = NULL, 
+BayesianOptimization <- function(hypermodel, objective, max_trials, num_initial_points = NULL, 
                                  hyperparameters = NULL, alpha = 0.0001, beta = 2.6, 
                                  seed = NULL, allow_new_entries = TRUE, 
                                  tune_new_entries = TRUE,
                                  directory = NULL, project_name = NULL, ...) {
   
   
-  if(missing(objective) & is.null(hypermodel) & missing(max_trials)) {
+  if(missing(objective) & missing(hypermodel) & missing(max_trials)) {
     invisible(kerastuner$oracles$BayesianOptimization)
   } else {
     args = list(
@@ -88,7 +88,7 @@ BayesianOptimization <- function(hypermodel = NULL, objective, max_trials, num_i
     if(is.null(project_name))
       args$project_name <- NULL
     
-    if(is.null(hypermodel)){
+    if(missing(hypermodel)){
       do.call(kerastuner$oracles$BayesianOptimization,args)
     } else {
       do.call(kerastuner$tuners$BayesianOptimization,args)
