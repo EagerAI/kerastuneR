@@ -66,7 +66,7 @@ BayesianOptimization <- function(hypermodel, objective, max_trials, num_initial_
       project_name = project_name,
       ...)
     
-    if(!is.null(hypermodel))
+    if(!missing(hypermodel))
       args$hypermodel <- hypermodel
     
     if(is.null(seed))
