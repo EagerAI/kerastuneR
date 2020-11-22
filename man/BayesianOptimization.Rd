@@ -5,7 +5,7 @@
 \title{BayesianOptimization}
 \usage{
 BayesianOptimization(
-  hypermodel = NULL,
+  hypermodel,
   objective,
   max_trials,
   num_initial_points = NULL,
