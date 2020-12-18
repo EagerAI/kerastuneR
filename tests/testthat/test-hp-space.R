@@ -48,9 +48,8 @@ test_succeeds("Can run hp-space", {
     hyperparameters=hp,
     tune_new_entries=T,
     objective='val_accuracy',
-    directory='my_dir4',
+    directory=file.path(tempdir(), 'hp_space'),
     project_name = 'mnist_')
-  
   testthat::expect_match(capture.output(tuner),'kerastuner.tuners.randomsearch.RandomSearch')
 })
 

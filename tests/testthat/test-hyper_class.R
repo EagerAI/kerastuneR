@@ -52,9 +52,8 @@ test_succeeds("Can run hyper_class", {
                        objective = 'val_accuracy',
                        max_trials = 2,
                        executions_per_trial = 1,
-                       directory = 'my_dir5',
+                       directory = file.path(tempdir(), 'hyper_class'),
                        project_name = 'helloworld')
-  
   testthat::expect_match(tuner %>% capture.output(), 'kerastuner.tuners.randomsearch.RandomSearch')
   
   search_summary(tuner)

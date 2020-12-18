@@ -18,7 +18,7 @@ test_succeeds("Can run hyper_class", {
     hypermodel = hypermodel,
     objective = 'val_accuracy',
     max_epochs = 1,
-    directory = 'my_dir',
+    directory = file.path(tempdir(), 'resnet'),
     project_name='helloworld')
   
   testthat::expect_match(tuner %>% capture.output(),'kerastuner.tuners.hyperband.Hyperband')

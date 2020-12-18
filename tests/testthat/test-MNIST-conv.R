@@ -47,7 +47,7 @@ test_succeeds("Can run hyper_class", {
     max_epochs = 1,
     factor = 2,
     hyperband_iterations = 1,
-    directory = 'results_dir',
+    directory = file.path(tempdir(), 'mnist_1'),
     project_name = 'mnist')),6)
   
   
@@ -57,7 +57,7 @@ test_succeeds("Can run hyper_class", {
     max_epochs = 1,
     factor = 2,
     hyperband_iterations = 1,
-    directory = 'results_dir',
+    directory = file.path(tempdir(), 'mnist_2'),
     project_name = 'mnist') %>% capture.output(), 'kerastuner.tuners.hyperband.Hyperband')
   
   main = function() {
@@ -67,7 +67,7 @@ test_succeeds("Can run hyper_class", {
       max_epochs = 1,
       factor = 2,
       hyperband_iterations = 1,
-      directory = 'model_dir2',
+      directory = file.path(tempdir(), 'mnist_3'),
       project_name = 'mnist_c')
     
     mnist_data = dataset_fashion_mnist()

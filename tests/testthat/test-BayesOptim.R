@@ -109,7 +109,7 @@ test_succeeds("Can run Bayesian Optimization as oracle", {
       objective=Objective(name='loss', direction = 'min'),
       max_trials=1),
     hypermodel=conv_build_model,
-    directory='results2',
+    directory=file.path(tempdir(), 'bayes_oracle'),
     project_name='mnist_custom_training2')
   
   mnist_data = dataset_fashion_mnist()
@@ -124,7 +124,6 @@ test_succeeds("Can run Bayesian Optimization as oracle", {
   if (!Sys.info()[1] %in% 'Windows') {
     mnist_train = tensor_slices_dataset(mnist_train) %>% dataset_shuffle(1e3)
     tuner %>% fit_tuner(train_ds = mnist_train)
-    
   }
 })
 
@@ -177,7 +176,7 @@ test_succeeds("Can run Bayesian Optimization as tuner", {
     hyperparameters=hp,
     tune_new_entries=T,
     objective='val_accuracy',
-    directory='my_dir6',
+    directory=file.path(tempdir(), 'bayes_tuner'),
     project_name = 'mnist_')
   
   testthat::expect_match(capture.output(tuner),'kerastuner.tuners.bayesian.BayesianOptimization')
@@ -187,6 +186,7 @@ test_succeeds("Can run Bayesian Optimization as tuner", {
                       batch_size = 6000, 
                       epochs = 5, 
                       validation_data = list(mnist_test$x, mnist_test$y))
+  unlink('my_dir6', recursive = T)
   
   testthat::expect_match(capture.output(tuner$get_best_hyperparameters()[[1]]), 'kerastuner.engine.hyperparameters.HyperParameters')
 })

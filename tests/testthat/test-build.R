@@ -61,7 +61,7 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
                         objective = 'val_accuracy',
                         max_trials = 2,
                         executions_per_trial = 1,
-                        directory = 'model_dir',
+                        directory = file.path(tempdir(), 'build'),
                         project_name = 'helloworld_')
   
   expect_match(tuner2 %>% capture.output(), 'kerastuner.tuners.randomsearch.RandomSearch')
