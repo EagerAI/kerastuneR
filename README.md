@@ -8,15 +8,12 @@ It aims at making the life of AI practitioners, hypertuner algorithm creators an
 <img src="images/kerastuneR.png" width=200 align=right style="margin-left: 15px;" alt="Keras Tuner"/>
 
 [![Actions Status](https://github.com/eagerai/kerastuneR/workflows/KT_stable/badge.svg)](https://github.com/eagerai/kerastuneR)
-[![Actions Status](https://github.com/eagerai/kerastuneR/workflows/KT/badge.svg)](https://github.com/eagerai/kerastuneR)
 [![CRAN](https://www.r-pkg.org/badges/version/kerastuneR?color=green)](https://cran.r-project.org/package=kerastuneR)
 <br>
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Last month downloads](http://cranlogs.r-pkg.org/badges/last-month/kerastuneR?color=green)](https://cran.r-project.org/package=kerastuneR)
 <br>
 [![Last commit](https://img.shields.io/github/last-commit/eagerai/kerastuneR.svg)](https://github.com/eagerai/kerastuneR/commits/master)
 
-![](https://img.shields.io/docker/cloud/build/turqut314/kerastuner?style=plastic)
 
 A hyperparameter tuner for [Keras](https://keras.io/), specifically for ```tf$keras``` with *TensorFlow 2.0*.
 
@@ -26,8 +23,8 @@ Full documentation and tutorials available on the [Keras Tuner website](https://
 
 Requirements:
 
-- Python 3.6
-- TensorFlow 2.0
+- Python 3.9
+- TensorFlow 2.0.x
 
 ```kerastuneR``` can be installed from CRAN:
 
