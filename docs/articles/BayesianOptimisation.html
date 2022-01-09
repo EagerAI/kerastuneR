@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.4</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -77,7 +77,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/henry090/kerastuneR/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -91,7 +91,7 @@
 
       
 
-      </header><script src="BayesianOptimisation_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="BayesianOptimisation_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Bayesian Optimization</h1>
@@ -118,8 +118,8 @@
 <a href="#understanding-the-search-process-" class="anchor"></a>Understanding the search process.</h2>
 <p><code>tuner %&gt;% fit_tuner()</code> can be passed any arguments. These arguments will be passed directly to <code>Tuner$run_trial</code>, along with a Trial object that contains information about the current trial, including hyperparameters and the status of the trial. Typically, <code>Tuner$run_trial</code> is the only method that users need to override when subclassing Tuner.</p>
 <p>Thanks to <a href="https://github.com/dfalbel">Daniel Falbel from RStudio</a>, the <code>Bayesian Optimization</code> example was successfully adapted.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://keras.rstudio.com">keras</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://keras.rstudio.com">keras</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/tensorflow">tensorflow</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/tfdatasets">tfdatasets</a></span><span class="op">)</span>
@@ -156,7 +156,7 @@
   <span class="va">outputs</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">Dense</span><span class="op">(</span><span class="fl">10L</span>, activation<span class="op">=</span><span class="st">'softmax'</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
   <span class="va">model</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="fu">Model</span><span class="op">(</span><span class="va">inputs</span>, <span class="va">outputs</span><span class="op">)</span>
   <span class="va">optimizer</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="st">'optimizer'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'adam'</span>, <span class="st">'sgd'</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/generics/man/compile.html">compile</a></span><span class="op">(</span><span class="va">optimizer</span>, loss<span class="op">=</span><span class="st">'sparse_categorical_crossentropy'</span>, metrics<span class="op">=</span><span class="st">'accuracy'</span><span class="op">)</span>
+  <span class="va">model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/compile.html">compile</a></span><span class="op">(</span><span class="va">optimizer</span>, loss<span class="op">=</span><span class="st">'sparse_categorical_crossentropy'</span>, metrics<span class="op">=</span><span class="st">'accuracy'</span><span class="op">)</span>
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 <span class="op">}</span>
 
@@ -228,13 +228,13 @@
     directory<span class="op">=</span><span class="st">'results2'</span>,
     project_name<span class="op">=</span><span class="st">'mnist_custom_training2'</span><span class="op">)</span>
   
-  <span class="va">mnist_data</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_fashion_mnist.html">dataset_fashion_mnist</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="va">mnist_data</span> <span class="op">=</span> <span class="fu"><a href="https://keras.rstudio.com/reference/dataset_fashion_mnist.html">dataset_fashion_mnist</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">mnist_train</span>, <span class="va">mnist_test</span><span class="op">)</span> <span class="op">%&lt;-%</span>  <span class="va">mnist_data</span>
   <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">mnist_data</span><span class="op">)</span>
   
   <span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">dtypes</span><span class="op">$</span><span class="fu">cast</span><span class="op">(</span><span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span>, <span class="st">'float32'</span><span class="op">)</span> <span class="op">/</span> <span class="fl">255.</span>
   
-  <span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_reshape.html">k_reshape</a></span><span class="op">(</span><span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span>,shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://keras.rstudio.com/reference/k_reshape.html">k_reshape</a></span><span class="op">(</span><span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span>,shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
   
   <span class="va">mnist_train</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/tensor_slices_dataset.html">tensor_slices_dataset</a></span><span class="op">(</span><span class="va">mnist_train</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/tfdatasets/man/dataset_shuffle.html">dataset_shuffle</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span>
     
@@ -244,7 +244,7 @@
   
 <span class="op">}</span>
 
-<span class="fu">main</span><span class="op">(</span><span class="op">)</span></pre></div>
+<span class="fu">main</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 

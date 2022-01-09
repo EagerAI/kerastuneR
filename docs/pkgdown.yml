@@ -1,4 +1,4 @@
-pandoc: 2.7.3
+pandoc: 2.14.0.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
@@ -7,5 +7,5 @@ articles:
   Introduction: Introduction.html
   MNIST: MNIST.html
   best_practice: best_practice.html
-last_built: 2020-10-04T12:40Z
+last_built: 2022-01-09T08:36Z
 

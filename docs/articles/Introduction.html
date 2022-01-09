@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.4</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -77,7 +77,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/henry090/kerastuneR/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -91,7 +91,7 @@
 
       
 
-      </header><script src="Introduction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Introduction_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to kerastuneR</h1>
@@ -115,7 +115,7 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Currently, the package is available on github:</p>
-<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github('henry090/kerastuneR')</a></code></pre>
+<pre><code><a href="https://devtools.r-lib.org/reference/remote-reexports.html">devtools::install_github('henry090/kerastuneR')</a></code></pre>
 <p>Later, you need to install the python module kerastuner:</p>
 <pre><code><a href="../reference/install_kerastuner.html">kerastuneR::install_kerastuner(python_path = 'paste python path')</a></code></pre>
 </div>
@@ -167,7 +167,7 @@ build_model = function(hp) {
     project_name = 'helloworld')</code></pre>
 <p>You can print a summary of the search space:</p>
 <pre><code>tuner %&gt;% search_summary()</code></pre>
-<p>Then, start the search for the best hyperparameter configuration. The call to search has the same signature as <code>model %&gt;% fit()</code>. But here instead of <code><a href="https://rdrr.io/pkg/generics/man/fit.html">fit()</a></code> we call <code><a href="../reference/fit_tuner.html">fit_tuner()</a></code>.</p>
+<p>Then, start the search for the best hyperparameter configuration. The call to search has the same signature as <code>model %&gt;% fit()</code>. But here instead of <code><a href="https://generics.r-lib.org/reference/fit.html">fit()</a></code> we call <code><a href="../reference/fit_tuner.html">fit_tuner()</a></code>.</p>
 <pre><code>tuner %&gt;% fit_tuner(x_data,y_data,
                     epochs=5, 
                     validation_data = list(x_data2,y_data2))</code></pre>

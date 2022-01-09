@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.4</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -77,7 +77,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/henry090/kerastuneR/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -91,7 +91,7 @@
 
       
 
-      </header><script src="MNIST_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="MNIST_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>MNIST hypertuning</h1>
@@ -139,8 +139,8 @@ padding='same')
 <h2 class="hasAnchor">
 <a href="#full-code" class="anchor"></a>Full code</h2>
 <p>Below is the full version of a tuning process for MNIST dataset.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">conv_build_model</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">hp</span><span class="op">)</span> <span class="op">{</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">conv_build_model</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">hp</span><span class="op">)</span> <span class="op">{</span>
   <span class="st">'Builds a convolutional model.'</span>
   <span class="va">inputs</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="fu">Input</span><span class="op">(</span>shape<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">28L</span>, <span class="fl">28L</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span>
   
@@ -170,7 +170,7 @@ padding='same')
   <span class="va">outputs</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="fu">Dense</span><span class="op">(</span><span class="fl">10L</span>, activation<span class="op">=</span><span class="st">'softmax'</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
   <span class="va">model</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="fu">Model</span><span class="op">(</span><span class="va">inputs</span>, <span class="va">outputs</span><span class="op">)</span>
   <span class="va">optimizer</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="st">'optimizer'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'adam'</span>, <span class="st">'sgd'</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/generics/man/compile.html">compile</a></span><span class="op">(</span><span class="va">optimizer</span>, loss<span class="op">=</span><span class="st">'sparse_categorical_crossentropy'</span>, metrics<span class="op">=</span><span class="st">'accuracy'</span><span class="op">)</span>
+  <span class="va">model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/compile.html">compile</a></span><span class="op">(</span><span class="va">optimizer</span>, loss<span class="op">=</span><span class="st">'sparse_categorical_crossentropy'</span>, metrics<span class="op">=</span><span class="st">'accuracy'</span><span class="op">)</span>
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
 <span class="op">}</span>
 
@@ -187,13 +187,13 @@ padding='same')
   <span class="co"># call keras library for downloading MNIST dataset</span>
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://keras.rstudio.com">keras</a></span><span class="op">)</span>
   
-  <span class="va">mnist_data</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_fashion_mnist.html">dataset_fashion_mnist</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="va">mnist_data</span> <span class="op">=</span> <span class="fu"><a href="https://keras.rstudio.com/reference/dataset_fashion_mnist.html">dataset_fashion_mnist</a></span><span class="op">(</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">mnist_train</span>, <span class="va">mnist_test</span><span class="op">)</span> <span class="op">%&lt;-%</span>  <span class="va">mnist_data</span>
   <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">mnist_data</span><span class="op">)</span>
   
   <span class="co"># reshape data</span>
-  <span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_reshape.html">k_reshape</a></span><span class="op">(</span><span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span>,shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">mnist_test</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/k_reshape.html">k_reshape</a></span><span class="op">(</span><span class="va">mnist_test</span><span class="op">$</span><span class="va">x</span>,shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://keras.rstudio.com/reference/k_reshape.html">k_reshape</a></span><span class="op">(</span><span class="va">mnist_train</span><span class="op">$</span><span class="va">x</span>,shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">mnist_test</span><span class="op">$</span><span class="va">x</span> <span class="op">=</span> <span class="fu">keras</span><span class="fu">::</span><span class="fu"><a href="https://keras.rstudio.com/reference/k_reshape.html">k_reshape</a></span><span class="op">(</span><span class="va">mnist_test</span><span class="op">$</span><span class="va">x</span>,shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1e4</span>,<span class="fl">28</span>,<span class="fl">28</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
   
   <span class="co"># call tfdatasets and slice dataset</span>
   <span class="co"># turn data type into float 32 (features, not labels/outputs)</span>
@@ -216,7 +216,7 @@ padding='same')
   <span class="op">)</span>
 <span class="op">}</span>
 
-<span class="fu">main</span><span class="op">(</span><span class="op">)</span></pre></div>
+<span class="fu">main</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
