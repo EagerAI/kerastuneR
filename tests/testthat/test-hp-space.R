@@ -22,7 +22,7 @@ test_succeeds("Can run hp-space", {
   hp$Choice('learning_rate',values =c(1e-1, 1e-3))
   hp$Int('num_layers', 2L, 20L)
   
-  testthat::expect_match(capture.output(hp),'kerastuner.engine.hyperparameters.HyperParameters')
+  testthat::expect_match(capture.output(hp),'keras_tuner.engine.hyperparameters.HyperParameters')
   
   
   mnist_model = function(hp) {
@@ -51,7 +51,7 @@ test_succeeds("Can run hp-space", {
     directory='my_dir4',
     project_name = 'mnist_')
   
-  testthat::expect_match(capture.output(tuner),'kerastuner.tuners.randomsearch.RandomSearch')
+  testthat::expect_match(capture.output(tuner),'keras_tuner.tuners.randomsearch.RandomSearch')
 })
 
 
