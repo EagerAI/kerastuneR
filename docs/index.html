@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.4</span>
       </span>
     </div>
 
@@ -44,7 +44,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -82,7 +82,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/henry090/kerastuneR/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -105,10 +105,10 @@
 <p>The kerastuneR package provides R wrappers to <a href="https://keras-team.github.io/keras-tuner/">Keras Tuner</a>.</p>
 <p>Keras Tuner is a hypertuning framework made for humans. It aims at making the life of AI practitioners, hypertuner algorithm creators and model designers as simple as possible by providing them with a clean and easy to use API for hypertuning. Keras Tuner makes moving from a base model to a hypertuned one quick and easy by only requiring you to change a few lines of code.</p>
 <p><img src="images/kerastuneR.png" width="200" align="right" style="margin-left: 15px;" alt="Keras Tuner"></p>
-<p><a href="https://github.com/henry090/kerastuneR"><img src="https://github.com/henry090/kerastuneR/workflows/KT_stable/badge.svg" alt="Actions Status"></a> <a href="https://github.com/henry090/kerastuneR"><img src="https://github.com/henry090/kerastuneR/workflows/KT/badge.svg" alt="Actions Status"></a> <a href="https://cran.r-project.org/package=kerastuneR"><img src="https://www.r-pkg.org/badges/version/kerastuneR?color=green" alt="CRAN"></a> <br><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <a href="https://cran.r-project.org/package=kerastuneR"><img src="http://cranlogs.r-pkg.org/badges/last-month/kerastuneR?color=green" alt="Last month downloads"></a> <br><a href="https://github.com/henry090/kerastuneR/commits/master"><img src="https://img.shields.io/github/last-commit/henry090/kerastuneR.svg" alt="Last commit"></a></p>
+<p><a href="https://github.com/eagerai/kerastuneR"><img src="https://github.com/eagerai/kerastuneR/workflows/KT_stable/badge.svg" alt="Actions Status"></a> <a href="https://github.com/eagerai/kerastuneR"><img src="https://github.com/eagerai/kerastuneR/workflows/KT/badge.svg" alt="Actions Status"></a> <a href="https://cran.r-project.org/package=kerastuneR"><img src="https://www.r-pkg.org/badges/version/kerastuneR?color=green" alt="CRAN"></a> <br><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <a href="https://cran.r-project.org/package=kerastuneR"><img src="http://cranlogs.r-pkg.org/badges/last-month/kerastuneR?color=green" alt="Last month downloads"></a> <br><a href="https://github.com/eagerai/kerastuneR/commits/master"><img src="https://img.shields.io/github/last-commit/eagerai/kerastuneR.svg" alt="Last commit"></a></p>
 <p><img src="https://img.shields.io/docker/cloud/build/turqut314/kerastuner?style=plastic"></p>
 <p>A hyperparameter tuner for <a href="https://keras.io/">Keras</a>, specifically for <code>tf$keras</code> with <em>TensorFlow 2.0</em>.</p>
-<p>Full documentation and tutorials available on the <a href="https://henry090.github.io/kerastuneR/">Keras Tuner website</a>.</p>
+<p>Full documentation and tutorials available on the <a href="https://eagerai.github.io/kerastuneR/">Keras Tuner website</a>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -121,7 +121,7 @@
 <p><code>kerastuneR</code> can be installed from CRAN:</p>
 <pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages('kerastuneR')</a></code></pre>
 <p>The dev version:</p>
-<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github('henry090/kerastuneR')</a></code></pre>
+<pre><code><a href="https://devtools.r-lib.org/reference/remote-reexports.html">devtools::install_github('eagerai/kerastuneR')</a></code></pre>
 <p>Later, you need to install the python module kerastuner:</p>
 <pre><code><a href="reference/install_kerastuner.html">kerastuneR::install_kerastuner()</a></code></pre>
 </div>
@@ -131,12 +131,12 @@
 <p>Here’s how to perform hyperparameter tuning for a single-layer dense neural network using random search.</p>
 <p>First, we define a model-building function. It takes an argument <code>hp</code> from which you can sample hyperparameters, such as <code>hp$Int('units', min_value = 32, max_value = 512, step = 32)</code> (an integer from a certain range).</p>
 <p>Sample data:</p>
-<pre><code>library(magrittr)
+<pre><code><a href="https://magrittr.tidyverse.org">library(magrittr)
 x_data &lt;- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
 y_data &lt;-  ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()
 
 x_data2 &lt;- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
-y_data2 &lt;-  ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()</code></pre>
+y_data2 &lt;-  ifelse(runif(50,0,1) &gt; 0.6, 1L,0L) %&gt;% as.matrix()</a></code></pre>
 <p>This function returns a compiled model.</p>
 <pre><code><a href="https://keras.rstudio.com">library(keras)
 library(tensorflow)
@@ -309,7 +309,7 @@ tuner = RandomSearch(hypermodel = hypermodel,
                       directory = 'my_dir5',
                       project_name = 'helloworld')
 </a></code></pre>
-<p>Documentation, advanced model tuning, and tutorials can be found on <a href="https://henry090.github.io/kerastuneR/" class="uri">https://henry090.github.io/kerastuneR/</a></p>
+<p>More tutorials can be found on <a href="https://eagerai.github.io/kerastuneR/" class="uri">https://eagerai.github.io/kerastuneR/</a></p>
 </div>
 
   </div>

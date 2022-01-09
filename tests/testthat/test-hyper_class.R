@@ -55,7 +55,7 @@ test_succeeds("Can run hyper_class", {
                        directory = 'my_dir5',
                        project_name = 'helloworld')
   
-  testthat::expect_match(tuner %>% capture.output(), 'kerastuner.tuners.randomsearch.RandomSearch')
+  testthat::expect_match(tuner %>% capture.output(), 'keras_tuner.tuners.randomsearch.RandomSearch')
   
   search_summary(tuner)
 })

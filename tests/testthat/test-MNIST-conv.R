@@ -48,7 +48,7 @@ test_succeeds("Can run hyper_class", {
     factor = 2,
     hyperband_iterations = 1,
     directory = 'results_dir',
-    project_name = 'mnist')),6)
+    project_name = 'mnist')),5)
   
   
   testthat::expect_match(Hyperband(
@@ -58,7 +58,7 @@ test_succeeds("Can run hyper_class", {
     factor = 2,
     hyperband_iterations = 1,
     directory = 'results_dir',
-    project_name = 'mnist') %>% capture.output(), 'kerastuner.tuners.hyperband.Hyperband')
+    project_name = 'mnist') %>% capture.output(), 'keras_tuner.tuners.hyperband.Hyperband')
   
   main = function() {
     tuner = Hyperband(
@@ -89,7 +89,7 @@ test_succeeds("Can run hyper_class", {
                         validation_data=mnist_test,
                         validation_steps=100,
                         epochs=1,
-                        callbacks=c(tf$keras$callbacks$EarlyStopping('val_acc')) 
+                        callbacks=c(tf$keras$callbacks$EarlyStopping('val_accuracy')) 
     )
   }
 })

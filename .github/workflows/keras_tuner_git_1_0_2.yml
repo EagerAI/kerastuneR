@@ -12,14 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - { os: windows-latest, tf: '2.0.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
-        - { os: macOS-latest, tf: '2.0.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
-        - { os: windows-latest, tf: '2.1.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
-        - { os: macOS-latest, tf: '2.1.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
-        - { os: windows-latest, tf: '2.2.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
-        - { os: macOS-latest, tf: '2.2.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
-        - { os: macOS-latest, tf: '2.3.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
-        - { os: windows-latest, tf: '2.3.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: macOS-latest, tf: '2.7.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
+        - { os: windows-latest, tf: '2.7.0', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
         - { os: windows-latest, tf: 'nightly', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
         - { os: macOS-latest, tf: 'nightly', keras-tuner: 'git+git://github.com/keras-team/keras-tuner@master'}
     env:
@@ -53,9 +47,9 @@ jobs:
 
       - name: Install Python
         run: |
-          Rscript -e "remotes::install_github('rstudio/reticulate')"
+          Rscript -e "install.packages('reticulate')"
           Rscript -e "try(reticulate::install_miniconda())"
-          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.10')"
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.9')"
       - name: Install TensorFlow
         run: |
           Rscript -e "remotes::install_local()"
