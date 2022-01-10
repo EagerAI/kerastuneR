@@ -1,4 +1,4 @@
-This is a third submission of 'kerastuneR' 0.1.0.3
+This is a third submission of 'kerastuneR' 0.1.0.4
 
 ## Test environments
 

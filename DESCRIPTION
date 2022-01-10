@@ -15,12 +15,12 @@ Description: 'Keras Tuner' <https://keras-team.github.io/keras-tuner/> is a hype
              'Keras Tuner' makes moving from a base model to a hypertuned one quick and 
              easy by only requiring you to change a few lines of code.
 License: Apache License 2.0
-URL: https://github.com/henry090/kerastuneR
-BugReports: https://github.com/henry090/kerastuneR/issues
+URL: https://github.com/EagerAI/kerastuneR/
+BugReports: https://github.com/EagerAI/kerastuneR/issues/
 SystemRequirements: TensorFlow >= 2.0 (https://www.tensorflow.org/)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports:
     reticulate, 
     tensorflow,
