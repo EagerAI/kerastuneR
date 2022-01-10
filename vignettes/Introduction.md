@@ -17,14 +17,14 @@ It aims at making the life of AI practitioners, hypertuner algorithm creators an
 
 A hyperparameter tuner for [Keras](https://keras.io/), specifically for ```tf$keras``` with *TensorFlow 2.0*.
 
-Full documentation and tutorials available on the [Keras Tuner website](https://henry090.github.io/kerastuneR/).
+Full documentation and tutorials available on the [Keras Tuner website](https://EagerAI.github.io/kerastuneR/).
 
 ## Installation
 
 Currently, the package is available on github:
 
 ```
-devtools::install_github('henry090/kerastuneR')
+devtools::install_github('EagerAI/kerastuneR')
 ```
 
 Later, you need to install the python module kerastuner:
