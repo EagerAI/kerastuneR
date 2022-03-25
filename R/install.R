@@ -12,6 +12,13 @@
 #' @export
 install_kerastuner <- function(version = NULL, ..., restart_session = TRUE, from_git = FALSE) {
   
+  kerastuner_py_install = function(pkgs) {
+    system(paste(reticulate::py_discover_config()[['python']],'-m pip install',
+                 paste(pkgs,collapse = ' ')
+    ))
+  }
+  
+  
   if (is.null(version) & !from_git) {
     module_string <- paste0("keras-tuner==", '1.1.0')
   } else if (!is.null(version)) {
@@ -22,7 +29,9 @@ install_kerastuner <- function(version = NULL, ..., restart_session = TRUE, from
   
   invisible(py_config())
   py_path = Sys.which('python') %>% as.character()
-  py_install(packages = paste(module_string, 'pydot'), pip = TRUE, ...)
+  
+  #py_install(packages = paste(module_string, 'pydot'), pip = TRUE, ...)
+  kerastuner_py_install(paste(module_string, 'pydot'))
   
   invisible(use_python(py_path, required = TRUE))
   py_install('pydot')
@@ -30,7 +39,7 @@ install_kerastuner <- function(version = NULL, ..., restart_session = TRUE, from
   fun <- function() {
     py_path = gsub(py_path, replacement = '/',pattern = '\\', fixed=TRUE)
     error <- red $ bold
-    error2 <- black $ bold
+    error2 <- red $ bold
     cat(error2("Keras Tuner is installed here:"), paste('"',error(py_path),'"',sep = ''))
   }
   
