@@ -1,7 +1,7 @@
 Package: kerastuneR
 Type: Package
 Title: Interface to 'Keras Tuner' 
-Version: 0.1.0.4
+Version: 0.1.0.5
 Authors@R: c(
   person("Turgut", "Abdullayev", role = c("aut", "cre"),
          email = "turqut.a.314@gmail.com"),  
