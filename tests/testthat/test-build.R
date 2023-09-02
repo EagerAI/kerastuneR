@@ -9,64 +9,51 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
   library(kerastuneR)
   library(testthat)
   
-  x_data <- matrix(data = runif(250,0,1),nrow = 50,ncol = 5)
-  y_data <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
+  num_samples <- 1000
+  input_dim <- 20
+  output_dim <- 1
+  X_train <- matrix(runif(num_samples * input_dim, 0, 1), nrow = num_samples, ncol = input_dim)
+  y_train <- matrix(runif(num_samples * output_dim, 0, 1), nrow = num_samples, ncol = output_dim)
   
-  x_data2 <- matrix(data = runif(250,0,1),nrow = 50,ncol = 5)
-  y_data2 <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
   
   
-  build_model = function(hp) {
+  build_model <- function(hp) {
+    model <- keras_model_sequential()
     
-    model = keras_model_sequential()
-    model %>% layer_dense(units=hp$Int('units',
-                                       min_value = 32,
-                                       max_value = 512,
-                                       step = 32),
-                          input_shape = ncol(x_data),
-                          activation = hp$Choice('act', c('relu', 'tanh'))) %>% 
-      layer_dense(units = 1, activation ='softmax') %>% 
-      compile(
-        optimizer = tf$keras$optimizers$Adam(
-          hp$Choice('learning_rate',
-                    values=c(1e-2, 1e-3, 1e-4))),
-        loss = 'binary_crossentropy',
-        metrics = 'accuracy') 
-    return(model)
-  }
-  
-  build_model2 = function(hp) {
+    for (i in 1:(hp$Int('num_layers', min_value = 1, max_value = 5))) {
+      if (i == 1) {
+        model %>% 
+          layer_dense(units = hp$Int(paste('units_', i, sep = ''), min_value = 32, max_value = 512, step = 32),
+                      input_shape = c(input_dim),
+                      activation = 'relu')
+      } else {
+        model %>% 
+          layer_dense(units = hp$Int(paste('units_', i, sep = ''), min_value = 32, max_value = 512, step = 32),
+                      activation = 'relu')
+      }
+    }
     
-    model = keras_model_sequential()
-    for (i in (hp$Int('num_layers', 2, 20)) ) {
-      model %>% layer_dense(units=hp$Int(paste('units_',i,sep = ''),
-                                         min_value = 32,
-                                         max_value = 512,
-                                         step = 32),input_shape = ncol(x_data),
-                            activation = hp$Choice(paste('act_',i, sep = ''), c('relu', 'tanh'))) %>% 
-        layer_dense(units = 1, activation='softmax')
-    } 
     model %>% 
+      layer_dense(units = output_dim, activation = 'linear') %>% 
       compile(
-        optimizer = tf$keras$optimizers$Adam(
-          hp$Choice('learning_rate',
-                    values=c(1e-2, 1e-3, 1e-4))),
-        loss = 'binary_crossentropy',
-        metrics = 'accuracy') 
-    return(model)
+        optimizer = optimizer_adam(learning_rate = hp$Choice('learning_rate', values = c(1e-2, 1e-3, 1e-4))),
+        loss = 'mean_squared_error',
+        metrics = c('mse')
+      )
     
+    return(model)
   }
   
-  tuner2 = RandomSearch(hypermodel = build_model2,
-                        objective = 'val_accuracy',
-                        max_trials = 2,
-                        executions_per_trial = 1)
   
-  expect_match(tuner2 %>% capture.output(), 'keras_tuner.tuners.randomsearch.RandomSearch')
+  
+  tuner2 = RandomSearch(build_model,objective='val_mse',max_trials=5,
+                        max_retries_per_trial = 5,
+                        project_name='hello'
+  )
   
   search_summary(tuner2)
   
-  if (!Sys.info()[1] %in% 'Windows') {
+  if (!Sys.info()[1] %in% 'Windows_') {
     
       tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2)#, callbacks=list(tensorboardd)
       )
@@ -79,6 +66,13 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
       extract_model = tuner2 %>% get_best_models(1) %>% .[[1]]
     
       tuner2 %>% plot_tuner()
+      
+      # Get the best hyperparameters and build the best model
+      best_hps = tuner2$get_best_hyperparameters(num_trials=1L)[[1]]
+      best_model = tuner2$hypermodel$build(best_hps)
+      
+      # Train the best model
+      best_model %>% keras::fit(X_train, y_train, epochs=50, validation_split=0.2)
     
   }
 })
