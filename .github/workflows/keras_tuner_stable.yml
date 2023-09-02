@@ -12,10 +12,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - { os: macOS-latest, tf: '2.7.0', keras-tuner: '1.1.0'}
-        - { os: windows-latest, tf: '2.7.0', keras-tuner: '1.1.0'}
-        - { os: windows-latest, tf: 'nightly', keras-tuner: '1.1.0'}
-        - { os: macOS-latest, tf: 'nightly', keras-tuner: '1.1.0'}
+        - { os: macOS-latest, tf: '2.13.0', keras-tuner: '1.3.5'}
+        - { os: windows-latest, tf: '2.13.0', keras-tuner: '1.3.5'}
+        - { os: windows-latest, tf: 'nightly', keras-tuner: '1.3.5'}
+        - { os: macOS-latest, tf: 'nightly', keras-tuner: '1.3.5'}
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       TF_VERSION: ${{ matrix.config.tf }}
@@ -49,7 +49,7 @@ jobs:
         run: |
           Rscript -e "install.packages('reticulate')"
           Rscript -e "try(reticulate::install_miniconda())"
-          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.9')"
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.10')"
       - name: Install TensorFlow
         run: |
           Rscript -e "remotes::install_local()"
