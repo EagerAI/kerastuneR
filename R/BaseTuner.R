@@ -1,4 +1,4 @@
-#' @title BaseTuner
+#' @title Base Tuner
 #'
 #' @description Tuner base class.
 #'
