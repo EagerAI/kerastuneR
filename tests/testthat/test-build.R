@@ -9,10 +9,10 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
   library(kerastuneR)
   library(testthat)
   
-  x_data <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
+  x_data <- matrix(data = runif(250,0,1),nrow = 50,ncol = 5)
   y_data <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
   
-  x_data2 <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
+  x_data2 <- matrix(data = runif(250,0,1),nrow = 50,ncol = 5)
   y_data2 <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
   
   
@@ -60,9 +60,7 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
   tuner2 = RandomSearch(hypermodel = build_model2,
                         objective = 'val_accuracy',
                         max_trials = 2,
-                        executions_per_trial = 1,
-                        directory = 'model_dir',
-                        project_name = 'helloworld_')
+                        executions_per_trial = 1)
   
   expect_match(tuner2 %>% capture.output(), 'keras_tuner.tuners.randomsearch.RandomSearch')
   

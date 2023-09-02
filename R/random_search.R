@@ -48,9 +48,7 @@
 #'  tuner = RandomSearch(hypermodel = build_model,
 #'                        objective = 'val_accuracy',
 #'                        max_trials = 2,
-#'                        executions_per_trial = 1,
-#'                        directory = 'model_dir',
-#'                        project_name = 'helloworld')
+#'                        executions_per_trial = 1)
 #' }
 #' 
 #' @export
@@ -59,7 +57,7 @@ RandomSearch = function(hypermodel, objective, max_trials, seed = NULL,
                         allow_new_entries = TRUE,
                         max_retries_per_trial = 0, max_consecutive_failed_trials = 3,
                         ...) {
-
+  
   args = list(
     hypermodel = hypermodel,
     objective = objective,
@@ -68,7 +66,7 @@ RandomSearch = function(hypermodel, objective, max_trials, seed = NULL,
     hyperparameters = hyperparameters,
     tune_new_entries = tune_new_entries,
     allow_new_entries = allow_new_entries,
-    max_retries_per_trial = max_retries_per_trial,
+    max_retries_per_trial = as.integer(max_retries_per_trial),
     max_consecutive_failed_trials = as.integer(max_consecutive_failed_trials),
     ...)
   
@@ -80,16 +78,7 @@ RandomSearch = function(hypermodel, objective, max_trials, seed = NULL,
   if(is.null(hyperparameters))
     args$hyperparameters <- NULL
   
-  if(is.null(directory))
-    args$directory <- NULL
   
-  if(is.null(executions_per_trial))
-    args$executions_per_trial <- NULL
-  else
-    args$executions_per_trial <- as.integer(executions_per_trial)
-  
-  if(is.null(project_name))
-    args$project_name <- NULL
   
   do.call(kerastuner$tuners$RandomSearch, args)
   

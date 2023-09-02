@@ -51,9 +51,7 @@ test_succeeds("Can run hyper_class", {
   tuner = RandomSearch(hypermodel = hypermodel,
                        objective = 'val_accuracy',
                        max_trials = 2,
-                       executions_per_trial = 1,
-                       directory = 'my_dir5',
-                       project_name = 'helloworld')
+                       executions_per_trial = 1)
   
   testthat::expect_match(tuner %>% capture.output(), 'keras_tuner.tuners.randomsearch.RandomSearch')
   
