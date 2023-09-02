@@ -6,11 +6,12 @@
 #' @param ... other arguments passed to [reticulate::py_install()].
 #' @param restart_session Restart R session after installing (note this will only occur within RStudio).
 #' @param from_git install the recent GitHub version of Keras Tuner
+#' @param bayesian install bayesian module
 #' @return a python module kerastuner
 #' @importFrom reticulate py_config py_install use_python
 #' @importFrom crayon red black
 #' @export
-install_kerastuner <- function(version = NULL, ..., restart_session = TRUE, from_git = FALSE) {
+install_kerastuner <- function(version = NULL, ..., bayesian = TRUE, restart_session = TRUE, from_git = FALSE) {
   
   kerastuner_py_install = function(pkgs) {
     system(paste(reticulate::py_discover_config()[['python']],'-m pip install',
@@ -31,7 +32,13 @@ install_kerastuner <- function(version = NULL, ..., restart_session = TRUE, from
   py_path = Sys.which('python') %>% as.character()
   
   #py_install(packages = paste(module_string, 'pydot'), pip = TRUE, ...)
-  kerastuner_py_install(paste(module_string, 'pydot'))
+  
+  if(bayesian)
+    all_ = paste(module_string, 'pydot', 'keras-tuner[bayesian]')
+  else
+    all_ = paste(module_string, 'pydot')
+  
+  kerastuner_py_install(all_)
   
   invisible(use_python(py_path, required = TRUE))
   py_install('pydot')
