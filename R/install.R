@@ -20,7 +20,7 @@ install_kerastuner <- function(version = NULL, ..., restart_session = TRUE, from
   
   
   if (is.null(version) & !from_git) {
-    module_string <- paste0("keras-tuner==", '1.1.0')
+    module_string <- paste0("keras-tuner==", '1.3.5')
   } else if (!is.null(version)) {
     module_string <- paste0("keras-tuner==", version)
   } else if (isTRUE(from_git)) {
