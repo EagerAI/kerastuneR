@@ -55,8 +55,11 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
   
   if (!Sys.info()[1] %in% 'Windows_') {
     
-      tuner2 %>% fit_tuner(x_data, y_data, epochs = 5, validation_data = list(x_data2,y_data2)#, callbacks=list(tensorboardd)
-      )
+    
+      tuner2 %>% fit_tuner(X_train, y_train,
+                         validation_split=0.2,
+                         epochs=10)  
+    
       res = tuner2 %>% get_best_models(1) %>% .[[1]] %>% capture.output() %>% .[1]
       
       testthat::expect_output(print(res),regexp ='Model')
