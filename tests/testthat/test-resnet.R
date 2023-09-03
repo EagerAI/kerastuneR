@@ -35,7 +35,8 @@ test_succeeds("Can run hyper_class", {
     #tuner %>%  fit_tuner(x = tf$image$resize(train_data, size = shape(300, 300)), y = test_data, epochs = 1)
     print('Done')
   } else {
-    #tuner %>%  fit_tuner(x = tf$image$resize(train_data, size = shape(300, 300)), y = test_data, epochs = 1)
+    #tuner %>%  fit_tuner(x = tf$image$resize(train_data, size = shape(300, 300)), y = test_data, epochs = 1,
+    #                     validation_split=0.2)
     print('Done')
   }
 })

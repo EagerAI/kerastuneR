@@ -82,91 +82,54 @@ HyperXception <- function(include_top = TRUE, input_shape = NULL, input_tensor =
 #'
 #' @description Variation of HyperBand algorithm.
 #'
-#' @details Reference: Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html). # Arguments hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). objective: String. Name of model metric to minimize or maximize, e.g. "val_accuracy". max_epochs: Int. The maximum number of epochs to train one model. It is recommended to set this to a value slightly higher than the expected time to convergence for your largest Model, and to use early stopping during training (for example, via `tf.keras.callbacks.EarlyStopping`). factor: Int. Reduction factor for the number of epochs and number of models for each bracket. hyperband_iterations: Int >= 1. The number of times to iterate over the full Hyperband algorithm. One iteration will run approximately `max_epochs * (math.log(max_epochs, factor) ** 2)` cumulative epochs across all trials. It is recommended to set this to as high a value as is within your resource budget. seed: Int. Random seed. hyperparameters: HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space. tune_new_entries: Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. allow_new_entries: Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.
+#' @details Reference: Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html).
 #'
-#' 
-#' @param hypermodel Define a model-building function. It takes an argument "hp" from which 
-#' you can sample hyperparameters.
-#' @param optimizer An optimizer is one of the arguments required for compiling a Keras model
-#' @param loss A loss function (or objective function, or optimization score function) is one of
-#' the parameters required to compile a model
-#' @param metrics A metric is a function that is used to judge the performance of your model
-#' @param hyperparameters HyperParameters class instance. Can be used to override (or register in advance) 
-#' hyperparamters in the search space.
-#' @param objective A loss metrics function for tracking the model performance e.g. "val_precision". The name of 
-#' the objective to optimize (whether to minimize or maximize is automatically inferred for built-in metrics)
-#' @param max_epochs to train the model. Note that in conjunction with initial_epoch, 
-#' epochs is to be understood as "final epoch". The model is not trained for a number of iterations
-#' given by epochs, but merely until the epoch of index epochs is reached.
-#' @param factor Int. Reduction factor for the number of epochs and number of models for each bracket.
-#' @param hyperband_iterations Int >= 1. The number of times to iterate over the full Hyperband algorithm.
-#' One iteration will run approximately ```max_epochs * (math.log(max_epochs, factor) ** 2)``` cumulative epochs
-#' across all trials. It is recommended to set this to as high a value as is within your resource budget.
-#' @param seed Int. Random seed.
-#' @param tune_new_entries Whether hyperparameter entries that are requested by the hypermodel 
-#' but that were not specified in hyperparameters should be added to the search space, or not. 
-#' If not, then the default value for these parameters will be used.
-#' @param allow_new_entries Whether the hypermodel is allowed to request hyperparameter entries not listed in 
-#' `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.
-#' @param distribution_strategy Scale up from running single-threaded locally to running on dozens or 
-#' hundreds of workers in parallel. Distributed Keras Tuner uses a chief-worker model. The chief runs a 
-#' service to which the workers report results and query for the hyperparameters to try next. The chief 
-#' should be run on a single-threaded CPU instance (or alternatively as a separate process on 
-#' one of the workers). Keras Tuner also supports data parallelism via tf.distribute. 
-#' Data parallelism and distributed tuning can be combined. For example, if you have 10 workers 
-#' with 4 GPUs on each worker, you can run 10 parallel trials with each trial training on 4 GPUs 
-#' by using tf.distribute.MirroredStrategy. You can also run each trial on TPUs 
-#' via tf.distribute.experimental.TPUStrategy. Currently tf.distribute.MultiWorkerMirroredStrategy 
-#' is not supported, but support for this is on the roadmap.
-#' @param directory The dir where training logs are stored
-#' @param project_name Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
-#' directory/project_name.
-#' @param ... Some additional arguments
-#' @return a hyperparameter tuner object Hyperband
+#' @param hypermodel Instance of `HyperModel` class (or callable that takes hyperparameters and returns a `Model` instance). It is optional when `Tuner.run_trial()` is overriden and does not use `self.hypermodel`.
+#' @param objective A string, `keras_tuner.Objective` instance, or a list of `keras_tuner.Objective`s and strings. If a string, the direction of the optimization (min or max) will be inferred. If a list of `keras_tuner.Objective`, we will minimize the sum of all the objectives to minimize subtracting the sum of all the objectives to maximize. The `objective` argument is optional when `Tuner.run_trial()` or `HyperModel.fit()` returns a single float as the objective to minimize.
+#' @param max_epochs Integer, the maximum number of epochs to train one model. It is recommended to set this to a value slightly higher than the expected epochs to convergence for your largest Model, and to use early stopping during training (for example, via `tf.keras.callbacks.EarlyStopping`). Defaults to 100.
+#' @param factor Integer, the reduction factor for the number of epochs and number of models for each bracket. Defaults to 3.
+#' @param hyperband_iterations Integer, at least 1, the number of times to iterate over the full Hyperband algorithm. One iteration will run approximately `max_epochs * (math.log(max_epochs, factor) ** 2)` cumulative epochs across all trials. It is recommended to set this to as high a value as is within your resource budget. Defaults to 1.
+#' @param seed Optional integer, the random seed.
+#' @param hyperparameters Optional HyperParameters instance. Can be used to override (or register in advance) hyperparameters in the search space.
+#' @param tune_new_entries Boolean, whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. Defaults to TRUE.
+#' @param allow_new_entries Boolean, whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. Defaults to TRUE.
+#' @param max_retries_per_trial Integer. Defaults to 0. The maximum number of times to retry a `Trial` if the trial crashed or the results are invalid.
+#' @param max_consecutive_failed_trials Integer. Defaults to 3. The maximum number of consecutive failed `Trial`s. When this number is reached, the search will be stopped. A `Trial` is marked as failed when none of the retries succeeded. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.
+#'
 #' @section Reference:
 #' Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html).
 #'
+#' @param ... Some additional arguments
+#' @return a hyperparameter tuner object Hyperband
 #' @export
-Hyperband <- function(hypermodel, optimizer = NULL, loss = NULL,
-                      metrics = NULL,
-                      hyperparameters = NULL, 
-                      objective, max_epochs, factor = 3,
-                      hyperband_iterations = 1,
-                      seed = NULL,
-                      tune_new_entries = TRUE,
-                      allow_new_entries = TRUE,
-                      distribution_strategy = NULL,
-                      directory = NULL, project_name = NULL,
+Hyperband <- function(hypermodel = NULL, objective = NULL, 
+                      max_epochs = 100, factor = 3, hyperband_iterations = 1, 
+                      seed = NULL, hyperparameters = NULL, tune_new_entries = TRUE, 
+                      allow_new_entries = TRUE, max_retries_per_trial = 0, 
+                      max_consecutive_failed_trials = 3,
+                      
                       ...) {
   
 
   if(missing(hypermodel)) {
     kerastuner$tuners$Hyperband
   } else {
-    args = list(hypermodel = hypermodel, 
-                optimizer = optimizer,
-                objective = objective, 
-                loss = loss,
-                metrics = metrics,
-                hyperparameters = hyperparameters,
+    args = list(hypermodel = hypermodel, objective = objective, 
                 max_epochs = as.integer(max_epochs), 
-                factor = as.integer(factor),
-                hyperband_iterations = as.integer(hyperband_iterations),
-                seed = as.integer(seed),
-                tune_new_entries = tune_new_entries,
-                distribution_strategy = distribution_strategy,
-                directory = directory, 
-                project_name = project_name,
+                factor = as.integer(factor), 
+                hyperband_iterations = as.integer(hyperband_iterations), 
+                seed = seed, 
+                hyperparameters = hyperparameters, tune_new_entries = tune_new_entries, 
+                allow_new_entries = allow_new_entries, 
+                max_retries_per_trial = as.integer(max_retries_per_trial), 
+                max_consecutive_failed_trials = as.integer(max_consecutive_failed_trials),
                 ...)
     
-    if(is.null(optimizer))
-      args$optimizer <- NULL
+    if(is.null(hypermodel))
+      args$hypermodel <- NULL
     
-    if(is.null(loss))
-      args$loss <- NULL
-    
-    if(is.null(metrics))
-      args$metrics <- NULL
+    if(is.null(objective))
+      args$objective <- NULL
     
     if(is.null(hyperparameters))
       args$hyperparameters <- NULL
@@ -175,15 +138,6 @@ Hyperband <- function(hypermodel, optimizer = NULL, loss = NULL,
       args$seed <- NULL
     else
       args$seed <- as.integer(args$seed)
-    
-    if(is.null(distribution_strategy))
-      args$distribution_strategy <- NULL
-    
-    if(is.null(directory))
-      args$directory <- NULL
-    
-    if(is.null(project_name))
-      args$project_name <- NULL
     
     do.call(kerastuner$tuners$Hyperband, args)
   }

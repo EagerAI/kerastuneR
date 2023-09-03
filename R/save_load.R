@@ -11,12 +11,11 @@
 #' @export
 save_model <- function(tuner, trial_id, model, step = 1) {
   
-  python_function_result <- tuner$save_model(
+  tuner$save_model(
     trial_id = trial_id,
     model = model,
     step = as.integer(step)
   )
-  return(invisible(python_function_result))
 }
 
 #' @title Load model
@@ -30,9 +29,8 @@ save_model <- function(tuner, trial_id, model, step = 1) {
 #' @export
 load_model <- function(tuner, trial) {
   
-  python_function_result <- tuner$load_model(
+  tuner$load_model(
     trial = trial
   )
-  return(invisible(python_function_result))
 }
 

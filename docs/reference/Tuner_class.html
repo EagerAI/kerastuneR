@@ -17,7 +17,11 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.5</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.6</span>
+>>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
       </span>
     </div>
 
@@ -87,7 +91,12 @@
 <span>  project_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  logger <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tuner_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<<<<<<< HEAD
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span></span>
+=======
+<span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  executions_per_trial <span class="op">=</span> <span class="fl">1</span></span>
+>>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -136,10 +145,17 @@ DistributionStrategy instance. If specified, each trial will run
 under this scope. For example, `tf$distribute.MirroredStrategy(['/gpu:0, /'gpu:1])` 
 will run each trial on two GPUs. Currently only single-worker strategies are supported.</p></dd>
 
+<<<<<<< HEAD
 
 <dt>directory</dt>
 <dd><p>String. Path to the working directory (relative).</p></dd>
 
+=======
+
+<dt>directory</dt>
+<dd><p>String. Path to the working directory (relative).</p></dd>
+
+>>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 
 <dt>project_name</dt>
 <dd><p>Name to use as prefix for files saved by this Tuner.</p></dd>
@@ -158,6 +174,18 @@ streaming data to Cloud Service for monitoring.</p></dd>
 <dd><p>Bool, default `FALSE`. If `FALSE`, reloads an 
 existing project of the same name if one is found. Otherwise, overwrites the project.</p></dd>
 
+<<<<<<< HEAD
+=======
+
+<dt>executions_per_trial</dt>
+<dd><p>Integer, the number of executions 
+(training a model from scratch, starting from a new initialization) to run per trial 
+(model configuration). Model metrics may vary greatly depending on random initialization, 
+hence it is often a good idea to run several executions per trial 
+in order to evaluate the performance of a given set of hyperparameter values. 
+**kwargs: Arguments for `BaseTuner`.</p></dd>
+
+>>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 </dl></div>
     <div id="value">
     <h2>Value</h2>

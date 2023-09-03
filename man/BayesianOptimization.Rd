@@ -2,49 +2,44 @@
 % Please edit documentation in R/bayesian_optimisation.R
 \name{BayesianOptimization}
 \alias{BayesianOptimization}
-\title{BayesianOptimization}
+\title{Bayesian Optimization}
 \usage{
 BayesianOptimization(
-  objective,
-  max_trials,
+  objective = NULL,
+  max_trials = 10,
   num_initial_points = NULL,
   alpha = 1e-04,
   beta = 2.6,
   seed = NULL,
   hyperparameters = NULL,
   allow_new_entries = TRUE,
-  tune_new_entries = TRUE
+  tune_new_entries = TRUE,
+  max_retries_per_trial = 0,
+  max_consecutive_failed_trials = 3
 )
 }
 \arguments{
-\item{objective}{String or `kerastuner.Objective`. If a string, the direction of the 
-optimization (min or max) will be inferred.}
+\item{objective}{A string, `keras_tuner.Objective` instance, or a list of `keras_tuner.Objective`s and strings. If a string, the direction of the optimization (min or max) will be inferred. If a list of `keras_tuner.Objective`, we will minimize the sum of all the objectives to minimize subtracting the sum of all the objectives to maximize. The `objective` argument is optional when `Tuner.run_trial()` or `HyperModel.fit()` returns a single float as the objective to minimize.}
 
-\item{max_trials}{Int. Total number of trials (model configurations) to test at most. 
-Note that the oracle may interrupt the search before `max_trial` models have been tested 
-if the search space has been exhausted.}
+\item{max_trials}{Integer, the total number of trials (model configurations) to test at most. Note that the oracle may interrupt the search before `max_trial` models have been tested if the search space has been exhausted. Defaults to 10.}
 
-\item{num_initial_points}{(Optional) Int. The number of randomly generated samples as 
-initial training data for Bayesian optimization. If not specified, a value of 3 times 
-the dimensionality of the hyperparameter space is used.}
+\item{num_initial_points}{Optional number of randomly generated samples as initial training data for Bayesian optimization. If left unspecified, a value of 3 times the dimensionality of the hyperparameter space is used.}
 
-\item{alpha}{Float. Value added to the diagonal of the kernel matrix during fitting. 
-It represents the expected amount of noise in the observed performances in 
-Bayesian optimization.}
+\item{alpha}{Float, the value added to the diagonal of the kernel matrix during fitting. It represents the expected amount of noise in the observed performances in Bayesian optimization. Defaults to 1e-4.}
 
-\item{beta}{Float. The balancing factor of exploration and exploitation. The 
-larger it is, the more explorative it is.}
+\item{beta}{Float, the balancing factor of exploration and exploitation. The larger it is, the more explorative it is. Defaults to 2.6.}
 
-\item{seed}{Int. Random seed.}
+\item{seed}{Optional integer, the random seed.}
 
-\item{hyperparameters}{HyperParameters class instance. Can be used to override 
-(or register in advance) hyperparamters in the search space.}
+\item{hyperparameters}{Optional `HyperParameters` instance. Can be used to override (or register in advance) hyperparameters in the search space.}
 
-\item{allow_new_entries}{Whether the hypermodel is allowed to request hyperparameter 
-entries not listed in `hyperparameters`.}
+\item{allow_new_entries}{Boolean, whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. Defaults to TRUE.}
 
-\item{tune_new_entries}{Whether hyperparameter entries that are requested by the 
-hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used.}
+\item{tune_new_entries}{Boolean, whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. Defaults to TRUE.}
+
+\item{max_retries_per_trial}{Integer. Defaults to 0. The maximum number of times to retry a `Trial` if the trial crashed or the results are invalid.}
+
+\item{max_consecutive_failed_trials}{Integer. Defaults to 3. The maximum number of consecutive failed `Trial`s. When this number is reached, the search will be stopped. A `Trial` is marked as failed when none of the retries succeeded.}
 }
 \value{
 BayesianOptimization tuning with Gaussian process
@@ -55,14 +50,9 @@ Bayesian optimization oracle.
 \details{
 It uses Bayesian optimization with a underlying Gaussian process model.
 The acquisition function used is upper confidence bound (UCB), which can
-be found in the following link:
-https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pdf
+be found [here](
+https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pdf).
 }
-\section{be found in the following link}{
-
-https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pdf
-}
-
 \examples{
 
 \dontrun{

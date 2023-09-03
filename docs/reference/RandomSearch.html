@@ -17,7 +17,11 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
+<<<<<<< HEAD
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.5</span>
+=======
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.6</span>
+>>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
       </span>
     </div>
 
@@ -83,9 +87,14 @@
 <span>  hyperparameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tune_new_entries <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  allow_new_entries <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<<<<<<< HEAD
 <span>  executions_per_trial <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  directory <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  project_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+=======
+<span>  max_retries_per_trial <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  max_consecutive_failed_trials <span class="op">=</span> <span class="fl">3</span>,</span>
+>>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -125,6 +134,7 @@ If not, then the default value for these parameters will be used.</p></dd>
 <dd><p>Whether the hypermodel is allowed to request hyperparameter entries not listed in hyperparameters</p></dd>
 
 
+<<<<<<< HEAD
 <dt>executions_per_trial</dt>
 <dd><p>the number of models that should be built and fit for each trial 
 (executions_per_trial). Note: the purpose of having multiple executions per trial is to reduce results 
@@ -139,6 +149,14 @@ results faster, you could set executions_per_trial=1 (single round of training f
 <dt>project_name</dt>
 <dd><p>Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
 directory/project_name.</p></dd>
+=======
+<dt>max_retries_per_trial</dt>
+<dd><p>Integer. Defaults to 0. The maximum number of times to retry a `Trial` if the trial crashed or the results are invalid.</p></dd>
+
+
+<dt>max_consecutive_failed_trials</dt>
+<dd><p>Integer. Defaults to 3. The maximum number of consecutive failed `Trial`s. When this number is reached, the search will be stopped. A `Trial` is marked as failed when none of the retries succeeded. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.</p></dd>
+>>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 
 
 <dt>...</dt>
@@ -182,9 +200,13 @@ directory/project_name.</p></dd>
 <span class="r-in"><span> <span class="va">tuner</span> <span class="op">=</span> <span class="fu">RandomSearch</span><span class="op">(</span>hypermodel <span class="op">=</span> <span class="va">build_model</span>,</span></span>
 <span class="r-in"><span>                       objective <span class="op">=</span> <span class="st">'val_accuracy'</span>,</span></span>
 <span class="r-in"><span>                       max_trials <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<<<<<<< HEAD
 <span class="r-in"><span>                       executions_per_trial <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                       directory <span class="op">=</span> <span class="st">'model_dir'</span>,</span></span>
 <span class="r-in"><span>                       project_name <span class="op">=</span> <span class="st">'helloworld'</span><span class="op">)</span></span></span>
+=======
+<span class="r-in"><span>                       executions_per_trial <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+>>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

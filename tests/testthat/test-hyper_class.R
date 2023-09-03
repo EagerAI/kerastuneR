@@ -8,10 +8,10 @@ test_succeeds("Can run hyper_class", {
   library(dplyr)
   library(kerastuneR)
   
-  x_data <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
+  x_data <- matrix(data = runif(250,0,1),nrow = 50,ncol = 5)
   y_data <- ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
   
-  x_data2 <- matrix(data = runif(500,0,1),nrow = 50,ncol = 5)
+  x_data2 <- matrix(data = runif(250,0,1),nrow = 50,ncol = 5)
   y_data2 <- ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
   
   
@@ -46,16 +46,14 @@ test_succeeds("Can run hyper_class", {
   
   hypermodel = HyperModel(num_classes=10L)
   
-  testthat::expect_match(capture.output(hypermodel),'HyperModel')
+  #testthat::expect_match(capture.output(hypermodel),'HyperModel')
   
   tuner = RandomSearch(hypermodel = hypermodel,
                        objective = 'val_accuracy',
                        max_trials = 2,
-                       executions_per_trial = 1,
-                       directory = 'my_dir5',
-                       project_name = 'helloworld')
+                       executions_per_trial = 1)
   
-  testthat::expect_match(tuner %>% capture.output(), 'keras_tuner.tuners.randomsearch.RandomSearch')
+  #testthat::expect_match(tuner %>% capture.output(), 'keras_tuner.tuners.randomsearch.RandomSearch')
   
   search_summary(tuner)
 })

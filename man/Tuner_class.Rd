@@ -16,7 +16,8 @@ Tuner_class(
   project_name = NULL,
   logger = NULL,
   tuner_id = NULL,
-  overwrite = FALSE
+  overwrite = FALSE,
+  executions_per_trial = 1
 )
 }
 \arguments{
@@ -61,6 +62,13 @@ streaming data to Cloud Service for monitoring.}
 
 \item{overwrite}{Bool, default `FALSE`. If `FALSE`, reloads an 
 existing project of the same name if one is found. Otherwise, overwrites the project.}
+
+\item{executions_per_trial}{Integer, the number of executions 
+(training a model from scratch, starting from a new initialization) to run per trial 
+(model configuration). Model metrics may vary greatly depending on random initialization, 
+hence it is often a good idea to run several executions per trial 
+in order to evaluate the performance of a given set of hyperparameter values. 
+**kwargs: Arguments for `BaseTuner`.}
 }
 \value{
 a tuner object

@@ -15,13 +15,8 @@
 #' but that were not specified in hyperparameters should be added to the search space, or not. 
 #' If not, then the default value for these parameters will be used.
 #' @param allow_new_entries Whether the hypermodel is allowed to request hyperparameter entries not listed in hyperparameters
-#' @param executions_per_trial the number of models that should be built and fit for each trial 
-#' (executions_per_trial). Note: the purpose of having multiple executions per trial is to reduce results 
-#' variance and therefore be able to more accurately assess the performance of a model. If you want to get 
-#' results faster, you could set executions_per_trial=1 (single round of training for each model configuration)
-#' @param directory The dir where training logs are stored
-#' @param project_name Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
-#' directory/project_name.
+#' @param max_retries_per_trial Integer. Defaults to 0. The maximum number of times to retry a `Trial` if the trial crashed or the results are invalid.
+#' @param max_consecutive_failed_trials Integer. Defaults to 3. The maximum number of consecutive failed `Trial`s. When this number is reached, the search will be stopped. A `Trial` is marked as failed when none of the retries succeeded. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.
 #' @param ... Some additional arguments
 #' @return a hyperparameter tuner object RandomSearch
 #' @examples
@@ -53,18 +48,16 @@
 #'  tuner = RandomSearch(hypermodel = build_model,
 #'                        objective = 'val_accuracy',
 #'                        max_trials = 2,
-#'                        executions_per_trial = 1,
-#'                        directory = 'model_dir',
-#'                        project_name = 'helloworld')
+#'                        executions_per_trial = 1)
 #' }
 #' 
 #' @export
 RandomSearch = function(hypermodel, objective, max_trials, seed = NULL, 
                         hyperparameters = NULL, tune_new_entries = TRUE,
                         allow_new_entries = TRUE,
-                        executions_per_trial = NULL, 
-                        directory = NULL, project_name = NULL, ...) {
-
+                        max_retries_per_trial = 0, max_consecutive_failed_trials = 3,
+                        ...) {
+  
   args = list(
     hypermodel = hypermodel,
     objective = objective,
@@ -73,9 +66,8 @@ RandomSearch = function(hypermodel, objective, max_trials, seed = NULL,
     hyperparameters = hyperparameters,
     tune_new_entries = tune_new_entries,
     allow_new_entries = allow_new_entries,
-    executions_per_trial = executions_per_trial,
-    directory = directory,
-    project_name = project_name,
+    max_retries_per_trial = as.integer(max_retries_per_trial),
+    max_consecutive_failed_trials = as.integer(max_consecutive_failed_trials),
     ...)
   
   if(is.null(seed))
@@ -86,16 +78,7 @@ RandomSearch = function(hypermodel, objective, max_trials, seed = NULL,
   if(is.null(hyperparameters))
     args$hyperparameters <- NULL
   
-  if(is.null(directory))
-    args$directory <- NULL
   
-  if(is.null(executions_per_trial))
-    args$executions_per_trial <- NULL
-  else
-    args$executions_per_trial <- as.integer(executions_per_trial)
-  
-  if(is.null(project_name))
-    args$project_name <- NULL
   
   do.call(kerastuner$tuners$RandomSearch, args)
   
