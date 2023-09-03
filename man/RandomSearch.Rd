@@ -12,9 +12,8 @@ RandomSearch(
   hyperparameters = NULL,
   tune_new_entries = TRUE,
   allow_new_entries = TRUE,
-  executions_per_trial = NULL,
-  directory = NULL,
-  project_name = NULL,
+  max_retries_per_trial = 0,
+  max_consecutive_failed_trials = 3,
   ...
 )
 }
@@ -38,15 +37,9 @@ If not, then the default value for these parameters will be used.}
 
 \item{allow_new_entries}{Whether the hypermodel is allowed to request hyperparameter entries not listed in hyperparameters}
 
-\item{executions_per_trial}{the number of models that should be built and fit for each trial 
-(executions_per_trial). Note: the purpose of having multiple executions per trial is to reduce results 
-variance and therefore be able to more accurately assess the performance of a model. If you want to get 
-results faster, you could set executions_per_trial=1 (single round of training for each model configuration)}
+\item{max_retries_per_trial}{Integer. Defaults to 0. The maximum number of times to retry a `Trial` if the trial crashed or the results are invalid.}
 
-\item{directory}{The dir where training logs are stored}
-
-\item{project_name}{Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
-directory/project_name.}
+\item{max_consecutive_failed_trials}{Integer. Defaults to 3. The maximum number of consecutive failed `Trial`s. When this number is reached, the search will be stopped. A `Trial` is marked as failed when none of the retries succeeded. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.}
 
 \item{...}{Some additional arguments}
 }
@@ -85,9 +78,7 @@ build_model = function(hp) {
  tuner = RandomSearch(hypermodel = build_model,
                        objective = 'val_accuracy',
                        max_trials = 2,
-                       executions_per_trial = 1,
-                       directory = 'model_dir',
-                       project_name = 'helloworld')
+                       executions_per_trial = 1)
 }
 
 }

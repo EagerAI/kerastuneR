@@ -5,75 +5,42 @@
 \title{Hyperband}
 \usage{
 Hyperband(
-  hypermodel,
-  optimizer = NULL,
-  loss = NULL,
-  metrics = NULL,
-  hyperparameters = NULL,
-  objective,
-  max_epochs,
+  hypermodel = NULL,
+  objective = NULL,
+  max_epochs = 100,
   factor = 3,
   hyperband_iterations = 1,
   seed = NULL,
+  hyperparameters = NULL,
   tune_new_entries = TRUE,
   allow_new_entries = TRUE,
-  distribution_strategy = NULL,
-  directory = NULL,
-  project_name = NULL,
+  max_retries_per_trial = 0,
+  max_consecutive_failed_trials = 3,
   ...
 )
 }
 \arguments{
-\item{hypermodel}{Define a model-building function. It takes an argument "hp" from which 
-you can sample hyperparameters.}
+\item{hypermodel}{Instance of `HyperModel` class (or callable that takes hyperparameters and returns a `Model` instance). It is optional when `Tuner.run_trial()` is overriden and does not use `self.hypermodel`.}
 
-\item{optimizer}{An optimizer is one of the arguments required for compiling a Keras model}
+\item{objective}{A string, `keras_tuner.Objective` instance, or a list of `keras_tuner.Objective`s and strings. If a string, the direction of the optimization (min or max) will be inferred. If a list of `keras_tuner.Objective`, we will minimize the sum of all the objectives to minimize subtracting the sum of all the objectives to maximize. The `objective` argument is optional when `Tuner.run_trial()` or `HyperModel.fit()` returns a single float as the objective to minimize.}
 
-\item{loss}{A loss function (or objective function, or optimization score function) is one of
-the parameters required to compile a model}
+\item{max_epochs}{Integer, the maximum number of epochs to train one model. It is recommended to set this to a value slightly higher than the expected epochs to convergence for your largest Model, and to use early stopping during training (for example, via `tf.keras.callbacks.EarlyStopping`). Defaults to 100.}
 
-\item{metrics}{A metric is a function that is used to judge the performance of your model}
+\item{factor}{Integer, the reduction factor for the number of epochs and number of models for each bracket. Defaults to 3.}
 
-\item{hyperparameters}{HyperParameters class instance. Can be used to override (or register in advance) 
-hyperparamters in the search space.}
+\item{hyperband_iterations}{Integer, at least 1, the number of times to iterate over the full Hyperband algorithm. One iteration will run approximately `max_epochs * (math.log(max_epochs, factor) ** 2)` cumulative epochs across all trials. It is recommended to set this to as high a value as is within your resource budget. Defaults to 1.}
 
-\item{objective}{A loss metrics function for tracking the model performance e.g. "val_precision". The name of 
-the objective to optimize (whether to minimize or maximize is automatically inferred for built-in metrics)}
+\item{seed}{Optional integer, the random seed.}
 
-\item{max_epochs}{to train the model. Note that in conjunction with initial_epoch, 
-epochs is to be understood as "final epoch". The model is not trained for a number of iterations
-given by epochs, but merely until the epoch of index epochs is reached.}
+\item{hyperparameters}{Optional HyperParameters instance. Can be used to override (or register in advance) hyperparameters in the search space.}
 
-\item{factor}{Int. Reduction factor for the number of epochs and number of models for each bracket.}
+\item{tune_new_entries}{Boolean, whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. Defaults to TRUE.}
 
-\item{hyperband_iterations}{Int >= 1. The number of times to iterate over the full Hyperband algorithm.
-One iteration will run approximately ```max_epochs * (math.log(max_epochs, factor) ** 2)``` cumulative epochs
-across all trials. It is recommended to set this to as high a value as is within your resource budget.}
+\item{allow_new_entries}{Boolean, whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. Defaults to TRUE.}
 
-\item{seed}{Int. Random seed.}
+\item{max_retries_per_trial}{Integer. Defaults to 0. The maximum number of times to retry a `Trial` if the trial crashed or the results are invalid.}
 
-\item{tune_new_entries}{Whether hyperparameter entries that are requested by the hypermodel 
-but that were not specified in hyperparameters should be added to the search space, or not. 
-If not, then the default value for these parameters will be used.}
-
-\item{allow_new_entries}{Whether the hypermodel is allowed to request hyperparameter entries not listed in 
-`hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.}
-
-\item{distribution_strategy}{Scale up from running single-threaded locally to running on dozens or 
-hundreds of workers in parallel. Distributed Keras Tuner uses a chief-worker model. The chief runs a 
-service to which the workers report results and query for the hyperparameters to try next. The chief 
-should be run on a single-threaded CPU instance (or alternatively as a separate process on 
-one of the workers). Keras Tuner also supports data parallelism via tf.distribute. 
-Data parallelism and distributed tuning can be combined. For example, if you have 10 workers 
-with 4 GPUs on each worker, you can run 10 parallel trials with each trial training on 4 GPUs 
-by using tf.distribute.MirroredStrategy. You can also run each trial on TPUs 
-via tf.distribute.experimental.TPUStrategy. Currently tf.distribute.MultiWorkerMirroredStrategy 
-is not supported, but support for this is on the roadmap.}
-
-\item{directory}{The dir where training logs are stored}
-
-\item{project_name}{Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
-directory/project_name.}
+\item{max_consecutive_failed_trials}{Integer. Defaults to 3. The maximum number of consecutive failed `Trial`s. When this number is reached, the search will be stopped. A `Trial` is marked as failed when none of the retries succeeded. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.}
 
 \item{...}{Some additional arguments}
 }
@@ -84,7 +51,7 @@ a hyperparameter tuner object Hyperband
 Variation of HyperBand algorithm.
 }
 \details{
-Reference: Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html). # Arguments hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). objective: String. Name of model metric to minimize or maximize, e.g. "val_accuracy". max_epochs: Int. The maximum number of epochs to train one model. It is recommended to set this to a value slightly higher than the expected time to convergence for your largest Model, and to use early stopping during training (for example, via `tf.keras.callbacks.EarlyStopping`). factor: Int. Reduction factor for the number of epochs and number of models for each bracket. hyperband_iterations: Int >= 1. The number of times to iterate over the full Hyperband algorithm. One iteration will run approximately `max_epochs * (math.log(max_epochs, factor) ** 2)` cumulative epochs across all trials. It is recommended to set this to as high a value as is within your resource budget. seed: Int. Random seed. hyperparameters: HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space. tune_new_entries: Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. allow_new_entries: Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.
+Reference: Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html).
 }
 \section{Reference}{
 

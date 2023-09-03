@@ -7,6 +7,7 @@
 install_kerastuner(
   version = NULL,
   ...,
+  bayesian = TRUE,
   restart_session = TRUE,
   from_git = FALSE
 )
@@ -15,6 +16,8 @@ install_kerastuner(
 \item{version}{for specific version of Keras Tuner, e.g. "1.0.1"}
 
 \item{...}{other arguments passed to [reticulate::py_install()].}
+
+\item{bayesian}{install bayesian module}
 
 \item{restart_session}{Restart R session after installing (note this will only occur within RStudio).}
 
