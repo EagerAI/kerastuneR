@@ -39,7 +39,7 @@ padding='same')
 
 # Functional API
 
-Later, we should concatenate all the layers and create a model via [Functional API](https://tensorflow.rstudio.com/articles/about_keras_models.html). Please, refer to the Functional API, if you want to get more details about it.
+Later, we should concatenate all the layers and create a model via [Functional API](https://tensorflow.rstudio.com/guides/keras/functional_api). Please, refer to the Functional API, if you want to get more details about it.
 
 ```
 model = tf$keras$Model(inputs, outputs)

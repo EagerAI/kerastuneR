@@ -17,11 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.5</span>
-=======
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.6</span>
->>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
       </span>
     </div>
 
@@ -80,23 +76,6 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Hyperband</span><span class="op">(</span></span>
-<<<<<<< HEAD
-<span>  <span class="va">hypermodel</span>,</span>
-<span>  optimizer <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  loss <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  metrics <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  hyperparameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">objective</span>,</span>
-<span>  <span class="va">max_epochs</span>,</span>
-<span>  factor <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  hyperband_iterations <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  tune_new_entries <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  allow_new_entries <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  distribution_strategy <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  directory <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  project_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
-=======
 <span>  hypermodel <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  objective <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  max_epochs <span class="op">=</span> <span class="fl">100</span>,</span>
@@ -108,7 +87,6 @@
 <span>  allow_new_entries <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  max_retries_per_trial <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  max_consecutive_failed_trials <span class="op">=</span> <span class="fl">3</span>,</span>
->>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -116,86 +94,6 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>hypermodel</dt>
-<<<<<<< HEAD
-<dd><p>Define a model-building function. It takes an argument "hp" from which 
-you can sample hyperparameters.</p></dd>
-
-
-<dt>optimizer</dt>
-<dd><p>An optimizer is one of the arguments required for compiling a Keras model</p></dd>
-
-
-<dt>loss</dt>
-<dd><p>A loss function (or objective function, or optimization score function) is one of
-the parameters required to compile a model</p></dd>
-
-
-<dt>metrics</dt>
-<dd><p>A metric is a function that is used to judge the performance of your model</p></dd>
-
-
-<dt>hyperparameters</dt>
-<dd><p>HyperParameters class instance. Can be used to override (or register in advance) 
-hyperparamters in the search space.</p></dd>
-
-
-<dt>objective</dt>
-<dd><p>A loss metrics function for tracking the model performance e.g. "val_precision". The name of 
-the objective to optimize (whether to minimize or maximize is automatically inferred for built-in metrics)</p></dd>
-
-
-<dt>max_epochs</dt>
-<dd><p>to train the model. Note that in conjunction with initial_epoch, 
-epochs is to be understood as "final epoch". The model is not trained for a number of iterations
-given by epochs, but merely until the epoch of index epochs is reached.</p></dd>
-
-
-<dt>factor</dt>
-<dd><p>Int. Reduction factor for the number of epochs and number of models for each bracket.</p></dd>
-
-
-<dt>hyperband_iterations</dt>
-<dd><p>Int &gt;= 1. The number of times to iterate over the full Hyperband algorithm.
-One iteration will run approximately ```max_epochs * (math.log(max_epochs, factor) ** 2)``` cumulative epochs
-across all trials. It is recommended to set this to as high a value as is within your resource budget.</p></dd>
-
-
-<dt>seed</dt>
-<dd><p>Int. Random seed.</p></dd>
-
-
-<dt>tune_new_entries</dt>
-<dd><p>Whether hyperparameter entries that are requested by the hypermodel 
-but that were not specified in hyperparameters should be added to the search space, or not. 
-If not, then the default value for these parameters will be used.</p></dd>
-
-
-<dt>allow_new_entries</dt>
-<dd><p>Whether the hypermodel is allowed to request hyperparameter entries not listed in 
-`hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.</p></dd>
-
-
-<dt>distribution_strategy</dt>
-<dd><p>Scale up from running single-threaded locally to running on dozens or 
-hundreds of workers in parallel. Distributed Keras Tuner uses a chief-worker model. The chief runs a 
-service to which the workers report results and query for the hyperparameters to try next. The chief 
-should be run on a single-threaded CPU instance (or alternatively as a separate process on 
-one of the workers). Keras Tuner also supports data parallelism via tf.distribute. 
-Data parallelism and distributed tuning can be combined. For example, if you have 10 workers 
-with 4 GPUs on each worker, you can run 10 parallel trials with each trial training on 4 GPUs 
-by using tf.distribute.MirroredStrategy. You can also run each trial on TPUs 
-via tf.distribute.experimental.TPUStrategy. Currently tf.distribute.MultiWorkerMirroredStrategy 
-is not supported, but support for this is on the roadmap.</p></dd>
-
-
-<dt>directory</dt>
-<dd><p>The dir where training logs are stored</p></dd>
-
-
-<dt>project_name</dt>
-<dd><p>Detailed logs, checkpoints, etc, in the folder my_dir/helloworld, i.e. 
-directory/project_name.</p></dd>
-=======
 <dd><p>Instance of `HyperModel` class (or callable that takes hyperparameters and returns a `Model` instance). It is optional when `Tuner.run_trial()` is overriden and does not use `self.hypermodel`.</p></dd>
 
 
@@ -237,7 +135,6 @@ directory/project_name.</p></dd>
 
 <dt>max_consecutive_failed_trials</dt>
 <dd><p>Integer. Defaults to 3. The maximum number of consecutive failed `Trial`s. When this number is reached, the search will be stopped. A `Trial` is marked as failed when none of the retries succeeded. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.</p></dd>
->>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 
 
 <dt>...</dt>
@@ -252,11 +149,7 @@ directory/project_name.</p></dd>
     </div>
     <div id="details">
     <h2>Details</h2>
-<<<<<<< HEAD
-    <p>Reference: Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html). # Arguments hypermodel: Instance of HyperModel class (or callable that takes hyperparameters and returns a Model instance). objective: String. Name of model metric to minimize or maximize, e.g. "val_accuracy". max_epochs: Int. The maximum number of epochs to train one model. It is recommended to set this to a value slightly higher than the expected time to convergence for your largest Model, and to use early stopping during training (for example, via `tf.keras.callbacks.EarlyStopping`). factor: Int. Reduction factor for the number of epochs and number of models for each bracket. hyperband_iterations: Int &gt;= 1. The number of times to iterate over the full Hyperband algorithm. One iteration will run approximately `max_epochs * (math.log(max_epochs, factor) ** 2)` cumulative epochs across all trials. It is recommended to set this to as high a value as is within your resource budget. seed: Int. Random seed. hyperparameters: HyperParameters class instance. Can be used to override (or register in advance) hyperparamters in the search space. tune_new_entries: Whether hyperparameter entries that are requested by the hypermodel but that were not specified in `hyperparameters` should be added to the search space, or not. If not, then the default value for these parameters will be used. allow_new_entries: Whether the hypermodel is allowed to request hyperparameter entries not listed in `hyperparameters`. **kwargs: Keyword arguments relevant to all `Tuner` subclasses. Please see the docstring for `Tuner`.</p>
-=======
     <p>Reference: Li, Lisha, and Kevin Jamieson. ["Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." Journal of Machine Learning Research 18 (2018): 1-52]( http://jmlr.org/papers/v18/16-558.html).</p>
->>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
     </div>
     <div id="reference">
     <h2>Reference</h2>

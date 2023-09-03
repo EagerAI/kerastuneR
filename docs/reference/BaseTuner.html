@@ -17,11 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-<<<<<<< HEAD
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.5</span>
-=======
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.6</span>
->>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
       </span>
     </div>
 
@@ -84,10 +80,6 @@
 <span>  <span class="va">hypermodel</span>,</span>
 <span>  directory <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  project_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<<<<<<< HEAD
-<span>  logger <span class="op">=</span> <span class="cn">NULL</span>,</span>
-=======
->>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -99,28 +91,6 @@
 
 
 <dt>hypermodel</dt>
-<<<<<<< HEAD
-<dd><p>Instance of HyperModel class (or callable that takes 
-hyperparameters and returns a Model instance).</p></dd>
-
-
-<dt>directory</dt>
-<dd><p>String. Path to the working directory (relative).</p></dd>
-
-
-<dt>project_name</dt>
-<dd><p>Name to use as prefix for files saved by this Tuner.</p></dd>
-
-
-<dt>logger</dt>
-<dd><p>Optional. Instance of Logger class, used for streaming 
-data to Cloud Service for monitoring.</p></dd>
-
-
-<dt>overwrite</dt>
-<dd><p>Bool, default `FALSE`. If `FALSE`, reloads an existing 
-project of the same name if one is found. Otherwise, overwrites the project.</p></dd>
-=======
 <dd><p>Instance of `HyperModel` class (or callable that takes hyperparameters and returns a `Model` instance). It is optional when `Tuner.run_trial()` is overriden and does not use `self.hypermodel`.</p></dd>
 
 
@@ -134,7 +104,6 @@ project of the same name if one is found. Otherwise, overwrites the project.</p>
 
 <dt>overwrite</dt>
 <dd><p>Boolean, defaults to `FALSE`. If `FALSE`, reloads an existing project of the same name if one is found. Otherwise, overwrites the project. **kwargs: Arguments for backward compatibility.</p></dd>
->>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
 
 </dl></div>
     <div id="value">
@@ -145,9 +114,6 @@ project of the same name if one is found. Otherwise, overwrites the project.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-<<<<<<< HEAD
-    <p>May be subclassed to create new tuners, including for non-Keras models.</p>
-=======
     <p>`BaseTuner` is the super class of all `Tuner` classes. It defines the APIs
 for the `Tuner` classes and serves as a wrapper class for the internal
 logics. `BaseTuner` supports parallel tuning. In parallel tuning, the communication
@@ -170,7 +136,6 @@ handled by the `Tuner` class, which is a subclass of `BaseTuner`.</p>
     
 
 <p>remaining_trials: Number of trials remaining, `NULL` if `max_trials` is not set. This is useful when resuming a previously stopped search.</p>
->>>>>>> e5e5fc418dff9176842e75a405470546a3342c42
     </div>
 
   </div>
