@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kerastuneR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -76,7 +72,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/EagerAI/kerastuneR/">
+  <a href="https://github.com/EagerAI/kerastuneR/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -91,117 +87,117 @@
 
       
 
-      </header><script src="best_practice_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>KerasTuner best practices</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/EagerAI/kerastuneR/blob/master/vignettes/best_practice.Rmd"><code>vignettes/best_practice.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/EagerAI/kerastuneR/blob/HEAD/vignettes/best_practice.Rmd" class="external-link"><code>vignettes/best_practice.Rmd</code></a></small>
       <div class="hidden name"><code>best_practice.Rmd</code></div>
 
     </div>
 
     
     
-<p>This tutorial shows the hyperparameter tuning for <a href="http://yann.lecun.com/exdb/mnist/">MNIST dataset</a>.</p>
+<p>This tutorial shows the hyperparameter tuning for <a href="http://yann.lecun.com/exdb/mnist/" class="external-link">MNIST dataset</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://keras.rstudio.com">keras</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/tensorflow">tensorflow</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EagerAI/kerastuneR/">kerastuneR</a></span><span class="op">)</span>
-
-<span class="kw">if</span><span class="op">(</span><span class="fu">tensorflow</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tensorflow/man/tf_gpu_configured.html">tf_gpu_configured</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">physical_devices</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">config</span><span class="op">$</span><span class="fu">list_physical_devices</span><span class="op">(</span><span class="st">'GPU'</span><span class="op">)</span>
-  <span class="va">tf</span><span class="op">$</span><span class="va">config</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="fu">set_memory_growth</span><span class="op">(</span><span class="va">physical_devices</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,<span class="cn">TRUE</span><span class="op">)</span>
-<span class="op">}</span>
-
-
-<span class="co"># The data, shuffled and split between train and test sets</span>
-<span class="va">mnist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://keras.rstudio.com/reference/dataset_mnist.html">dataset_mnist</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">x_train</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">train</span><span class="op">$</span><span class="va">x</span>
-<span class="va">y_train</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">train</span><span class="op">$</span><span class="va">y</span>
-<span class="va">x_test</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">test</span><span class="op">$</span><span class="va">x</span>
-<span class="va">y_test</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">test</span><span class="op">$</span><span class="va">y</span>
-
-<span class="va">augment_images</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">hp</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">use_rotation</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Boolean</span><span class="op">(</span><span class="st">'use_rotation'</span><span class="op">)</span>
-  <span class="kw">if</span><span class="op">(</span><span class="va">use_rotation</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="va">preprocessing</span><span class="op">$</span><span class="fu">RandomRotation</span><span class="op">(</span>
-      <span class="va">hp</span><span class="op">$</span><span class="fu">Float</span><span class="op">(</span><span class="st">'rotation_factor'</span>, min_value<span class="op">=</span><span class="fl">0.05</span>, max_value<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span>
-    <span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  <span class="op">}</span>
-  <span class="va">use_zoom</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Boolean</span><span class="op">(</span><span class="st">'use_zoom'</span><span class="op">)</span>
-  <span class="kw">if</span><span class="op">(</span><span class="va">use_zoom</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="va">preprocessing</span><span class="op">$</span><span class="fu">RandomZoom</span><span class="op">(</span>
-      <span class="va">hp</span><span class="op">$</span><span class="fu">Float</span><span class="op">(</span><span class="st">'use_zoom'</span>, min_value<span class="op">=</span><span class="fl">0.05</span>, max_value<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span>
-    <span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  <span class="op">}</span>
-  <span class="va">x</span>
-<span class="op">}</span>
-
-<span class="va">make_model</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">hp</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">inputs</span> <span class="op">=</span> <span class="fu"><a href="https://keras.rstudio.com/reference/layer_input.html">layer_input</a></span><span class="op">(</span>shape<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">28</span>, <span class="fl">28</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="va">preprocessing</span><span class="op">$</span><span class="fu">Rescaling</span><span class="op">(</span><span class="fl">1.</span> <span class="op">/</span> <span class="fl">255</span><span class="op">)</span><span class="op">(</span><span class="va">inputs</span><span class="op">)</span>
-  <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="va">preprocessing</span><span class="op">$</span><span class="fu">Resizing</span><span class="op">(</span><span class="fl">64L</span>, <span class="fl">64L</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  <span class="va">x</span> <span class="op">=</span> <span class="fu">augment_images</span><span class="op">(</span><span class="va">x</span>, <span class="va">hp</span><span class="op">)</span>
-  <span class="va">num_block</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="st">'num_block'</span>, min_value<span class="op">=</span><span class="fl">2</span>, max_value<span class="op">=</span><span class="fl">5</span>, step<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
-  <span class="va">num_filters</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="st">'num_filters'</span>, min_value<span class="op">=</span><span class="fl">32</span>, max_value<span class="op">=</span><span class="fl">128</span>, step<span class="op">=</span><span class="fl">32</span><span class="op">)</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">num_block</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">x</span> <span class="op">=</span> <span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://keras.rstudio.com/reference/layer_conv_2d.html">layer_conv_2d</a></span><span class="op">(</span>
-      <span class="va">num_filters</span>,
-      kernel_size<span class="op">=</span><span class="fl">3</span>,
-      activation<span class="op">=</span><span class="st">'relu'</span>,
-      padding<span class="op">=</span><span class="st">'same'</span>
-    <span class="op">)</span> <span class="op">%&gt;%</span> 
-      <span class="fu"><a href="https://keras.rstudio.com/reference/layer_conv_2d.html">layer_conv_2d</a></span><span class="op">(</span>
-        <span class="va">num_filters</span>,
-        kernel_size<span class="op">=</span><span class="fl">3</span>,
-        activation<span class="op">=</span><span class="st">'relu'</span>,
-        padding<span class="op">=</span><span class="st">'same'</span>
-      <span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://keras.rstudio.com/reference/layer_max_pooling_2d.html">layer_max_pooling_2d</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-  <span class="op">}</span>
-  <span class="va">reduction_type</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="st">'reduction_type'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'flatten'</span>, <span class="st">'avg'</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="kw">if</span><span class="op">(</span><span class="va">reduction_type</span> <span class="op">==</span> <span class="st">'flatten'</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">x</span> <span class="op">=</span> <span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://keras.rstudio.com/reference/layer_flatten.html">layer_flatten</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-    <span class="va">x</span> <span class="op">=</span> <span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://keras.rstudio.com/reference/layer_global_average_pooling_2d.html">layer_global_average_pooling_2d</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="op">}</span>
-  
-  <span class="va">x</span> <span class="op">=</span> <span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://keras.rstudio.com/reference/layer_dense.html">layer_dense</a></span><span class="op">(</span>
-    units<span class="op">=</span><span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="st">'num_dense_units'</span>, min_value<span class="op">=</span><span class="fl">32</span>, max_value<span class="op">=</span><span class="fl">512</span>, step<span class="op">=</span><span class="fl">32</span><span class="op">)</span>,
-    activation<span class="op">=</span><span class="st">'relu'</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://keras.rstudio.com/reference/layer_dropout.html">layer_dropout</a></span><span class="op">(</span>
-    <span class="va">hp</span><span class="op">$</span><span class="fu">Float</span><span class="op">(</span><span class="st">'dense_dropout'</span>, min_value <span class="op">=</span> <span class="fl">0.</span>, max_value <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span>
-  <span class="op">)</span>
-
-  <span class="va">outputs</span> <span class="op">=</span> <span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://keras.rstudio.com/reference/layer_dense.html">layer_dense</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-  <span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="https://keras.rstudio.com/reference/keras_model.html">keras_model</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="va">outputs</span><span class="op">)</span>
-  <span class="va">learning_rate</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Float</span><span class="op">(</span><span class="st">'learning_rate'</span>, min_value <span class="op">=</span> <span class="fl">3e-4</span>, max_value <span class="op">=</span> <span class="fl">3e-3</span><span class="op">)</span>
-  <span class="va">optimizer</span> <span class="op">=</span> <span class="fu"><a href="https://keras.rstudio.com/reference/optimizer_adam.html">optimizer_adam</a></span><span class="op">(</span>lr<span class="op">=</span><span class="fl">1e-3</span><span class="op">)</span>
-  <span class="va">model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/compile.html">compile</a></span><span class="op">(</span>loss <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">losses</span><span class="op">$</span><span class="fu">SparseCategoricalCrossentropy</span><span class="op">(</span>from_logits <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-                optimizer <span class="op">=</span> <span class="va">optimizer</span>,
-                metrics <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">metrics</span><span class="op">$</span><span class="fu">SparseCategoricalAccuracy</span><span class="op">(</span>name<span class="op">=</span><span class="st">'acc'</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span>
-<span class="op">}</span>
-
-
-<span class="va">tuner</span> <span class="op">=</span> <span class="fu"><a href="../reference/RandomSearch.html">RandomSearch</a></span><span class="op">(</span>
-  <span class="va">make_model</span>,
-  objective<span class="op">=</span><span class="st">'val_acc'</span>,
-  max_trials<span class="op">=</span><span class="fl">2</span>,
-  overwrite<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-
-
-<span class="va">callbacks</span><span class="op">=</span><span class="fu"><a href="https://keras.rstudio.com/reference/callback_early_stopping.html">callback_early_stopping</a></span><span class="op">(</span>monitor <span class="op">=</span> <span class="st">'val_acc'</span>, mode <span class="op">=</span> <span class="st">'max'</span>, 
-                                  patience <span class="op">=</span> <span class="fl">3</span>, baseline <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span>
-<span class="va">tuner</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/fit_tuner.html">fit_tuner</a></span><span class="op">(</span><span class="va">x_train</span>, <span class="va">y_train</span>, validation_split <span class="op">=</span> <span class="fl">0.2</span>, 
-                    callbacks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">callbacks</span><span class="op">)</span>, verbose<span class="op">=</span><span class="fl">1</span>, epochs<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tensorflow.rstudio.com/" class="external-link">keras</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/tensorflow" class="external-link">tensorflow</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EagerAI/kerastuneR/" class="external-link">kerastuneR</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="fu">tensorflow</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tensorflow/man/tf_gpu_configured.html" class="external-link">tf_gpu_configured</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">physical_devices</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">config</span><span class="op">$</span><span class="fu">list_physical_devices</span><span class="op">(</span><span class="st">'GPU'</span><span class="op">)</span></span>
+<span>  <span class="va">tf</span><span class="op">$</span><span class="va">config</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="fu">set_memory_growth</span><span class="op">(</span><span class="va">physical_devices</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,<span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># The data, shuffled and split between train and test sets</span></span>
+<span><span class="va">mnist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/dataset_mnist.html" class="external-link">dataset_mnist</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">x_train</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">train</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="va">y_train</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">train</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="va">x_test</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">test</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="va">y_test</span> <span class="op">&lt;-</span> <span class="va">mnist</span><span class="op">$</span><span class="va">test</span><span class="op">$</span><span class="va">y</span></span>
+<span></span>
+<span><span class="va">augment_images</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">hp</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">use_rotation</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Boolean</span><span class="op">(</span><span class="st">'use_rotation'</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">use_rotation</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="va">preprocessing</span><span class="op">$</span><span class="fu">RandomRotation</span><span class="op">(</span></span>
+<span>      <span class="va">hp</span><span class="op">$</span><span class="fu">Float</span><span class="op">(</span><span class="st">'rotation_factor'</span>, min_value<span class="op">=</span><span class="fl">0.05</span>, max_value<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span></span>
+<span>    <span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">use_zoom</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Boolean</span><span class="op">(</span><span class="st">'use_zoom'</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">use_zoom</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="va">preprocessing</span><span class="op">$</span><span class="fu">RandomZoom</span><span class="op">(</span></span>
+<span>      <span class="va">hp</span><span class="op">$</span><span class="fu">Float</span><span class="op">(</span><span class="st">'use_zoom'</span>, min_value<span class="op">=</span><span class="fl">0.05</span>, max_value<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span></span>
+<span>    <span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">x</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">make_model</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">hp</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">inputs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_input.html" class="external-link">layer_input</a></span><span class="op">(</span>shape<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">28</span>, <span class="fl">28</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="va">preprocessing</span><span class="op">$</span><span class="fu">Rescaling</span><span class="op">(</span><span class="fl">1.</span> <span class="op">/</span> <span class="fl">255</span><span class="op">)</span><span class="op">(</span><span class="va">inputs</span><span class="op">)</span></span>
+<span>  <span class="va">x</span> <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">layers</span><span class="op">$</span><span class="va">experimental</span><span class="op">$</span><span class="va">preprocessing</span><span class="op">$</span><span class="fu">Resizing</span><span class="op">(</span><span class="fl">64L</span>, <span class="fl">64L</span><span class="op">)</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="va">x</span> <span class="op">=</span> <span class="fu">augment_images</span><span class="op">(</span><span class="va">x</span>, <span class="va">hp</span><span class="op">)</span></span>
+<span>  <span class="va">num_block</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="st">'num_block'</span>, min_value<span class="op">=</span><span class="fl">2</span>, max_value<span class="op">=</span><span class="fl">5</span>, step<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="va">num_filters</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="st">'num_filters'</span>, min_value<span class="op">=</span><span class="fl">32</span>, max_value<span class="op">=</span><span class="fl">128</span>, step<span class="op">=</span><span class="fl">32</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">num_block</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">=</span> <span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_conv_2d.html" class="external-link">layer_conv_2d</a></span><span class="op">(</span></span>
+<span>      <span class="va">num_filters</span>,</span>
+<span>      kernel_size<span class="op">=</span><span class="fl">3</span>,</span>
+<span>      activation<span class="op">=</span><span class="st">'relu'</span>,</span>
+<span>      padding<span class="op">=</span><span class="st">'same'</span></span>
+<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_conv_2d.html" class="external-link">layer_conv_2d</a></span><span class="op">(</span></span>
+<span>        <span class="va">num_filters</span>,</span>
+<span>        kernel_size<span class="op">=</span><span class="fl">3</span>,</span>
+<span>        activation<span class="op">=</span><span class="st">'relu'</span>,</span>
+<span>        padding<span class="op">=</span><span class="st">'same'</span></span>
+<span>      <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_max_pooling_2d.html" class="external-link">layer_max_pooling_2d</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">reduction_type</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Choice</span><span class="op">(</span><span class="st">'reduction_type'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'flatten'</span>, <span class="st">'avg'</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">reduction_type</span> <span class="op">==</span> <span class="st">'flatten'</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">=</span> <span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_flatten.html" class="external-link">layer_flatten</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op">=</span> <span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_global_average_pooling_2d.html" class="external-link">layer_global_average_pooling_2d</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="va">x</span> <span class="op">=</span> <span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_dense.html" class="external-link">layer_dense</a></span><span class="op">(</span></span>
+<span>    units<span class="op">=</span><span class="va">hp</span><span class="op">$</span><span class="fu">Int</span><span class="op">(</span><span class="st">'num_dense_units'</span>, min_value<span class="op">=</span><span class="fl">32</span>, max_value<span class="op">=</span><span class="fl">512</span>, step<span class="op">=</span><span class="fl">32</span><span class="op">)</span>,</span>
+<span>    activation<span class="op">=</span><span class="st">'relu'</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_dropout.html" class="external-link">layer_dropout</a></span><span class="op">(</span></span>
+<span>    <span class="va">hp</span><span class="op">$</span><span class="fu">Float</span><span class="op">(</span><span class="st">'dense_dropout'</span>, min_value <span class="op">=</span> <span class="fl">0.</span>, max_value <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">outputs</span> <span class="op">=</span> <span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/layer_dense.html" class="external-link">layer_dense</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span>  <span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/keras_model.html" class="external-link">keras_model</a></span><span class="op">(</span><span class="va">inputs</span>, <span class="va">outputs</span><span class="op">)</span></span>
+<span>  <span class="va">learning_rate</span> <span class="op">=</span> <span class="va">hp</span><span class="op">$</span><span class="fu">Float</span><span class="op">(</span><span class="st">'learning_rate'</span>, min_value <span class="op">=</span> <span class="fl">3e-4</span>, max_value <span class="op">=</span> <span class="fl">3e-3</span><span class="op">)</span></span>
+<span>  <span class="va">optimizer</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/keras/man/optimizer_adam.html" class="external-link">optimizer_adam</a></span><span class="op">(</span>lr<span class="op">=</span><span class="fl">1e-3</span><span class="op">)</span></span>
+<span>  <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/compile.html" class="external-link">compile</a></span><span class="op">(</span>loss <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">losses</span><span class="op">$</span><span class="fu">SparseCategoricalCrossentropy</span><span class="op">(</span>from_logits <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>                optimizer <span class="op">=</span> <span class="va">optimizer</span>,</span>
+<span>                metrics <span class="op">=</span> <span class="va">tf</span><span class="op">$</span><span class="va">keras</span><span class="op">$</span><span class="va">metrics</span><span class="op">$</span><span class="fu">SparseCategoricalAccuracy</span><span class="op">(</span>name<span class="op">=</span><span class="st">'acc'</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="va">tuner</span> <span class="op">=</span> <span class="fu"><a href="../reference/RandomSearch.html">RandomSearch</a></span><span class="op">(</span></span>
+<span>  <span class="va">make_model</span>,</span>
+<span>  objective<span class="op">=</span><span class="st">'val_acc'</span>,</span>
+<span>  max_trials<span class="op">=</span><span class="fl">2</span>,</span>
+<span>  overwrite<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">callbacks</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/keras/man/callback_early_stopping.html" class="external-link">callback_early_stopping</a></span><span class="op">(</span>monitor <span class="op">=</span> <span class="st">'val_acc'</span>, mode <span class="op">=</span> <span class="st">'max'</span>, </span>
+<span>                                  patience <span class="op">=</span> <span class="fl">3</span>, baseline <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span>
+<span><span class="va">tuner</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/fit_tuner.html">fit_tuner</a></span><span class="op">(</span><span class="va">x_train</span>, <span class="va">y_train</span>, validation_split <span class="op">=</span> <span class="fl">0.2</span>, </span>
+<span>                    callbacks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">callbacks</span><span class="op">)</span>, verbose<span class="op">=</span><span class="fl">1</span>, epochs<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>Extract model and retrain:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">best_hp</span> <span class="op">=</span> <span class="va">tuner</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/get_best_models.html">get_best_models</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="va">history</span> <span class="op">=</span> <span class="va">model</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html">fit</a></span><span class="op">(</span><span class="va">x_train</span>, <span class="va">y_train</span>, validation_split <span class="op">=</span> <span class="fl">0.2</span>, epochs <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">best_hp</span> <span class="op">=</span> <span class="va">tuner</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/get_best_models.html">get_best_models</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">history</span> <span class="op">=</span> <span class="va">model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">x_train</span>, <span class="va">y_train</span>, validation_split <span class="op">=</span> <span class="fl">0.2</span>, epochs <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -213,11 +209,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Turgut Abdullayev.</p>
+  <p></p>
+<p>Developed by Turgut Abdullayev.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -225,6 +223,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -53,12 +53,20 @@ HyperModel_class <- function(name = NULL, tunable = TRUE) {
 #' @param tuner_id tuner_id
 #' @param overwrite Bool, default `FALSE`. If `FALSE`, reloads an 
 #' existing project of the same name if one is found. Otherwise, overwrites the project.
+#' @param executions_per_trial Integer, the number of executions 
+#' (training a model from scratch, starting from a new initialization) to run per trial 
+#' (model configuration). Model metrics may vary greatly depending on random initialization, 
+#' hence it is often a good idea to run several executions per trial 
+#' in order to evaluate the performance of a given set of hyperparameter values. 
+#' **kwargs: Arguments for `BaseTuner`.
 #' @return a tuner object
 #' @export
 Tuner_class <- function(oracle, hypermodel, max_model_size = NULL, 
                         optimizer = NULL, loss = NULL, metrics = NULL, 
                         distribution_strategy = NULL, directory = NULL, 
-                        project_name = NULL, logger = NULL, tuner_id = NULL, overwrite = FALSE) {
+                        project_name = NULL, logger = NULL, tuner_id = NULL, 
+                        overwrite = FALSE,
+                        executions_per_trial = 1) {
   
   if(missing(oracle) & missing(hypermodel))
     invisible(kerastuner$Tuner)
@@ -66,7 +74,7 @@ Tuner_class <- function(oracle, hypermodel, max_model_size = NULL,
     kerastuner$Tuner(
       oracle = oracle,
       hypermodel = hypermodel,
-      max_model_size = max_model_size,
+      max_model_size = ifelse(is.null(max_model_size), NULL, as.integer(max_model_size)),
       optimizer = optimizer,
       loss = loss,
       metrics = metrics,
@@ -75,7 +83,8 @@ Tuner_class <- function(oracle, hypermodel, max_model_size = NULL,
       project_name = project_name,
       logger = logger,
       tuner_id = tuner_id,
-      overwrite = overwrite
+      overwrite = overwrite,
+      executions_per_trial = as.integer(executions_per_trial)
     )
 }
 
