@@ -75,7 +75,7 @@ test_succeeds("Can run build(hp) and plot_tuner()", {
       best_model = tuner2$hypermodel$build(best_hps)
       
       # Train the best model
-      best_model %>% keras::fit(X_train, y_train, epochs=50, validation_split=0.2)
+      best_model %>% fit(X_train, y_train, epochs=50, validation_split=0.2)
     
   }
 })
