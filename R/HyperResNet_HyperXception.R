@@ -116,7 +116,7 @@ Hyperband <- function(hypermodel = NULL, objective = NULL,
   } else {
     args = list(hypermodel = hypermodel, objective = objective, 
                 max_epochs = as.integer(max_epochs), 
-                factor = as.factor(factor), 
+                factor = as.integer(factor), 
                 hyperband_iterations = as.integer(hyperband_iterations), 
                 seed = seed, 
                 hyperparameters = hyperparameters, tune_new_entries = tune_new_entries, 
