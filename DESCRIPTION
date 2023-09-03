@@ -33,9 +33,9 @@ Imports:
     dplyr,
     echarts4r,
     crayon,
-    keras,
     magick
 Suggests:
+    keras,
     knitr,
     tfdatasets,
     testthat,
