@@ -74,8 +74,8 @@ test_succeeds("Can run hyper_class", {
     c(mnist_train, mnist_test) %<-%  mnist_data
     rm(mnist_data)
     
-    mnist_train$x = keras::k_reshape(mnist_train$x,shape = c(6e4,28,28,1))
-    mnist_test$x = keras::k_reshape(mnist_test$x,shape = c(1e4,28,28,1))
+    mnist_train$x = k_reshape(mnist_train$x,shape = c(6e4,28,28,1))
+    mnist_test$x = k_reshape(mnist_test$x,shape = c(1e4,28,28,1))
     
     mnist_train =  tensor_slices_dataset(list(tf$dtypes$cast(mnist_train$x, 'float32') / 255., mnist_train$y)) %>% 
       dataset_shuffle(1e3) %>% dataset_batch(1e2) %>% dataset_repeat()
