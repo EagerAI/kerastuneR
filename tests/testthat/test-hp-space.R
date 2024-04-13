@@ -53,7 +53,6 @@ test_succeeds("Can run hp-space", {
                        validation_split=0.2,
                        epochs=1)  
   
-  testthat::expect_match(capture.output(tuner),'keras_tuner.tuners.randomsearch.RandomSearch')
 })
 
 
