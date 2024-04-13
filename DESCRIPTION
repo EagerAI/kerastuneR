@@ -1,7 +1,7 @@
 Package: kerastuneR
 Type: Package
 Title: Interface to 'Keras Tuner' 
-Version: 0.1.0.6
+Version: 0.1.0.7
 Authors@R: c(
   person("Turgut", "Abdullayev", role = c("aut", "cre"),
          email = "turqut.a.314@gmail.com"),  
@@ -35,7 +35,7 @@ Imports:
     crayon,
     magick
 Suggests:
-    keras,
+    keras3,
     knitr,
     tfdatasets,
     testthat,
