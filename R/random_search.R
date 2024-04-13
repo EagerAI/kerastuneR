@@ -78,7 +78,8 @@ RandomSearch = function(hypermodel, objective, max_trials, seed = NULL,
   if(is.null(hyperparameters))
     args$hyperparameters <- NULL
   
-  
+  if(!is.null(args$executions_per_trial))
+    args$executions_per_trial <- as.integer(args$executions_per_trial)
   
   do.call(kerastuner$tuners$RandomSearch, args)
   
