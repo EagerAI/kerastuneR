@@ -14,8 +14,8 @@ test_succeeds("Can run hp-space", {
   mnist_train$x = tf$dtypes$cast(mnist_train$x, 'float32') / 255.
   mnist_test$x = tf$dtypes$cast(mnist_test$x, 'float32') / 255.
   
-  mnist_train$x = k_reshape(mnist_train$x,shape = c(6e4,28,28))
-  mnist_test$x = k_reshape(mnist_test$x,shape = c(1e4,28,28))
+  mnist_train$x = tf$reshape(mnist_train$x,shape = c(6e4L,28L,28L))
+  mnist_test$x = tf$reshape(mnist_test$x,shape = c(1e4L,28L,28L))
   
   
   hp = HyperParameters()
