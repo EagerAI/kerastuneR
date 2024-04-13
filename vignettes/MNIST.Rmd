@@ -9,7 +9,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,eval = F)
+knitr::opts_chunk$set(echo = TRUE,eval = FALSE)
 ```
 
 This tutorial shows the hyperparameter tuning for [MNIST dataset](http://yann.lecun.com/exdb/mnist/).
