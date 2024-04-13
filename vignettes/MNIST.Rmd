@@ -9,7 +9,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,eval = F)
+knitr::opts_chunk$set(echo = TRUE,eval = FALSE)
 ```
 
 This tutorial shows the hyperparameter tuning for [MNIST dataset](http://yann.lecun.com/exdb/mnist/).
@@ -59,7 +59,7 @@ As the ```build(hp)``` function is ready, we should build a Hyperband object, an
 
 Below is the full version of a tuning process for MNIST dataset.
 
-```{r}
+```
 conv_build_model = function(hp) {
   'Builds a convolutional model.'
   inputs = tf$keras$Input(shape=list(28L, 28L, 1L))

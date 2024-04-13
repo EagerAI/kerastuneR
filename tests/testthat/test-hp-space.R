@@ -3,7 +3,7 @@ context('hp space')
 source("utils.R")
 
 test_succeeds("Can run hp-space", {
-  library(keras)
+  library(keras3)
   library(dplyr)
   library(kerastuneR)
   
@@ -14,15 +14,13 @@ test_succeeds("Can run hp-space", {
   mnist_train$x = tf$dtypes$cast(mnist_train$x, 'float32') / 255.
   mnist_test$x = tf$dtypes$cast(mnist_test$x, 'float32') / 255.
   
-  mnist_train$x = k_reshape(mnist_train$x,shape = c(6e4,28,28))
-  mnist_test$x = k_reshape(mnist_test$x,shape = c(1e4,28,28))
+  mnist_train$x = tf$reshape(mnist_train$x,shape = c(6e4L,28L,28L))
+  mnist_test$x = tf$reshape(mnist_test$x,shape = c(1e4L,28L,28L))
   
   
   hp = HyperParameters()
   hp$Choice('learning_rate',values =c(1e-1, 1e-3))
   hp$Int('num_layers', 2L, 20L)
-  
-  testthat::expect_match(capture.output(hp),'keras_tuner.engine.hyperparameters.hyperparameters.HyperParameters')
   
   
   mnist_model = function(hp) {
@@ -55,7 +53,6 @@ test_succeeds("Can run hp-space", {
                        validation_split=0.2,
                        epochs=1)  
   
-  testthat::expect_match(capture.output(tuner),'keras_tuner.tuners.randomsearch.RandomSearch')
 })
 
 

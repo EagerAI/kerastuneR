@@ -64,7 +64,7 @@ y_data2 <-  ifelse(runif(50,0,1) > 0.6, 1L,0L) %>% as.matrix()
 This function returns a compiled model.
 
 ```
-library(keras)
+library(keras3)
 library(tensorflow)
 library(kerastuneR)
 

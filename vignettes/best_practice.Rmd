@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE,eval = F)
 
 This tutorial shows the hyperparameter tuning for [MNIST dataset](http://yann.lecun.com/exdb/mnist/).
 
-```{r}
+```
 
 library(keras)
 library(tensorflow)
@@ -112,7 +112,7 @@ tuner %>% fit_tuner(x_train, y_train, validation_split = 0.2,
 
 Extract model and retrain:
 
-```{r}
+```
 best_hp = tuner %>% get_best_models(1)
 history = model %>% fit(x_train, y_train, validation_split = 0.2, epochs = 2)
 ```

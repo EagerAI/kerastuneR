@@ -25,9 +25,9 @@ The Tuner class at ```Tuner_class()``` can be subclassed to support advanced use
 
 Thanks to [Daniel Falbel from RStudio](https://github.com/dfalbel), the ```Bayesian Optimization``` example was successfully adapted.
 
-```{r }
+```
 
-library(keras)
+library(keras3)
 library(tensorflow)
 library(dplyr)
 library(tfdatasets)

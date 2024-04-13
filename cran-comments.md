@@ -4,7 +4,7 @@ This is a 4th submission of 'kerastuneR' 0.1.0.6
 
 * Github actions: windows-latest
 * Github actions: macOS-latest
-* Github actions: ubuntu-16.04
+* Github actions: ubuntu-20.04
 
 
 ## R CMD check results
