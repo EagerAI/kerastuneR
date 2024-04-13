@@ -18,7 +18,7 @@ We could use __a HyperModel subclass__ instead of a model-building function. So,
 
 A HyperModel subclass only needs to implement a ```build(self, hp)``` method. And, again one should return a compiled model inside a ```build``` function.
 
-```{r }
+```
 MyHyperModel <- reticulate::PyClass(
   "HyperModel",
   
@@ -53,7 +53,7 @@ MyHyperModel <- reticulate::PyClass(
 
 ## Full code 
 
-```{r }
+```
 
 # generate some data
 
