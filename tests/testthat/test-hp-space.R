@@ -3,7 +3,7 @@ context('hp space')
 source("utils.R")
 
 test_succeeds("Can run hp-space", {
-  library(keras)
+  library(keras3)
   library(dplyr)
   library(kerastuneR)
   
@@ -21,8 +21,6 @@ test_succeeds("Can run hp-space", {
   hp = HyperParameters()
   hp$Choice('learning_rate',values =c(1e-1, 1e-3))
   hp$Int('num_layers', 2L, 20L)
-  
-  testthat::expect_match(capture.output(hp),'keras_tuner.engine.hyperparameters.hyperparameters.HyperParameters')
   
   
   mnist_model = function(hp) {

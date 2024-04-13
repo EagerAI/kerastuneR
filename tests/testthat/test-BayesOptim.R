@@ -4,7 +4,6 @@ source("utils.R")
 
 test_succeeds("Can run Bayesian Optimization", {
   
-  library(keras)
   library(tensorflow)
   library(dplyr)
   library(tfdatasets)
@@ -118,7 +117,7 @@ test_succeeds("Can run Bayesian Optimization", {
   
   mnist_train$x = tf$cast(mnist_train$x, 'float32') / 255
   
-  mnist_train$x = k_reshape(mnist_train$x,shape = c(6e4,28,28,1))
+  mnist_train$x = tf$reshape(mnist_train$x,shape = c(6e4L,28L,28L,1L))
   mnist_train$y = tf$dtypes$cast(mnist_train$y, 'float32') 
   
   if (!Sys.info()[1] %in% 'Windows') {

@@ -3,7 +3,6 @@ context("build(hp) - Hyperclass")
 source("utils.R")
 
 test_succeeds("Can run hyper_class", {
-  library(keras)
   library(tensorflow)
   library(dplyr)
   library(kerastuneR)
